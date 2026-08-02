@@ -1,0 +1,48 @@
+baseURL = "/"
+locale = "ro-RO"
+defaultContentLanguage = "ro"
+title = "Bucătărie"
+enableRobotsTXT = true
+enableGitInfo = false
+disableKinds = ["taxonomy", "term", "RSS"]
+
+timeZone = "Europe/Dublin"
+
+[params]
+  description = "Rețete simple, gătit în serie, listă de cumpărături calculată."
+  themeColor = "#f6f4f0"
+  themeColorDark = "#131211"
+
+[outputs]
+  home = ["HTML", "JSON", "SW"]
+  page = ["HTML"]
+
+[outputFormats.SW]
+  mediaType = "text/javascript"
+  baseName = "sw"
+  isPlainText = true
+  notAlternative = true
+  rel = "serviceworker"
+
+[outputFormats.JSON]
+  mediaType = "application/json"
+  baseName = "app"
+  isPlainText = true
+
+[markup.goldmark.renderer]
+  unsafe = true
+
+[markup.tableOfContents]
+  startLevel = 2
+  endLevel = 3
+
+[minify]
+  disableXML = true
+  [minify.tdewolff.html]
+    keepQuotes = true
+
+[build]
+  writeStats = false
+
+[caches.images]
+  dir = ":cacheDir/images"

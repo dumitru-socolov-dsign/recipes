@@ -1,0 +1,22 @@
+{{- /* Formatare cantitate. Aceeași logică e reimplementată în app.js (fmtQty)
+       ca valorile scalate din browser să arate identic cu cele randate la build. */ -}}
+{{- $q := float .qty -}}
+{{- $u := .unit -}}
+{{- $out := "" -}}
+{{- if eq $u "buc" -}}
+  {{- $r := div (math.Round (mul $q 2)) 2 -}}
+  {{- $out = printf "%s buc" (lang.FormatNumber (cond (eq $r (math.Floor $r)) 0 1) $r) -}}
+{{- else -}}
+  {{- $big := cond (eq $u "ml") "l" "kg" -}}
+  {{- if ge $q 1000.0 -}}
+    {{- $out = printf "%s %s" (lang.FormatNumber 2 (div $q 1000.0)) $big -}}
+  {{- else if ge $q 50.0 -}}
+    {{- $out = printf "%d %s" (int (mul (math.Round (div $q 5.0)) 5)) $u -}}
+  {{- else if ge $q 10.0 -}}
+    {{- $out = printf "%d %s" (int (math.Round $q)) $u -}}
+  {{- else -}}
+    {{- $r := div (math.Round (mul $q 10)) 10 -}}
+    {{- $out = printf "%s %s" (lang.FormatNumber (cond (eq $r (math.Floor $r)) 0 1) $r) $u -}}
+  {{- end -}}
+{{- end -}}
+{{- return $out -}}

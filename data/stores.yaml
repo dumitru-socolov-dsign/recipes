@@ -1,0 +1,32 @@
+# Magazine și raioane.
+# `order` = ordinea în care parcurgi magazinul, ca lista de cumpărături să fie un drum,
+# nu un du-te-vino între raioane.
+
+aisles:
+  produce: { name: "Fructe și legume", icon: "leaf",   order: 1 }
+  meat:    { name: "Carne",            icon: "meat",   order: 2 }
+  fish:    { name: "Pește",            icon: "fish",   order: 3 }
+  dairy:   { name: "Lactate și ouă",   icon: "dairy",  order: 4 }
+  frozen:  { name: "Congelate",        icon: "frozen", order: 5 }
+  pantry:  { name: "Băcănie",          icon: "can",    order: 6 }
+  spices:  { name: "Condimente",       icon: "spice",  order: 7 }
+
+stores:
+  tesco:
+    name: "Tesco"
+    primary: true
+    note: "Magazinul principal. Ia tot de aici dacă nu ai chef de al doilea drum."
+  lidl:
+    name: "Lidl"
+    primary: false
+    note: "Legume, ouă și uleiuri sunt mai ieftine. Merită doar dacă oricum treci pe acolo."
+  aldi:
+    name: "Aldi"
+    primary: false
+    note: "Apare doar când are o diferență mare la un produs scump."
+
+strategy:
+  # Sub acest prag, site-ul recomandă explicit un singur magazin.
+  min_saving_for_second_trip: 8.00
+  verdict_single: "Diferența nu merită un drum în plus. Ia tot dintr-un loc."
+  verdict_split: "Merită împărțit — economisești destul cât să conteze."

@@ -1,0 +1,66 @@
+{{- /*
+  Agregă o rețetă întreagă: nutriție totală, per porție, cost, grupuri de ingrediente.
+  Intrare: pagina rețetei (.)
+  Ieșire:  dict
+*/ -}}
+{{- $page := . -}}
+{{- $store := hugo.Data.prices.meta.default_store -}}
+{{- $servings := float ($page.Params.servings | default 1) -}}
+{{- if lt $servings 1.0 }}{{ $servings = 1.0 }}{{ end -}}
+
+{{- $s := newScratch -}}
+{{- range $k := slice "kcal" "protein" "fat" "carbs" "sodium" "potassium" "phosphorus" -}}
+  {{- $s.Set $k 0.0 -}}
+{{- end -}}
+{{- $s.Set "cost" 0.0 -}}
+{{- $s.Set "groups" slice -}}
+{{- $s.Set "flat" slice -}}
+{{- $s.Set "oldestPrice" "" -}}
+
+{{- range $page.Params.ingredients -}}
+  {{- $groupName := .group | default "" -}}
+  {{- $rows := slice -}}
+  {{- range .items -}}
+    {{- $r := partial "calc/ingredient.html" (dict "item" . "store" $store "page" $page.File.Path) -}}
+    {{- $rows = $rows | append $r -}}
+    {{- $s.Add "flat" (slice $r) -}}
+    {{- $s.Add "cost" $r.cost -}}
+    {{- range $k, $v := $r.nutrition -}}
+      {{- $s.Add $k $v -}}
+    {{- end -}}
+    {{- $prev := $s.Get "oldestPrice" -}}
+    {{- if and $r.updated (or (eq $prev "") (lt $r.updated $prev)) -}}
+      {{- $s.Set "oldestPrice" $r.updated -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $s.Add "groups" (slice (dict "name" $groupName "items" $rows)) -}}
+{{- end -}}
+
+{{- $total := dict -}}
+{{- $per := dict -}}
+{{- range $k := slice "kcal" "protein" "fat" "carbs" "sodium" "potassium" "phosphorus" -}}
+  {{- $v := $s.Get $k -}}
+  {{- $total = merge $total (dict $k $v) -}}
+  {{- $per = merge $per (dict $k (div $v $servings)) -}}
+{{- end -}}
+
+{{- $cost := $s.Get "cost" -}}
+{{- $steps := $page.Params.steps | default slice -}}
+{{- $timerTotal := 0 -}}
+{{- range $steps -}}{{- $timerTotal = add $timerTotal (int (.timer | default 0)) -}}{{- end -}}
+
+{{- return (dict
+    "servings"     $servings
+    "groups"       ($s.Get "groups")
+    "flat"         ($s.Get "flat")
+    "total"        $total
+    "perServing"   $per
+    "cost"         $cost
+    "costPerServing" (div $cost $servings)
+    "oldestPrice"  ($s.Get "oldestPrice")
+    "steps"        $steps
+    "stepCount"    (len $steps)
+    "timerSeconds" $timerTotal
+    "timeActive"   ($page.Params.time_active | default 0)
+    "timeTotal"    ($page.Params.time_total | default 0)
+) -}}

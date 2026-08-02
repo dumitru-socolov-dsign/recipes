@@ -1,0 +1,128 @@
+{{ define "main" }}
+{{- $plan := hugo.Data.plan -}}
+{{- $t := hugo.Data.targets -}}
+{{- $R := partial "lookup.html" . -}}
+{{- $today := int now.Weekday -}}
+{{- $months := slice "ianuarie" "februarie" "martie" "aprilie" "mai" "iunie" "iulie" "august" "septembrie" "octombrie" "noiembrie" "decembrie" -}}
+
+{{- /* Mesele de azi: micul dejun + tot ce acoperă sesiunile + mesele proaspete. */ -}}
+{{- $rows := slice (dict "meal" "breakfast" "slug" $plan.breakfast "fresh" true) -}}
+{{- range $plan.sessions -}}
+  {{- range .covers -}}
+    {{- if eq (int .day) $today -}}
+      {{- $rows = $rows | append (dict "meal" .meal "slug" .slug "fresh" false) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- range $plan.fresh -}}
+  {{- if eq (int .day) $today -}}
+    {{- $rows = $rows | append (dict "meal" .meal "slug" .slug "fresh" true) -}}
+  {{- end -}}
+{{- end -}}
+
+{{- /* Următoarea sesiune de gătit, ciclic. */ -}}
+{{- $next := false -}}{{- $delta := 99 -}}
+{{- range $plan.sessions -}}
+  {{- $d := mod (add (sub (int .day) $today) 7) 7 -}}
+  {{- if lt $d $delta -}}{{- $delta = $d -}}{{- $next = . -}}{{- end -}}
+{{- end -}}
+
+<div class="wrap">
+  <div class="page-head">
+    <div class="label">{{ index $plan.day_names $today }}, {{ now.Day }} {{ index $months (sub (int now.Month) 1) }}</div>
+    <h1 style="margin-top:var(--s-2)">Azi mănânci</h1>
+  </div>
+
+  <div class="stack">
+    {{- range $rows }}
+      {{- $m := . -}}
+      {{- with index $R .slug }}
+        {{- $c := partial "calc/recipe.html" . }}
+        {{- $img := resources.Get (printf "img/retete/%s.jpg" (.Params.image | default "x")) }}
+        <a class="tile" href="{{ .RelPermalink }}" style="display:flex;align-items:stretch">
+          <div class="tile__media tile--{{ .Params.tint | default "amber" }}" style="flex:0 0 92px;aspect-ratio:auto{{ with $img }};background-image:url({{ (.Resize "240x q70 webp").RelPermalink }}){{ end }}">
+            {{- if not $img }}<span class="tile__glyph" style="font-size:1.5rem" aria-hidden="true">{{ substr .Title 0 1 }}</span>{{ end }}
+          </div>
+          <div class="tile__body" style="flex:1;min-width:0">
+            <div class="label">{{ index $plan.meal_names $m.meal }}{{ if $m.fresh }} · se face pe loc{{ end }}</div>
+            <div class="tile__title" style="margin-top:4px">{{ .Title }}</div>
+            <div class="tile__meta">
+              <span>{{ partial "icon.html" "flame" }}{{ lang.FormatNumber 0 $c.perServing.kcal }} kcal</span>
+              <span>{{ partial "icon.html" "clock" }}{{ $c.timeTotal }} min</span>
+            </div>
+          </div>
+        </a>
+      {{- end }}
+    {{- end }}
+  </div>
+
+  {{- $dk := 0.0 }}{{ $dp := 0.0 }}{{ $dn := 0.0 }}{{ $dc := 0.0 -}}
+  {{- range $rows -}}
+    {{- with index $R .slug -}}
+      {{- $c := partial "calc/recipe.html" . -}}
+      {{- $dk = add $dk $c.perServing.kcal -}}
+      {{- $dp = add $dp $c.perServing.protein -}}
+      {{- $dn = add $dn $c.perServing.sodium -}}
+      {{- $dc = add $dc $c.costPerServing -}}
+    {{- end -}}
+  {{- end -}}
+
+  <div class="card" style="margin-top:var(--s-5)">
+    <div class="label">Totalul zilei</div>
+    <div class="nutri" style="margin-top:var(--s-3)">
+      <div class="nutri__cell"><div class="nutri__v">{{ lang.FormatNumber 0 $dk }}</div><div class="nutri__k">kcal</div></div>
+      <div class="nutri__cell"><div class="nutri__v">{{ lang.FormatNumber 0 $dp }}</div><div class="nutri__k">proteine g</div></div>
+      <div class="nutri__cell"><div class="nutri__v">{{ lang.FormatNumber 0 $dn }}</div><div class="nutri__k">sodiu mg</div></div>
+      <div class="nutri__cell"><div class="nutri__v">{{ lang.FormatNumber 2 $dc }}</div><div class="nutri__k">euro</div></div>
+    </div>
+    <div style="margin-top:var(--s-4)">
+      {{- $bars := slice
+          (dict "n" "Calorii"  "v" $dk "max" (float $t.daily.kcal)          "u" "kcal")
+          (dict "n" "Proteine" "v" $dp "max" (float $t.limits.protein_g.max) "u" "g")
+          (dict "n" "Sodiu"    "v" $dn "max" (float $t.limits.sodium_mg.max) "u" "mg") -}}
+      {{- range $bars -}}
+        {{- $ratio := div .v .max -}}
+        {{- $cls := cond (gt $ratio 1.0) "is-bad" (cond (gt $ratio 0.9) "is-warn" "") -}}
+        <div class="meter">
+          <div class="meter__row">
+            <span class="muted">{{ .n }}</span>
+            <b>{{ lang.FormatNumber 0 .v }}<span class="muted" style="font-weight:400"> / {{ lang.FormatNumber 0 .max }} {{ .u }}</span></b>
+          </div>
+          <div class="meter__bar"><i class="meter__fill {{ $cls }}" style="width:{{ math.Min 100 (mul 100 $ratio) }}%"></i></div>
+        </div>
+      {{- end }}
+    </div>
+  </div>
+
+  {{- with $next }}
+  <h2 style="margin-top:var(--s-7)">Următoarea sesiune de gătit</h2>
+  <div class="card" style="margin-top:var(--s-3)">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--s-3)">
+      <div>
+        <div style="font-family:var(--serif);font-size:1.25rem;font-weight:600">
+          {{ if eq $delta 0 }}Azi{{ else if eq $delta 1 }}Mâine{{ else }}{{ .day_name }}{{ end }}, {{ .start }}
+        </div>
+        <div class="tiny muted" style="margin-top:2px">{{ .minutes }} de minute, {{ len .recipes }} rețete în paralel</div>
+      </div>
+      <span class="chip chip--accent">{{ .name }}</span>
+    </div>
+
+    <ul class="ing" style="margin-top:var(--s-3)">
+      {{- range .recipes }}
+        {{- $srv := .servings }}
+        {{- with index $R .slug }}
+          <li><span class="ing__q">{{ $srv }}×</span><span class="ing__n">{{ .Title }}</span></li>
+        {{- end }}
+      {{- end }}
+    </ul>
+
+    <a class="btn btn--primary btn--block" style="margin-top:var(--s-4)" href="/cumparaturi/?s={{ .id }}">
+      {{ partial "icon.html" "cart" }}<span>Lista de cumpărături</span>
+    </a>
+  </div>
+  {{- end }}
+
+  <a class="btn btn--block" style="margin-top:var(--s-4)" href="/plan/">Vezi planul săptămânii</a>
+  <div style="height:var(--s-7)"></div>
+</div>
+{{ end }}

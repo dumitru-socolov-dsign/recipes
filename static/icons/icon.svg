@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Bucătărie">
+  <rect width="512" height="512" rx="112" fill="#faf8f5"/>
+  <g fill="none" stroke="#b4471f" stroke-width="26" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M118 214h276v104a86 86 0 0 1-86 86H204a86 86 0 0 1-86-86z"/>
+    <path d="M78 262h40M394 262h40"/>
+    <path d="M212 168c0-24 34-22 34-56M300 168c0-24 34-22 34-56"/>
+  </g>
+</svg>

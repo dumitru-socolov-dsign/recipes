@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ro" data-theme="">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}</title>
+<meta name="description" content="{{ .Params.summary | default site.Params.description }}">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="{{ site.Params.themeColor }}" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="{{ site.Params.themeColorDark }}" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="{{ site.Title }}">
+<meta name="format-detection" content="telephone=no">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+{{- /* CSS inline: o singură cerere, randare imediată, merge offline din prima. */ -}}
+{{- $css := resources.Get "css/main.css" | minify -}}
+<style>{{ $css.Content | safeCSS }}</style>
+<script>
+/* Tema aleasă manual se aplică înainte de prima pictare, ca să nu clipească. */
+try { var t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+</head>
+<body class="{{ .Params.bodyClass }}">
+{{ partial "icons.html" . }}
+
+<header class="appbar" id="appbar">
+  <div class="appbar__in">
+    {{- with .Params.back }}
+      <a class="iconbtn" href="{{ . }}" aria-label="Înapoi">{{ partial "icon.html" "back" }}</a>
+    {{- end }}
+    <span class="appbar__title">{{ .Params.appbarTitle | default site.Title }}</span>
+    <span class="appbar__spacer"></span>
+    <button class="iconbtn" id="themeBtn" type="button" aria-label="Schimbă tema">
+      <span data-theme-icon="light">{{ partial "icon.html" "moon" }}</span>
+      <span data-theme-icon="dark" class="hidden">{{ partial "icon.html" "sun" }}</span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+  {{ block "main" . }}{{ end }}
+</main>
+
+{{ partial "tabbar.html" . }}
+{{ partial "cook-overlay.html" . }}
+
+{{- $js := resources.Get "js/app.js" | js.Build (dict "minify" true "target" "es2020") -}}
+<script src="{{ $js.RelPermalink }}" defer></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+name: Rebuild zilnic
+
+# Rebuild-ul reîmprospătează ziua curentă („Azi mănânci"), poziția în rotația
+# sesiunilor de gătit, lista de cumpărături a zilei și eticheta de vechime a prețurilor.
+#
+# Cron-ul GitHub e în UTC. Dublin e UTC+1 vara și UTC+0 iarna, deci sunt două intrări
+# și build-ul e idempotent — dacă rulează de două ori, nu se întâmplă nimic rău.
+# Minutul e :07, nu :00, ca să evit vârful de încărcare de la ora fixă (cron-ul GitHub
+# e best-effort și întârzie 5–15 minute la ore rotunde).
+
+on:
+  schedule:
+    - cron: "7 5 * * *"   # 06:07 Dublin, ora de vară
+    - cron: "7 6 * * *"   # 06:07 Dublin, ora de iarnă
+  workflow_dispatch:
+
+concurrency:
+  group: daily-rebuild
+  cancel-in-progress: false
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verifică dacă e într-adevăr ora 6 la Dublin
+        id: gate
+        run: |
+          H=$(TZ=Europe/Dublin date +%H)
+          echo "Ora la Dublin: $H"
+          if [ "$H" = "06" ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "run=yes" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=no" >> "$GITHUB_OUTPUT"
+          fi
+
+      # Heartbeat: fără activitate în repo, GitHub suspendă workflow-urile programate
+      # după 60 de zile. Commit-ul ăsta resetează contorul și, dacă repo-ul e conectat
+      # la Cloudflare Pages, declanșează singur build-ul prin push.
+      - name: Heartbeat
+        if: steps.gate.outputs.run == 'yes'
+        run: |
+          mkdir -p data
+          printf '{\n  "last_build": "%s",\n  "trigger": "schedule"\n}\n' \
+            "$(TZ=Europe/Dublin date --iso-8601=seconds)" > data/build-log.json
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/build-log.json
+          git diff --cached --quiet || git commit -m "chore: daily rebuild $(TZ=Europe/Dublin date +%F)"
+          git push
+
+      # Rezervă: dacă repo-ul nu e legat direct de Cloudflare Pages, deploy hook-ul
+      # declanșează build-ul. Setează secretul CLOUDFLARE_DEPLOY_HOOK în repo.
+      - name: Declanșează Cloudflare Pages
+        if: steps.gate.outputs.run == 'yes'
+        env:
+          HOOK: ${{ secrets.CLOUDFLARE_DEPLOY_HOOK }}
+        run: |
+          if [ -n "$HOOK" ]; then
+            curl -fsS -X POST "$HOOK" -o /dev/null && echo "Deploy hook trimis."
+          else
+            echo "Fără CLOUDFLARE_DEPLOY_HOOK — mă bazez pe build-ul declanșat de push."
+          fi

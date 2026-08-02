@@ -1,0 +1,85 @@
+{{- /*
+  app.json — tot ce are nevoie aplicația din browser: rețete cu nutriția și costul
+  deja calculate, baza de ingrediente, prețurile, planul și țintele.
+  Se generează la build. Telefonul nu mai calculează nimic greu și merge offline.
+*/ -}}
+{{- $recipes := slice -}}
+{{- range where site.RegularPages "Section" "retete" -}}
+  {{- $p := . -}}
+  {{- $c := partial "calc/recipe.html" $p -}}
+  {{- $ings := slice -}}
+  {{- range $gi, $g := $c.groups -}}
+    {{- range $g.items -}}
+      {{- $ings = $ings | append (dict
+          "key"   .key
+          "qty"   .qty
+          "unit"  .unit
+          "grams" .grams
+          "group" $g.name
+          "note"  .note
+      ) -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $steps := slice -}}
+  {{- range $i, $st := $c.steps -}}
+    {{- $steps = $steps | append (dict
+        "n"     (add $i 1)
+        "text"  $st.text
+        "timer" (int ($st.timer | default 0))
+        "temp"  (int ($st.temp | default 0))
+        "tip"   ($st.tip | default "")
+        "hands" ($st.hands | default false)
+    ) -}}
+  {{- end -}}
+  {{- $img := $p.Params.image | default "" -}}
+  {{- $recipes = $recipes | append (dict
+      "slug"        $p.File.ContentBaseName
+      "url"         $p.RelPermalink
+      "title"       $p.Title
+      "summary"     ($p.Params.summary | default "")
+      "image"       $img
+      "tint"        ($p.Params.tint | default "warm")
+      "servings"    $c.servings
+      "timeActive"  $c.timeActive
+      "timeTotal"   $c.timeTotal
+      "session"     ($p.Params.session | default "")
+      "tags"        ($p.Params.tags | default slice)
+      "quick"       ($p.Params.quick | default false)
+      "ingredients" $ings
+      "steps"       $steps
+      "total"       $c.total
+      "perServing"  $c.perServing
+      "cost"        $c.cost
+      "costPerServing" $c.costPerServing
+      "oldestPrice" $c.oldestPrice
+  ) -}}
+{{- end -}}
+
+{{- $ingredients := dict -}}
+{{- range $k, $v := hugo.Data.ingredients -}}
+  {{- $ingredients = merge $ingredients (dict $k (dict
+      "name"        $v.name
+      "short"       ($v.short | default $v.name)
+      "aisle"       ($v.aisle | default "pantry")
+      "staple"      ($v.staple | default false)
+      "yield"       ($v.yield | default 1.0)
+      "unitWeight"  ($v.unit_weight | default 0)
+      "per100g"     $v.per100g
+      "note"        ($v.note | default "")
+      "warnSodium"  ($v.warn_sodium | default false)
+      "kHigh"       ($v.k_high | default false)
+      "pHigh"       ($v.p_high | default false)
+  )) -}}
+{{- end -}}
+
+{{- $out := dict
+    "generated"   (now.Format "2006-01-02T15:04:05Z07:00")
+    "buildDate"   (now.Format "2006-01-02")
+    "targets"     hugo.Data.targets
+    "stores"      hugo.Data.stores
+    "prices"      hugo.Data.prices
+    "plan"        hugo.Data.plan
+    "ingredients" $ingredients
+    "recipes"     $recipes
+-}}
+{{- $out | jsonify (dict "indent" "") -}}

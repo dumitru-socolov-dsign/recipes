@@ -1,0 +1,8 @@
+{{- $cur := .RelPermalink -}}
+{{- $sec := .Section -}}
+<nav class="tabbar" aria-label="Navigare principală">
+  <a href="/"              {{ if eq $cur "/" }}aria-current="page"{{ end }}>{{ partial "icon.html" "today" }}<span>Azi</span></a>
+  <a href="/retete/"       {{ if eq $sec "retete" }}aria-current="page"{{ end }}>{{ partial "icon.html" "book" }}<span>Rețete</span></a>
+  <a href="/cumparaturi/"  {{ if eq $cur "/cumparaturi/" }}aria-current="page"{{ end }}>{{ partial "icon.html" "cart" }}<span>Cumpărături</span></a>
+  <a href="/setari/"       {{ if eq $cur "/setari/" }}aria-current="page"{{ end }}>{{ partial "icon.html" "settings" }}<span>Setări</span></a>
+</nav>

@@ -1,0 +1,4 @@
+---
+title: "Azi"
+appbarTitle: "Bucătărie"
+---

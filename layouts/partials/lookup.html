@@ -1,0 +1,6 @@
+{{- /* slug → pagina rețetei. Rezultatul se cachează pe build. */ -}}
+{{- $m := dict -}}
+{{- range where site.RegularPages "Section" "retete" -}}
+  {{- $m = merge $m (dict .File.ContentBaseName .) -}}
+{{- end -}}
+{{- return $m -}}

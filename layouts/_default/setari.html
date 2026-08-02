@@ -1,0 +1,91 @@
+{{ define "main" }}
+{{- $t := hugo.Data.targets -}}
+<div class="wrap">
+  <div class="page-head">
+    <h1>Setări</h1>
+    <p>{{ .Params.summary }}</p>
+  </div>
+
+  <form class="set" id="settings" onsubmit="return false">
+
+    <div class="set__row">
+      <div class="set__top"><b>Calorii pe zi</b><span class="set__val"><span data-set-out="kcal"></span> kcal</span></div>
+      <input type="range" data-set="kcal" min="1800" max="4200" step="50">
+      <div class="set__help">{{ $t.copy.kcal }}</div>
+    </div>
+
+    <div class="set__row">
+      <div class="set__top"><b>Proteine pe zi</b><span class="set__val"><span data-set-out="protein"></span> g</span></div>
+      <input type="range" data-set="protein" min="45" max="150" step="1">
+      <div class="set__help">{{ $t.copy.protein_g }}</div>
+    </div>
+
+    <div class="set__row">
+      <div class="set__top"><b>Sodiu pe zi</b><span class="set__val"><span data-set-out="sodium"></span> mg</span></div>
+      <input type="range" data-set="sodium" min="1000" max="3500" step="50">
+      <div class="set__help">{{ $t.copy.sodium_mg }}</div>
+    </div>
+
+    <hr class="rule">
+
+    <label class="switch">
+      <div>
+        <b style="font-size:.9375rem">{{ $t.toggles.include_tubers.label }}</b>
+        <div class="set__help">{{ $t.copy.include_tubers }}</div>
+      </div>
+      <input type="checkbox" data-set="includeTubers">
+      <span class="switch__track"></span>
+    </label>
+
+    <label class="switch">
+      <div>
+        <b style="font-size:.9375rem">{{ $t.toggles.limit_potassium.label }}</b>
+        <div class="set__help">{{ $t.copy.limit_potassium }}</div>
+      </div>
+      <input type="checkbox" data-set="limitPotassium">
+      <span class="switch__track"></span>
+    </label>
+
+    <label class="switch">
+      <div>
+        <b style="font-size:.9375rem">{{ $t.toggles.low_sodium.label }}</b>
+        <div class="set__help">{{ $t.copy.low_sodium }}</div>
+      </div>
+      <input type="checkbox" data-set="lowSodium">
+      <span class="switch__track"></span>
+    </label>
+
+    <hr class="rule">
+
+    <div>
+      <h2>De reținut</h2>
+      <div class="stack" style="margin-top:var(--s-3)">
+        <div class="notice notice--warn">
+          <svg viewBox="0 0 24 24"><use href="#i-warn"/></svg>
+          <div>{{ $t.tips.salt_substitute_warning }}</div>
+        </div>
+        <div class="notice"><svg viewBox="0 0 24 24"><use href="#i-info"/></svg><div>{{ $t.tips.salt_at_the_end }}</div></div>
+        <div class="notice"><svg viewBox="0 0 24 24"><use href="#i-info"/></svg><div>{{ $t.tips.acid_first }}</div></div>
+        <div class="notice"><svg viewBox="0 0 24 24"><use href="#i-info"/></svg><div>{{ $t.tips.potato_leaching }}</div></div>
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <div>
+      <h2>Datele tale</h2>
+      <p class="set__help" style="margin-top:var(--s-2)">
+        Setările, bifele din listă și progresul la gătit se salvează doar în memoria acestui
+        browser. Nu pleacă nicăieri, nu există server care să le primească și nimeni nu le poate
+        citi de la distanță. Dacă golești datele browserului, dispar.
+      </p>
+      <div class="stack" style="margin-top:var(--s-4)">
+        <button class="btn btn--block" type="button" id="resetSettings">Revino la valorile implicite</button>
+        <button class="btn btn--block" type="button" id="wipeAll">Șterge tot ce e salvat local</button>
+      </div>
+    </div>
+
+    <div style="height:var(--s-7)"></div>
+  </form>
+</div>
+{{ end }}

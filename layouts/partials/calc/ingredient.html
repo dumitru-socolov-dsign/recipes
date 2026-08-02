@@ -1,0 +1,88 @@
+{{- /*
+  Rezolvă o linie de ingredient dintr-o rețetă.
+  Intrare: dict "item" (din front matter) "store" (cheia magazinului preferat)
+  Ieșire:  dict cu date de afișare, nutriție și cost.
+
+  Convenție: `qty` din rețetă e cantitatea CUMPĂRATĂ (cu os, cu coajă).
+  `yield` o transformă în partea comestibilă, care e cea care contează nutrițional.
+  Costul se calculează pe cantitatea cumpărată — plătești și osul.
+*/ -}}
+{{- $item := .item -}}
+{{- $store := .store -}}
+{{- $key := $item.key -}}
+{{- $ing := index hugo.Data.ingredients $key -}}
+
+{{- if not $ing -}}
+  {{- errorf "Ingredient necunoscut în %q: %q" (.page | default "?") $key -}}
+{{- end -}}
+
+{{- $unit := $item.unit | default "g" -}}
+{{- $qty := float $item.qty -}}
+
+{{- /* Cantitate cumpărată, normalizată la grame (ml ≈ g pentru ce folosim aici). */ -}}
+{{- $grams := $qty -}}
+{{- if eq $unit "buc" -}}
+  {{- $grams = mul $qty (float ($ing.unit_weight | default 100)) -}}
+{{- end -}}
+
+{{- /* Partea comestibilă. */ -}}
+{{- $edible := mul $grams (float ($ing.yield | default 1.0)) -}}
+{{- $f := div $edible 100.0 -}}
+
+{{- $n := $ing.per100g -}}
+{{- $nutrition := dict
+      "kcal"       (mul (float ($n.kcal       | default 0)) $f)
+      "protein"    (mul (float ($n.protein    | default 0)) $f)
+      "fat"        (mul (float ($n.fat        | default 0)) $f)
+      "carbs"      (mul (float ($n.carbs      | default 0)) $f)
+      "sodium"     (mul (float ($n.sodium     | default 0)) $f)
+      "potassium"  (mul (float ($n.potassium  | default 0)) $f)
+      "phosphorus" (mul (float ($n.phosphorus | default 0)) $f)
+-}}
+
+{{- /* Cost: preț pe pachet × fracțiunea de pachet folosită. */ -}}
+{{- $price := index hugo.Data.prices.items $key -}}
+{{- $cost := 0.0 -}}
+{{- $unitPrice := 0.0 -}}
+{{- $usedStore := "" -}}
+{{- $updated := "" -}}
+{{- $source := "" -}}
+{{- with $price -}}
+  {{- $entry := index .stores $store -}}
+  {{- $usedStore = $store -}}
+  {{- if not $entry -}}
+    {{- range $sk, $sv := .stores -}}
+      {{- if not $entry -}}{{- $entry = $sv -}}{{- $usedStore = $sk -}}{{- end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- with $entry -}}
+    {{- $packSize := float (.pack | default $price.pack).size -}}
+    {{- if gt $packSize 0.0 -}}
+      {{- $cost = mul (div $grams $packSize) (float .price) -}}
+      {{- $unitPrice = div (float .price) $packSize -}}
+    {{- end -}}
+    {{- $updated = .updated -}}
+    {{- $source = .source -}}
+  {{- end -}}
+{{- end -}}
+
+{{- return (dict
+    "key"        $key
+    "name"       $ing.name
+    "short"      ($ing.short | default $ing.name)
+    "aisle"      ($ing.aisle | default "pantry")
+    "qty"        $qty
+    "unit"       $unit
+    "grams"      $grams
+    "edible"     $edible
+    "note"       ($ing.note | default "")
+    "warnSodium" ($ing.warn_sodium | default false)
+    "kHigh"      ($ing.k_high | default false)
+    "pHigh"      ($ing.p_high | default false)
+    "nutrition"  $nutrition
+    "cost"       $cost
+    "unitPrice"  $unitPrice
+    "store"      $usedStore
+    "updated"    $updated
+    "source"     $source
+) -}}

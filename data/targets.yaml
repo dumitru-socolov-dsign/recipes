@@ -1,0 +1,48 @@
+# Ținte nutriționale implicite pentru o zi.
+# Toate sunt editabile din pagina Setări; valorile de acolo se salvează local pe telefon
+# și au prioritate față de ce scrie aici.
+
+daily:
+  kcal: 3000
+  protein_g: 84
+  fat_g: 194
+  carbs_g: 230
+  sodium_mg: 2000
+  fibre_g: 30
+  water_ml: 2500
+
+# Praguri pentru semaforul din interfață: sub `good` = verde, între = galben, peste `max` = roșu.
+limits:
+  sodium_mg:     { good: 1600, max: 2000 }
+  protein_g:     { good: 84,   max: 91 }
+  potassium_mg:  { good: 3500, max: 4700, tracked: true, hard: false }
+  phosphorus_mg: { good: 900,  max: 1200, tracked: true, hard: false }
+
+# Cum se împart caloriile pe zi. Micul dejun e fix (ouă cu cârnat), restul se împarte egal.
+meals:
+  breakfast_kcal: 620
+  meals_per_day: 3
+  default_servings: 1
+
+toggles:
+  include_tubers:  { default: true,  label: "Include cartofi și rădăcinoase" }
+  limit_potassium: { default: false, label: "Limitează potasiul" }
+  low_sodium:      { default: true,  label: "Mod cu sare redusă" }
+
+# Explicații scurte, afișate în Setări lângă fiecare cursor.
+copy:
+  kcal: "3000 kcal înseamnă un surplus mic peste consum — creștere lentă și constantă, fără burtă."
+  protein_g: "1.2 g pe kilogram de greutate. Suficient pentru masă musculară, fără să exagerezi. Restul caloriilor vin din grăsime."
+  sodium_mg: "Recomandarea OMS pentru adulți este sub 2000 mg de sodiu pe zi — adică sub 5 g de sare. Majoritatea rețetelor clasice au atât într-un singur fel de mâncare."
+  potassium_mg: "Urmărit informativ. Cartofii, roșiile și ciupercile sunt principalele surse."
+  phosphorus_mg: "Urmărit informativ. Fosforul din carne și ouă se absoarbe pe jumătate; cel din aditivi (E338–E452, în mezeluri și brânzeturi topite) se absoarbe aproape integral."
+  include_tubers: "Cartoful nu este nici crupă, nici făinos. Îți dă cele mai ieftine calorii din magazin și volum pentru un tranzit bun. Dacă îl scoți, tot ce lipsește trebuie acoperit din grăsime."
+  limit_potassium: "Schimbă garniturile spre varză, conopidă și fasole verde și adaugă pasul de fierbere-și-aruncat-apa la cartofi."
+  low_sodium: "Taie sarea la ~1.2 g pe porție și compensează gustul cu acid, usturoi, boia afumată și rumenire bună."
+
+# Sfaturi care apar în UI unde e cazul.
+tips:
+  salt_substitute_warning: "Nu folosi „sare cu sodiu redus\" (LoSalt și similare). Aceea e clorură de potasiu și schimbă o problemă cu alta."
+  salt_at_the_end: "Pune sarea la final, peste mâncare, nu în oală. Se simte de două ori mai tare la aceeași cantitate."
+  acid_first: "Dacă mâncarea pare fadă, încearcă întâi câteva picături de lămâie sau oțet. De nouă ori din zece, lipsea aciditatea, nu sarea."
+  potato_leaching: "Taie cartofii mărunt, fierbe-i în apă multă și aruncă apa. Scade potasiul cu peste jumătate."

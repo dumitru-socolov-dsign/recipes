@@ -1,0 +1,107 @@
+# Rotația săptămânii: trei sesiuni de gătit acoperă toate mesele.
+# Micul dejun e același în fiecare zi și se face pe loc, în 8 minute.
+
+breakfast: oua-carnat
+
+sessions:
+  - id: a
+    name: "Sesiunea 1"
+    day: 0            # 0 = duminică
+    day_name: "Duminică"
+    start: "17:00"
+    minutes: 55
+    recipes:
+      - { slug: pui-tava-cartofi, servings: 2 }
+      - { slug: porc-varza, servings: 2 }
+    covers:
+      - { day: 0, meal: dinner, slug: pui-tava-cartofi }
+      - { day: 1, meal: lunch,  slug: porc-varza }
+      - { day: 1, meal: dinner, slug: pui-tava-cartofi }
+      - { day: 2, meal: lunch,  slug: porc-varza }
+
+  - id: b
+    name: "Sesiunea 2"
+    day: 2            # marți
+    day_name: "Marți"
+    start: "18:00"
+    minutes: 58
+    recipes:
+      - { slug: chiftele-vita, servings: 3 }
+      - { slug: pui-smantana-ciuperci, servings: 2 }
+    covers:
+      - { day: 2, meal: dinner, slug: chiftele-vita }
+      - { day: 3, meal: lunch,  slug: pui-smantana-ciuperci }
+      - { day: 3, meal: dinner, slug: chiftele-vita }
+      - { day: 4, meal: lunch,  slug: pui-smantana-ciuperci }
+      - { day: 4, meal: dinner, slug: chiftele-vita }
+
+  - id: c
+    name: "Sesiunea 3"
+    day: 5            # vineri
+    day_name: "Vineri"
+    start: "18:00"
+    minutes: 50
+    recipes:
+      - { slug: somon-lamaie, servings: 2 }
+      - { slug: porc-ardei, servings: 2 }
+      - { slug: varza-calda-chimen, servings: 2 }
+    covers:
+      - { day: 5, meal: dinner, slug: somon-lamaie }
+      - { day: 6, meal: lunch,  slug: porc-ardei }
+      - { day: 6, meal: dinner, slug: somon-lamaie }
+      - { day: 0, meal: lunch,  slug: porc-ardei }
+
+# Mese care nu vin din batch cooking — se fac pe loc, în câteva minute.
+fresh:
+  - { day: 5, meal: lunch, slug: sardine-ceapa, why: "Vineri la prânz nu ai încă gătit. Cinci minute, zero foc." }
+
+# Rețete de rezervă, fără loc fix în plan.
+spare:
+  - omleta-cartofi
+  - macrou-ceapa
+
+day_names: ["Duminică", "Luni", "Marți", "Miercuri", "Joi", "Vineri", "Sâmbătă"]
+day_short: ["Du", "Lu", "Ma", "Mi", "Jo", "Vi", "Sâ"]
+meal_names:
+  breakfast: "Mic dejun"
+  lunch: "Prânz"
+  dinner: "Cină"
+
+# Cronologia reală a fiecărei sesiuni: rețetele rulează întrețesut, nu una după alta.
+# `at` = minutul din sesiune. `r` = rețeta de care ține pasul (pentru culoare).
+# Suma duratelor rețetelor e mult mai mare decât durata sesiunii — exact asta e ideea.
+timelines:
+  a:
+    - { at: 0,  r: pui-tava-cartofi,  t: "Pornește cuptorul la 220°C. Scoate puiul din frigider." }
+    - { at: 2,  r: pui-tava-cartofi,  t: "Taie cartofii, ceapa și usturoiul pentru tavă." }
+    - { at: 8,  r: pui-tava-cartofi,  t: "Condimentează legumele, așază puiul deasupra, bagă tava în cuptor." }
+    - { at: 12, r: porc-varza,        t: "Cât se coace: taie ceafa, varza, morcovul și cartofii." }
+    - { at: 20, r: porc-varza,        t: "Rumenește carnea în cratiță, apoi ceapa și morcovul." }
+    - { at: 27, r: porc-varza,        t: "Varză, condimente, carne, cartofi, apă. Capac, foc mic." }
+    - { at: 48, r: pui-tava-cartofi,  t: "Scoate tava, pune untul și sarea, încă 5 minute în cuptor." }
+    - { at: 53, r: porc-varza,        t: "Unt și sare în tocană. Împarte totul în cutii." }
+  b:
+    - { at: 0,  r: chiftele-vita,          t: "Cuptorul la 210°C. Taie cartofii, morcovii și păstârnacul." }
+    - { at: 7,  r: chiftele-vita,          t: "Bagă tava cu rădăcinoase — au nevoie de 15 minute avans." }
+    - { at: 8,  r: pui-smantana-ciuperci,  t: "Pune cartofii la fiert în apă multă, fără sare." }
+    - { at: 10, r: chiftele-vita,          t: "Rade ceapa peste carne, adaugă oul și condimentele." }
+    - { at: 15, r: chiftele-vita,          t: "Formează 12 chiftele cu mâinile ude." }
+    - { at: 22, r: chiftele-vita,          t: "Scoate tava, adaugă chiftelele lângă legume, înapoi 22 de minute." }
+    - { at: 24, r: pui-smantana-ciuperci,  t: "Rumenește ciupercile în tigaie, fără să le atingi." }
+    - { at: 30, r: pui-smantana-ciuperci,  t: "Puiul și ceapa în aceeași tigaie." }
+    - { at: 37, r: pui-smantana-ciuperci,  t: "Smântână și muștar, foc mic, fără clocot." }
+    - { at: 42, r: pui-smantana-ciuperci,  t: "Scurge cartofii, adaugă-i cu untul. Gata." }
+    - { at: 46, r: chiftele-vita,          t: "Scoate tava, unt și sare peste tot." }
+    - { at: 52, r: chiftele-vita,          t: "Lasă 5 minute, apoi împarte în cutii." }
+  c:
+    - { at: 0,  r: porc-ardei,     t: "Taie ceafa, ardeii, ceapa și cartofii." }
+    - { at: 8,  r: porc-ardei,     t: "Rumenește carnea pe foc mare, apoi călește ceapa." }
+    - { at: 15, r: porc-ardei,     t: "Foc stins: boiaua. Apoi pastă de roșii, ardei, apă. Capac." }
+    - { at: 17, r: somon-lamaie,   t: "Cuptorul la 200°C. Cartofii pentru somon la fiert." }
+    - { at: 22, r: somon-lamaie,   t: "Unt topit cu usturoi și lămâie. Așază somonul în tavă." }
+    - { at: 28, r: somon-lamaie,   t: "Somonul în cuptor, 12 minute. Fasolea la minutul 6." }
+    - { at: 30, r: varza-calda-chimen, t: "Taie varza fâșii." }
+    - { at: 34, r: porc-ardei,     t: "Adaugă cartofii în tocană, încă 12 minute." }
+    - { at: 36, r: varza-calda-chimen, t: "Varza la tigaie pe foc mare, 5 minute." }
+    - { at: 41, r: somon-lamaie,   t: "Scoate somonul, finalizează cartofii cu unt." }
+    - { at: 46, r: porc-ardei,     t: "Unt și sare în tocană. Împarte tot în cutii." }

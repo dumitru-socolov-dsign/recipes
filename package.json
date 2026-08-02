@@ -1,0 +1,15 @@
+{
+  "name": "bucatarie",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Rețete, gătit în serie și listă de cumpărături calculată. Site static Hugo.",
+  "scripts": {
+    "dev": "hugo server --bind 0.0.0.0 --buildDrafts",
+    "build": "hugo --minify",
+    "prices:refresh": "node tools/price-refresh/index.mjs",
+    "prices:manual": "node tools/price-refresh/index.mjs --manual",
+    "images:fetch": "node tools/fetch-images.mjs"
+  },
+  "engines": { "node": ">=20" }
+}

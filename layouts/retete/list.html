@@ -1,0 +1,48 @@
+{{ define "main" }}
+{{- $plan := hugo.Data.plan -}}
+<div class="wrap">
+  <div class="page-head">
+    <h1>Rețete</h1>
+    <p>{{ .Params.summary }}</p>
+  </div>
+
+  {{- range $plan.sessions }}
+    {{- $sess := . }}
+    <section style="margin-bottom:var(--s-7)">
+      <div class="aisle__h">
+        <h2>{{ .name }}</h2>
+        <span class="chip aisle__n">{{ .day_name }} · {{ .minutes }} min</span>
+      </div>
+      <div class="grid grid--2" style="margin-top:var(--s-4)">
+        {{- range .recipes -}}
+          {{- with index (partial "lookup.html" $) .slug -}}
+            {{ partial "tile.html" . }}
+          {{- end -}}
+        {{- end }}
+      </div>
+    </section>
+  {{- end }}
+
+  <section style="margin-bottom:var(--s-7)">
+    <div class="aisle__h">
+      <h2>Rapide</h2>
+      <span class="chip aisle__n">fără sesiune</span>
+    </div>
+    <div class="grid grid--2" style="margin-top:var(--s-4)">
+      {{- range where (where site.RegularPages "Section" "retete") "Params.quick" true }}
+        {{ partial "tile.html" . }}
+      {{- end }}
+    </div>
+  </section>
+
+  {{- $sides := where (where site.RegularPages "Section" "retete") "Params.side" true }}
+  {{- with $sides }}
+  <section style="margin-bottom:var(--s-7)">
+    <div class="aisle__h"><h2>Garnituri</h2></div>
+    <div class="grid grid--2" style="margin-top:var(--s-4)">
+      {{- range . }}{{ partial "tile.html" . }}{{ end }}
+    </div>
+  </section>
+  {{- end }}
+</div>
+{{ end }}
