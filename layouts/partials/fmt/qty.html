@@ -5,7 +5,7 @@
 {{- $out := "" -}}
 {{- if eq $u "buc" -}}
   {{- $r := div (math.Round (mul $q 2)) 2 -}}
-  {{- $out = printf "%s buc" (lang.FormatNumber (cond (eq $r (math.Floor $r)) 0 1) $r) -}}
+  {{- $out = printf "%s %s" (lang.FormatNumber (cond (eq $r (math.Floor $r)) 0 1) $r) (T "u_pieces") -}}
 {{- else -}}
   {{- $big := cond (eq $u "ml") "l" "kg" -}}
   {{- if ge $q 1000.0 -}}

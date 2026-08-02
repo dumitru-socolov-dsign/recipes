@@ -1,15 +1,21 @@
 # Rotația săptămânii: trei sesiuni de gătit acoperă toate mesele.
 # Micul dejun e același în fiecare zi și se face pe loc, în 8 minute.
+#
+# `servings` de aici e cantitatea implicită a planului. Site-ul o poate depăși: numărul de
+# porții ales pe pagina unei rețete se salvează pe telefon și rescrie valoarea asta peste tot,
+# inclusiv în lista de cumpărături. Vezi `servingsFor()` din assets/js/app.js.
 
 breakfast: oua-carnat
 
 sessions:
   - id: a
     name: "Sesiunea 1"
+    name_en: "Session 1"
     day: 0            # 0 = duminică
     day_name: "Duminică"
+    day_name_en: "Sunday"
     start: "17:00"
-    minutes: 55
+    minutes: 60
     recipes:
       - { slug: pui-tava-conopida, servings: 2 }
       - { slug: porc-varza, servings: 2 }
@@ -21,10 +27,12 @@ sessions:
 
   - id: b
     name: "Sesiunea 2"
+    name_en: "Session 2"
     day: 2            # marți
     day_name: "Marți"
+    day_name_en: "Tuesday"
     start: "18:00"
-    minutes: 52
+    minutes: 56
     recipes:
       - { slug: chiftele-vita, servings: 3 }
       - { slug: pui-smantana-ciuperci, servings: 2 }
@@ -37,10 +45,12 @@ sessions:
 
   - id: c
     name: "Sesiunea 3"
+    name_en: "Session 3"
     day: 5            # vineri
     day_name: "Vineri"
+    day_name_en: "Friday"
     start: "18:00"
-    minutes: 50
+    minutes: 58
     recipes:
       - { slug: somon-lamaie, servings: 2 }
       - { slug: porc-ardei, servings: 2 }
@@ -55,7 +65,11 @@ sessions:
 
 # Mese care nu vin din batch cooking — se fac pe loc, în câteva minute.
 fresh:
-  - { day: 5, meal: lunch, slug: sardine-ceapa, why: "Vineri la prânz nu ai încă gătit. Cinci minute, zero foc." }
+  - day: 5
+    meal: lunch
+    slug: sardine-ceapa
+    why: "Vineri la prânz nu ai încă gătit. Cinci minute, zero foc."
+    why_en: "Friday lunch lands before you've cooked. Five minutes, no heat."
 
 # Rețete de rezervă, fără loc fix în plan.
 spare:
@@ -64,49 +78,178 @@ spare:
   - conopida-unt
 
 day_names: ["Duminică", "Luni", "Marți", "Miercuri", "Joi", "Vineri", "Sâmbătă"]
+day_names_en: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 day_short: ["Du", "Lu", "Ma", "Mi", "Jo", "Vi", "Sâ"]
+day_short_en: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
 meal_names:
   breakfast: "Mic dejun"
   lunch: "Prânz"
   dinner: "Cină"
+meal_names_en:
+  breakfast: "Breakfast"
+  lunch: "Lunch"
+  dinner: "Dinner"
 
 # Cronologia reală a fiecărei sesiuni: rețetele rulează întrețesut, nu una după alta.
 # `at` = minutul din sesiune. `r` = rețeta de care ține pasul (pentru culoare).
 # Suma duratelor rețetelor e mult mai mare decât durata sesiunii — exact asta e ideea.
 timelines:
   a:
-    - { at: 0,  r: pui-tava-conopida, t: "Pornește cuptorul la 220°C. Scoate puiul din frigider, topește untura." }
-    - { at: 3,  r: pui-tava-conopida, t: "Conopida congelată direct în tavă, cu ceapa și usturoiul. Untura peste tot." }
-    - { at: 8,  r: pui-tava-conopida, t: "Usucă pulpele cu hârtie, așază-le peste legume, bagă tava în cuptor." }
-    - { at: 12, r: porc-varza,        t: "Cât se coace: taie ceafa, varza, ceapa și morcovul." }
-    - { at: 20, r: porc-varza,        t: "Rumenește carnea în untură, pe foc mare. Apoi ceapa și morcovul." }
-    - { at: 28, r: porc-varza,        t: "Varză, condimente, oțet, carne, 100 ml apă. Capac, foc mic." }
-    - { at: 48, r: pui-tava-conopida, t: "Scoate tava, pune untul, sarea și lămâia, încă 5 minute în cuptor." }
-    - { at: 50, r: porc-varza,        t: "Fără capac, foc mare 3 minute ca să scadă zeama." }
-    - { at: 53, r: porc-varza,        t: "Unt și sare în tocană. Împarte totul în cutii." }
+    - at: 0
+      r: pui-tava-conopida
+      t: "Pornește cuptorul la 220°C. Scoate puiul din frigider."
+      t_en: "Oven on at 220°C. Take the chicken out of the fridge."
+    - at: 1
+      r: porc-varza
+      t: "Taie tot pieptul de porc — și fâșiile pentru tavă, și cele pentru cratiță. Apoi ceafa, cuburi de 3 cm."
+      t_en: "Cut all the pork belly — the strips for the tray and the ones for the pot. Then the shoulder, into 3 cm cubes."
+    - at: 7
+      r: porc-varza
+      t: "Cratiță pe foc mediu, fără grăsime. Doar pieptul de porc, 8 minute, până lasă untura."
+      t_en: "Pot on medium heat, no fat added. Just the pork belly, 8 minutes, until it renders."
+    - at: 9
+      r: pui-tava-conopida
+      t: "Conopida, ceapa, usturoiul și fâșiile de piept în tavă. Untura topită și boiaua peste tot."
+      t_en: "Cauliflower, onion, garlic and the belly strips into the tray. Melted lard and paprika over everything."
+    - at: 13
+      r: pui-tava-conopida
+      t: "Usucă pulpele cu hârtie, așază-le deasupra, bagă tava în cuptor. Patruzeci de minute."
+      t_en: "Pat the thighs dry, lay them on top, tray into the oven. Forty minutes."
+    - at: 15
+      r: porc-varza
+      t: "Foc mare, ceafa lângă piept. Patru minute fără s-o atingi, întoarce, încă trei."
+      t_en: "High heat, shoulder in beside the belly. Four minutes untouched, turn, three more."
+    - at: 22
+      r: porc-varza
+      t: "Scoate carnea pe o farfurie. Taie varza fâșii, ceapa solzi, morcovul rondele."
+      t_en: "Lift the meat onto a plate. Shred the cabbage, slice the onion, round the carrot."
+    - at: 29
+      r: porc-varza
+      t: "Ceapa și morcovul în untura rămasă, 3 minute, răzuind fundul."
+      t_en: "Onion and carrot into the rendered fat, 3 minutes, scraping the bottom."
+    - at: 32
+      r: porc-varza
+      t: "Varză, condimente, oțet, carnea înapoi, 100 ml apă. Capac, foc mic, 22 de minute."
+      t_en: "Cabbage, spices, vinegar, meat back in, 100 ml water. Lid on, low heat, 22 minutes."
+    - at: 54
+      r: pui-tava-conopida
+      t: "Scoate tava: unt, sare, lămâie. Încă 5 minute în cuptor."
+      t_en: "Tray out: butter, salt, lemon. Five more minutes in the oven."
+    - at: 55
+      r: porc-varza
+      t: "Fără capac, foc mare 3 minute ca să scadă zeama."
+      t_en: "Lid off, high heat 3 minutes to reduce."
+    - at: 58
+      r: porc-varza
+      t: "Unt și sare în tocană. Împarte totul în cutii."
+      t_en: "Butter and salt into the pot. Divide everything into boxes."
   b:
-    - { at: 0,  r: chiftele-vita,          t: "Cuptorul la 210°C. Topește untura, conopida și broccoli direct în tavă." }
-    - { at: 5,  r: chiftele-vita,          t: "Bagă tava cu legume — au nevoie de 15 minute avans." }
-    - { at: 7,  r: pui-smantana-ciuperci,  t: "Dezosează puiul, taie ciupercile și ceapa." }
-    - { at: 12, r: chiftele-vita,          t: "Rade ceapa peste carne, adaugă oul și condimentele." }
-    - { at: 16, r: chiftele-vita,          t: "Formează 12 chiftele cu mâinile ude." }
-    - { at: 20, r: chiftele-vita,          t: "Scoate tava, adaugă chiftelele lângă legume, înapoi 22 de minute." }
-    - { at: 22, r: pui-smantana-ciuperci,  t: "Rumenește ciupercile în untură, fără să le atingi." }
-    - { at: 28, r: pui-smantana-ciuperci,  t: "Puiul și ceapa în aceeași tigaie." }
-    - { at: 34, r: pui-smantana-ciuperci,  t: "Fasolea verde congelată peste pui, 3 minute." }
-    - { at: 37, r: pui-smantana-ciuperci,  t: "Smântână grasă și muștar, foc mic, fără clocot." }
-    - { at: 43, r: pui-smantana-ciuperci,  t: "Foc stins, unt și sare. Gata." }
-    - { at: 44, r: chiftele-vita,          t: "Scoate tava, unt și sare peste tot." }
-    - { at: 47, r: chiftele-vita,          t: "Lasă 5 minute, apoi împarte în cutii." }
+    - at: 0
+      r: chiftele-vita
+      t: "Cuptorul la 210°C. Taie pieptul de porc cuburi de 2 cm."
+      t_en: "Oven on at 210°C. Cut the pork belly into 2 cm cubes."
+    - at: 5
+      r: chiftele-vita
+      t: "Topește untura. Conopida, broccoli și cuburile de porc direct în tavă, grăsimea peste."
+      t_en: "Melt the lard. Cauliflower, broccoli and pork cubes straight into the tray, fat over the lot."
+    - at: 9
+      r: chiftele-vita
+      t: "Bagă tava — legumele și porcul au nevoie de 15 minute avans."
+      t_en: "Tray into the oven — the veg and the pork need a 15-minute head start."
+    - at: 11
+      r: pui-smantana-ciuperci
+      t: "Dezosează puiul, taie ciupercile și ceapa."
+      t_en: "Bone the chicken, cut the mushrooms and onion."
+    - at: 16
+      r: chiftele-vita
+      t: "Rade ceapa peste carne, adaugă oul și condimentele."
+      t_en: "Grate the onion over the mince, add the egg and spices."
+    - at: 20
+      r: chiftele-vita
+      t: "Formează 9 chiftele cu mâinile ude."
+      t_en: "Shape 9 meatballs with wet hands."
+    - at: 24
+      r: chiftele-vita
+      t: "Scoate tava, adaugă chiftelele lângă legume, înapoi 22 de minute."
+      t_en: "Tray out, meatballs in beside the veg, back for 22 minutes."
+    - at: 26
+      r: pui-smantana-ciuperci
+      t: "Rumenește ciupercile în untură, fără să le atingi."
+      t_en: "Brown the mushrooms in lard, don't touch them."
+    - at: 32
+      r: pui-smantana-ciuperci
+      t: "Puiul și ceapa în aceeași tigaie."
+      t_en: "Chicken and onion into the same pan."
+    - at: 38
+      r: pui-smantana-ciuperci
+      t: "Fasolea verde congelată peste pui, 3 minute."
+      t_en: "Frozen green beans over the chicken, 3 minutes."
+    - at: 41
+      r: pui-smantana-ciuperci
+      t: "Smântână grasă și muștar, foc mic, fără clocot."
+      t_en: "Double cream and mustard, low heat, never boiling."
+    - at: 47
+      r: pui-smantana-ciuperci
+      t: "Foc stins, unt și sare. Gata."
+      t_en: "Heat off, butter and salt. Done."
+    - at: 48
+      r: chiftele-vita
+      t: "Scoate tava, unt și sare peste tot."
+      t_en: "Tray out, butter and salt over everything."
+    - at: 51
+      r: chiftele-vita
+      t: "Lasă 5 minute, apoi împarte în cutii."
+      t_en: "Rest 5 minutes, then divide into boxes."
   c:
-    - { at: 0,  r: porc-ardei,     t: "Taie ceafa, ardeii și ceapa." }
-    - { at: 6,  r: porc-ardei,     t: "Rumenește carnea în untură, pe foc mare, apoi călește ceapa." }
-    - { at: 14, r: porc-ardei,     t: "Foc stins: boiaua. Apoi pastă de roșii, ardei, 120 ml apă. Capac." }
-    - { at: 16, r: somon-lamaie,   t: "Cuptorul la 200°C. Dovlecelul rondele, în tavă cu ulei de măsline." }
-    - { at: 21, r: somon-lamaie,   t: "Unt topit cu usturoi și lămâie. Așază somonul peste dovlecel." }
-    - { at: 26, r: somon-lamaie,   t: "Somonul în cuptor, 12 minute. Fasolea la minutul 6." }
-    - { at: 29, r: somon-lamaie,   t: "Prăjește nucile în tigaie uscată, 3 minute. Toacă-le." }
-    - { at: 33, r: varza-calda-chimen, t: "Taie varza fâșii. Untura în tigaie, ceapa și chimenul." }
-    - { at: 38, r: somon-lamaie,   t: "Scoate somonul: unt, sare, lămâie, nuci deasupra." }
-    - { at: 41, r: varza-calda-chimen, t: "Varza la tigaie pe foc mare, 5 minute. Apoi unt și oțet." }
-    - { at: 46, r: porc-ardei,     t: "Foc stins: smântână, unt și sare în tocană. Împarte tot în cutii." }
+    - at: 0
+      r: porc-ardei
+      t: "Taie pieptul de porc și ceafa cuburi. Ardeii fâșii late, ceapa solzi."
+      t_en: "Cube the pork belly and the shoulder. Peppers into wide strips, onion sliced."
+    - at: 8
+      r: porc-ardei
+      t: "Cratiță pe foc mediu, fără grăsime. Doar pieptul, 8 minute, până lasă untura."
+      t_en: "Pot on medium heat, no fat added. Just the belly, 8 minutes, until it renders."
+    - at: 10
+      r: somon-lamaie
+      t: "Cuptorul la 200°C. Dovlecelul rondele, în tavă cu ulei de măsline."
+      t_en: "Oven on at 200°C. Courgette in rounds, into the tray with olive oil."
+    - at: 16
+      r: porc-ardei
+      t: "Foc mare, ceafa lângă piept. Patru minute, întoarce, încă trei."
+      t_en: "High heat, shoulder in beside the belly. Four minutes, turn, three more."
+    - at: 23
+      r: porc-ardei
+      t: "Ceapa, 3 minute. Ia cratița de pe foc: boiaua și usturoiul."
+      t_en: "Onion, 3 minutes. Off the heat: paprika and garlic."
+    - at: 27
+      r: porc-ardei
+      t: "Pastă de roșii, ardei, dafin, 120 ml apă. Capac, foc mic, 28 de minute."
+      t_en: "Tomato purée, peppers, bay, 120 ml water. Lid on, low heat, 28 minutes."
+    - at: 29
+      r: somon-lamaie
+      t: "Unt topit cu usturoi și lămâie. Așază somonul peste dovlecel."
+      t_en: "Melted butter with garlic and lemon. Lay the salmon over the courgette."
+    - at: 33
+      r: somon-lamaie
+      t: "Somonul în cuptor, 12 minute. Fasolea la minutul 6."
+      t_en: "Salmon into the oven, 12 minutes. Beans at minute 6."
+    - at: 36
+      r: somon-lamaie
+      t: "Prăjește nucile în tigaie uscată, 3 minute. Toacă-le."
+      t_en: "Toast the walnuts in a dry pan, 3 minutes. Chop them."
+    - at: 40
+      r: varza-calda-chimen
+      t: "Taie varza fâșii. Untura în tigaie, ceapa și chimenul."
+      t_en: "Shred the cabbage. Lard in the pan, onion and caraway."
+    - at: 45
+      r: somon-lamaie
+      t: "Scoate somonul: unt, sare, lămâie, nuci deasupra."
+      t_en: "Salmon out: butter, salt, lemon, walnuts on top."
+    - at: 48
+      r: varza-calda-chimen
+      t: "Varza la tigaie pe foc mare, 5 minute. Apoi unt și oțet."
+      t_en: "Cabbage into the pan on high heat, 5 minutes. Then butter and vinegar."
+    - at: 55
+      r: porc-ardei
+      t: "Foc stins: smântână, unt și sare în tocană. Împarte tot în cutii."
+      t_en: "Heat off: cream, butter and salt into the stew. Divide everything into boxes."

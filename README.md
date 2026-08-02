@@ -15,11 +15,12 @@ pe telefonul lui. Nu există server care să primească ceva.
 |---|---|
 | **Azi** | Ce mănânci astăzi, totalul zilei și când e următoarea sesiune de gătit |
 | **Rețete** | 12 rețete, grupate pe cele trei sesiuni de gătit ale săptămânii |
-| **Rețetă** | Porții reglabile care rescalează toate cantitățile, nutriție per porție, cost, pași |
+| **Rețetă** | Porții reglabile care rescalează cantitățile — și lista de cumpărături — plus nutriție per porție, cost, pași |
 | **Mod gătit** | Ecran complet, un pas pe rând, timere cu alarmă, ecranul rămâne aprins |
 | **Cumpărături** | Pe săptămână sau pe zi de gătit, grupat pe raioane, cu pachete întregi și cost |
 | **Plan** | Cronologia paralelă a fiecărei sesiuni — ce faci în fiecare minut |
 | **Setări** | Ținte de calorii, proteine și sodiu; se recalculează tot |
+| **Limbă** | Română și engleză, comutabile din bara de sus, cu URL-uri proprii |
 
 Instalabil pe telefon (Add to Home Screen). Funcționează offline după prima vizită.
 
@@ -41,23 +42,65 @@ hugo --gc --minify             # build rapid în ./public
 ./build.sh                     # build identic cu cel de pe Cloudflare
 ```
 
+## Bilingv
+
+Româna e limba implicită și stă în rădăcină; engleza stă sub `/en/`, cu URL-uri traduse
+(`/retete/porc-varza/` ↔ `/en/recipes/pork-cabbage/`). Comutatorul din bara de sus duce la
+aceeași pagină în cealaltă limbă.
+
+Engleza nu e o traducere de fațadă. Motivul pentru care există e lista de cumpărături:
+numele de produse și de raioane sunt cele scrise pe raft, nu traduceri literale — de aceea
+„Băcănie" e *Grocery* și „Pastă de roșii" e *Tomato purée*. Din același motiv, când site-ul
+e pe română lista afișează sub fiecare produs și numele englezesc.
+
+Unde stă fiecare fel de text:
+
+| | |
+|---|---|
+| `i18n/ro.toml`, `i18n/en.toml` | textele interfeței, inclusiv cele folosite din browser (prefix `js_`) |
+| `data/*.yaml` | perechi `x` / `x_en` — nume de ingrediente, raioane, zile, cronologii |
+| `content/**/*.en.md` | titlul, rezumatul, numele grupurilor de ingrediente și textul pașilor |
+
+**Traducerea nu poartă cantități.** Fișierul `.en.md` al unei rețete conține doar text; porțiile,
+gramele, timpii și timerele se citesc întotdeauna din varianta română, prin
+`layouts/partials/calc/recipe.html`. Nu există niciun drum prin care o traducere uitată să
+schimbe câte grame de carne cumperi sau cât ține un timer.
+
+Un singur service worker, la rădăcină, cu precache pe ambele limbi — comutatorul trebuie să
+meargă și fără semnal, fiindcă exact atunci ești în magazin.
+
+## Porții
+
+Numărul de porții ales pe pagina unei rețete se salvează în `localStorage` sub
+`servings.<slug>` și e citit de **toate** locurile care numără mâncare: pagina rețetei, lista
+de cumpărături și costul săptămânii. Aceleași porții se pot regla și direct din capul listei
+de cumpărături. Dacă valoarea e egală cu cea din plan, cheia se șterge — o listă trebuie să
+urmeze planul până când chiar ai schimbat ceva.
+
+Slug-ul e același în ambele limbi (cel românesc, din numele fișierului), deci porțiile alese
+pe română se văd și pe engleză.
+
 ## Structură
 
 ```
 content/retete/*.md     o rețetă = un fișier, cu ingrediente și pași în front matter
+content/retete/*.en.md  traducerea: doar text, fără cantități
 data/ingredients.yaml   nutriție per 100 g, raion, randament comestibil
 data/prices.yaml        prețuri per pachet, per magazin, cu dată și sursă
 data/targets.yaml       ținte nutriționale implicite
 data/plan.yaml          rotația săptămânii + cronologia fiecărei sesiuni
 layouts/                tema, scrisă de la zero
+i18n/*.toml             textele interfeței, pe limbi
 layouts/partials/calc/  motorul de calcul: nutriție și cost, la build
+layouts/partials/tr.html  alege varianta de limbă a unui câmp din data/
 assets/css/main.css     tot design system-ul
 assets/js/app.js        toată logica din browser
 ```
 
 Nutriția și costul se calculează **la build**, în Hugo. Browserul primește în `/app.json`
 valori gata calculate — scalarea porțiilor e o simplă înmulțire, iar telefonul nu descarcă
-baza de ingrediente.
+baza de ingrediente. Există câte un `app.json` pentru fiecare limbă, cu numele și textele
+deja traduse, ca `app.js` să nu aibă nevoie de niciun dicționar propriu.
 
 ### Cum adaugi o rețetă
 
@@ -202,15 +245,28 @@ Cron-ul GitHub e best-effort: poate întârzia 5–15 minute. De aceea sunt dou�
 
 ## Nutriție
 
-Valorile implicite din `data/targets.yaml` țintesc 3000 kcal, 84 g proteine și sub 2000 mg
+Valorile implicite din `data/targets.yaml` țintesc 3200 kcal, 90 g proteine și sub 2000 mg
 sodiu pe zi — pragul recomandat de OMS pentru adulți.
 
 Planul nu conține cereale, făinoase, cartofi sau alte rădăcinoase amidonoase, iar legumele
-intră în cantități mici. Cu proteina plafonată la 84 g, singura sursă rămasă pentru restul
-caloriilor e grăsimea: rezultatul e ~275 g grăsime și sub 40 g carbohidrați pe zi, adică
+intră în cantități mici. Cu proteina plafonată la 90 g, singura sursă rămasă pentru restul
+caloriilor e grăsimea: rezultatul e ~295 g grăsime și sub 40 g carbohidrați pe zi, adică
 peste 80% din calorii din grăsime. Nu e o alegere de stil, e ce rămâne după constrângeri.
 
-Consecința pe care o urmărește aplicația explicit: **fibrele**. Cartoful era principala sursă,
+**De unde vine grăsimea contează pentru cât de plină arată farfuria.** Aceleași calorii pot
+veni dintr-un cub de unt sau dintr-o bucată de carne grasă. Untul are 717 kcal la 100 g și
+aproape zero proteină; pieptul de porc are 518 kcal și 9 g proteină — jumătate cât ceafa,
+la de două ori caloriile. Rezultatul: la același plafon de proteine încap ~250 g de carne
+într-o porție în loc de ~150 g, la un cost pe calorie practic identic. Rețetele folosesc
+carnea grasă și ca sursă de grăsime de gătit — se rumenește prima, în tigaie rece, și restul
+se gătește în untura ieșită din ea.
+
+Prețul acestei alegeri e **fosforul**: mai multă carne înseamnă proporțional mai mult fosfor,
+~1260 mg pe zi față de pragul informativ de 1200. Fosforul din carne se absoarbe pe jumătate,
+spre deosebire de cel din aditivi, dar cifra e afișată per porție tocmai ca să fie vizibilă.
+Primul comutator care o scade e „Include nuci".
+
+Cealaltă consecință pe care o urmărește aplicația explicit: **fibrele**. Cartoful era principala sursă,
 iar înlocuitorii — varză, conopidă, broccoli, nuci — ajung la ~20 g pe zi, sub recomandarea
 generală de 25–30 g. Fibrele se afișează per porție, cu bară proprie, iar acolo bara plină e
 lucrul bun; la sodiu, potasiu și fosfor e invers.

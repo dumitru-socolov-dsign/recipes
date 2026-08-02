@@ -12,13 +12,13 @@ ingredients:
   - group: "De bază"
     items:
       - { key: sardines_tinned, qty: 120, unit: g }
-      - { key: cabbage_white, qty: 150, unit: g }
+      - { key: cabbage_white, qty: 200, unit: g }
       - { key: red_onion, qty: 80, unit: g }
       - { key: lemon, qty: 0.5, unit: buc }
       - { key: parsley, qty: 5, unit: g }
   - group: "Grăsimi și condimente"
     items:
-      - { key: olive_oil, qty: 85, unit: ml }
+      - { key: olive_oil, qty: 80, unit: ml }
       - { key: walnuts, qty: 30, unit: g }
       - { key: black_pepper, qty: 0.5, unit: g }
 steps:
@@ -42,8 +42,8 @@ e abia seara. Asta o astupă, fără să aprinzi nimic.
 **De ce sardine și nu ton.** Sardinele au de patru ori mai multe omega-3, costă la fel, și
 au calciu din oasele mici care se mănâncă. Tonul e proteină slabă și cam atât.
 
-**Caloriile vin din ulei și nuci, nu din volum.** Optzeci și cinci de mililitri de ulei de măsline
-par mult turnați peste o salată. Sunt 750 de calorii și sunt tot rostul rețetei — fără ele
+**Caloriile vin din ulei și nuci, nu din volum.** Optzeci de mililitri de ulei de măsline par
+mult turnați peste o salată. Sunt peste 700 de calorii și sunt tot rostul rețetei — fără ele
 masa asta ar fi un sfert de prânz. Varza e acolo pentru volum și fibre, nu pentru energie.
 
 **Un avertisment cinstit:** sardinele au mult fosfor — tot din oasele alea — și nucile la fel.

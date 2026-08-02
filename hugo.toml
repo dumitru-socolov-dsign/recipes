@@ -1,15 +1,43 @@
 baseURL = "/"
-locale = "ro-RO"
 defaultContentLanguage = "ro"
-title = "Bucătărie"
+defaultContentLanguageInSubdir = false
 enableRobotsTXT = true
 enableGitInfo = false
 disableKinds = ["taxonomy", "term", "RSS"]
 
 timeZone = "Europe/Dublin"
 
+# Româna e limba implicită și stă în rădăcină; engleza stă sub /en/.
+# Engleza nu e o traducere de fațadă: denumirile de produse și de raioane sunt cele folosite
+# în magazinele de aici, fiindcă ăsta e motivul pentru care există limba a doua — lista de
+# cumpărături trebuie să se potrivească cu ce scrie pe raft.
+[languages]
+  [languages.ro]
+    locale = "ro-RO"
+    label = "Română"
+    direction = "ltr"
+    title = "Bucătărie"
+    weight = 1
+    [languages.ro.params]
+      description = "Rețete simple, gătit în serie, listă de cumpărături calculată."
+      localeTag = "ro-RO"
+
+  [languages.en]
+    locale = "en-IE"
+    label = "English"
+    direction = "ltr"
+    title = "Kitchen"
+    weight = 2
+    [languages.en.params]
+      description = "Simple recipes, batch cooking, a shopping list that does the maths."
+      localeTag = "en-IE"
+    [languages.en.permalinks]
+      [languages.en.permalinks.page]
+        retete = "/recipes/:slug/"
+      [languages.en.permalinks.section]
+        retete = "/recipes/"
+
 [params]
-  description = "Rețete simple, gătit în serie, listă de cumpărături calculată."
   themeColor = "#f6f4f0"
   themeColorDark = "#131211"
 

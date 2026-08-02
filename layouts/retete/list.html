@@ -1,21 +1,21 @@
 {{ define "main" }}
 {{- $plan := hugo.Data.plan -}}
+{{- $R := partial "lookup.html" . -}}
 <div class="wrap">
   <div class="page-head">
-    <h1>Rețete</h1>
+    <h1>{{ .Title }}</h1>
     <p>{{ .Params.summary }}</p>
   </div>
 
   {{- range $plan.sessions }}
-    {{- $sess := . }}
     <section style="margin-bottom:var(--s-7)">
       <div class="aisle__h">
-        <h2>{{ .name }}</h2>
-        <span class="chip aisle__n">{{ .day_name }} · {{ .minutes }} min</span>
+        <h2>{{ partial "tr.html" (dict "m" . "f" "name") }}</h2>
+        <span class="chip aisle__n">{{ partial "tr.html" (dict "m" . "f" "day_name") }} · {{ .minutes }} min</span>
       </div>
       <div class="grid grid--2" style="margin-top:var(--s-4)">
         {{- range .recipes -}}
-          {{- with index (partial "lookup.html" $) .slug -}}
+          {{- with index $R .slug -}}
             {{ partial "tile.html" . }}
           {{- end -}}
         {{- end }}
@@ -23,26 +23,27 @@
     </section>
   {{- end }}
 
+  {{- /* `quick` și `side` stau doar în varianta română a rețetei, deci se citesc prin calc,
+         nu direct din pagina curentă — altfel secțiunile ar fi goale pe engleză. */ -}}
   <section style="margin-bottom:var(--s-7)">
     <div class="aisle__h">
-      <h2>Rapide</h2>
-      <span class="chip aisle__n">fără sesiune</span>
+      <h2>{{ T "l_quick" }}</h2>
+      <span class="chip aisle__n">{{ T "l_no_session" }}</span>
     </div>
     <div class="grid grid--2" style="margin-top:var(--s-4)">
-      {{- range where (where site.RegularPages "Section" "retete") "Params.quick" true }}
-        {{ partial "tile.html" . }}
+      {{- range where site.RegularPages "Section" "retete" }}
+        {{- if (partial "calc/recipe.html" .).quick }}{{ partial "tile.html" . }}{{ end }}
       {{- end }}
     </div>
   </section>
 
-  {{- $sides := where (where site.RegularPages "Section" "retete") "Params.side" true }}
-  {{- with $sides }}
   <section style="margin-bottom:var(--s-7)">
-    <div class="aisle__h"><h2>Garnituri</h2></div>
+    <div class="aisle__h"><h2>{{ T "l_sides" }}</h2></div>
     <div class="grid grid--2" style="margin-top:var(--s-4)">
-      {{- range . }}{{ partial "tile.html" . }}{{ end }}
+      {{- range where site.RegularPages "Section" "retete" }}
+        {{- if (partial "calc/recipe.html" .).side }}{{ partial "tile.html" . }}{{ end }}
+      {{- end }}
     </div>
   </section>
-  {{- end }}
 </div>
 {{ end }}

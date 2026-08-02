@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ro" data-theme="">
+<html lang="{{ site.Language.Lang }}" data-theme="" data-locale="{{ site.Params.localeTag }}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -13,6 +13,9 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="{{ site.Title }}">
 <meta name="format-detection" content="telephone=no">
+{{- range .AllTranslations }}
+<link rel="alternate" hreflang="{{ .Lang }}" href="{{ .Permalink }}">
+{{- end }}
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
 <link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
@@ -24,17 +27,20 @@
 try { var t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
 </script>
 </head>
-<body class="{{ .Params.bodyClass }}">
+{{- /* Fiecare limbă are propriul /app.json, cu numele de ingrediente și textele traduse.
+       JS-ul îl citește de aici, nu dintr-o cale fixă. */ -}}
+<body class="{{ .Params.bodyClass }}" data-app="{{ (site.Home.OutputFormats.Get "json").RelPermalink }}">
 {{ partial "icons.html" . }}
 
 <header class="appbar" id="appbar">
   <div class="appbar__in">
     {{- with .Params.back }}
-      <a class="iconbtn" href="{{ . }}" aria-label="Înapoi">{{ partial "icon.html" "back" }}</a>
+      <a class="iconbtn" href="{{ . }}" aria-label="{{ T "back" }}">{{ partial "icon.html" "back" }}</a>
     {{- end }}
     <span class="appbar__title">{{ .Params.appbarTitle | default site.Title }}</span>
     <span class="appbar__spacer"></span>
-    <button class="iconbtn" id="themeBtn" type="button" aria-label="Schimbă tema">
+    {{ partial "lang-switch.html" . }}
+    <button class="iconbtn" id="themeBtn" type="button" aria-label="{{ T "theme_toggle" }}">
       <span data-theme-icon="light">{{ partial "icon.html" "moon" }}</span>
       <span data-theme-icon="dark" class="hidden">{{ partial "icon.html" "sun" }}</span>
     </button>

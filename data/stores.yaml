@@ -1,32 +1,44 @@
 # Magazine și raioane.
 # `order` = ordinea în care parcurgi magazinul, ca lista de cumpărături să fie un drum,
 # nu un du-te-vino între raioane.
+#
+# Câmpurile `_en` sunt versiunea afișată când site-ul e pe engleză. Denumirile de raion
+# urmează felul în care sunt semnalizate raioanele în magazinele de aici, nu o traducere
+# literală din română — de asta „Băcănie" e „Grocery", nu „Pantry".
 
 aisles:
-  produce: { name: "Fructe și legume", icon: "leaf",   order: 1 }
-  meat:    { name: "Carne",            icon: "meat",   order: 2 }
-  fish:    { name: "Pește",            icon: "fish",   order: 3 }
-  dairy:   { name: "Lactate și ouă",   icon: "dairy",  order: 4 }
-  frozen:  { name: "Congelate",        icon: "frozen", order: 5 }
-  pantry:  { name: "Băcănie",          icon: "can",    order: 6 }
-  spices:  { name: "Condimente",       icon: "spice",  order: 7 }
+  produce: { name: "Fructe și legume", name_en: "Fruit & veg",  icon: "leaf",   order: 1 }
+  meat:    { name: "Carne",            name_en: "Meat",         icon: "meat",   order: 2 }
+  fish:    { name: "Pește",            name_en: "Fish",         icon: "fish",   order: 3 }
+  dairy:   { name: "Lactate și ouă",   name_en: "Dairy & eggs", icon: "dairy",  order: 4 }
+  frozen:  { name: "Congelate",        name_en: "Frozen",       icon: "frozen", order: 5 }
+  pantry:  { name: "Băcănie",          name_en: "Grocery",      icon: "can",    order: 6 }
+  spices:  { name: "Condimente",       name_en: "Spices",       icon: "spice",  order: 7 }
 
 stores:
   tesco:
     name: "Tesco"
+    name_en: "Tesco"
     primary: true
     note: "Magazinul principal. Ia tot de aici dacă nu ai chef de al doilea drum."
+    note_en: "The main shop. Get everything here if you don't fancy a second trip."
   lidl:
     name: "Lidl"
+    name_en: "Lidl"
     primary: false
     note: "Legume, ouă și uleiuri sunt mai ieftine. Merită doar dacă oricum treci pe acolo."
+    note_en: "Veg, eggs and oils are cheaper. Only worth it if you pass by anyway."
   aldi:
     name: "Aldi"
+    name_en: "Aldi"
     primary: false
     note: "Apare doar când are o diferență mare la un produs scump."
+    note_en: "Shows up only when it beats the others by a lot on something expensive."
 
 strategy:
   # Sub acest prag, site-ul recomandă explicit un singur magazin.
   min_saving_for_second_trip: 8.00
   verdict_single: "Diferența nu merită un drum în plus. Ia tot dintr-un loc."
+  verdict_single_en: "Not worth a second trip. Get the lot in one place."
   verdict_split: "Merită împărțit — economisești destul cât să conteze."
+  verdict_split_en: "Worth splitting — you save enough for it to matter."

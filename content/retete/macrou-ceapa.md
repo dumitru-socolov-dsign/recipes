@@ -11,7 +11,7 @@ tags: ["plită", "pește", "ieftin", "omega-3", "rapid"]
 ingredients:
   - group: "Pește"
     items:
-      - { key: mackerel_tinned, qty: 250, unit: g }
+      - { key: mackerel_tinned, qty: 280, unit: g }
   - group: "Legume"
     items:
       - { key: onion, qty: 250, unit: g }

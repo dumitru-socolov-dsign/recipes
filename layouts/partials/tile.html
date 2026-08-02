@@ -1,8 +1,8 @@
 {{- /* Card de rețetă. Intrare: pagina rețetei. */ -}}
 {{- $p := . -}}
 {{- $c := partial "calc/recipe.html" $p -}}
-{{- $img := resources.Get (printf "img/retete/%s.jpg" ($p.Params.image | default "x")) -}}
-<a class="tile tile--{{ $p.Params.tint | default "amber" }}" href="{{ $p.RelPermalink }}">
+{{- $img := resources.Get (printf "img/retete/%s.jpg" ($c.image | default "x")) -}}
+<a class="tile tile--{{ $c.tint }}" href="{{ $p.RelPermalink }}">
   <div class="tile__media"{{ with $img }} style="background-image:url({{ (.Resize "600x q72 webp").RelPermalink }})"{{ end }}>
     {{- if not $img }}<span class="tile__glyph" aria-hidden="true">{{ substr $p.Title 0 1 }}</span>{{ end }}
   </div>
@@ -10,7 +10,7 @@
     <div class="tile__title">{{ $p.Title }}</div>
     <div class="tile__meta">
       <span>{{ partial "icon.html" "clock" }}{{ $c.timeTotal }} min</span>
-      <span>{{ partial "icon.html" "flame" }}{{ lang.FormatNumber 0 $c.perServing.kcal }} kcal</span>
+      <span>{{ partial "icon.html" "flame" }}{{ lang.FormatNumber 0 $c.perServing.kcal }} {{ T "u_kcal" }}</span>
       <span>{{ partial "icon.html" "euro" }}{{ lang.FormatNumber 2 $c.costPerServing }}</span>
     </div>
   </div>

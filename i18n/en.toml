@@ -1,0 +1,153 @@
+# Interface strings, English.
+# Ingredient names, aisle names and the plan's own text live in data/*.yaml as `x` / `x_en`
+# pairs, so each string stays next to the number it describes.
+#
+# Keys starting with `js_` are shipped in /app.json and used from the browser.
+
+# ── navigation and chrome ──
+nav_today = "Today"
+nav_recipes = "Recipes"
+nav_shopping = "Shopping"
+nav_settings = "Settings"
+nav_main = "Main navigation"
+back = "Back"
+theme_toggle = "Switch theme"
+lang_switch = "Treci pe română"
+lang_switch_short = "RO"
+
+# ── home ──
+home_heading = "Today you eat"
+home_made_fresh = "made on the spot"
+home_day_total = "Day total"
+home_next_session = "Next cooking session"
+home_today = "Today"
+home_tomorrow = "Tomorrow"
+home_session_meta = "{{ .minutes }} minutes, {{ .count }} recipes in parallel"
+home_shopping_list = "Shopping list"
+home_see_plan = "See the week's plan"
+
+# ── units and nutrition labels ──
+u_kcal = "kcal"
+u_protein = "protein g"
+u_fat = "fat g"
+u_carbs = "carbs g"
+u_sodium = "sodium mg"
+u_euro = "euro"
+u_pieces = "pcs"
+n_calories = "Calories"
+n_protein = "Protein"
+n_sodium = "Sodium"
+n_potassium = "Potassium"
+n_phosphorus = "Phosphorus"
+n_fibre = "Fibre"
+
+# ── recipe page ──
+r_min_total = "min total"
+r_min_hands = "min hands-on"
+r_cost_total = "in total"
+r_servings = "Portions"
+r_servings_help = "Quantities and the shopping list are recalculated"
+r_servings_group = "Number of portions"
+r_servings_less = "Fewer portions"
+r_servings_more = "More portions"
+r_per_serving = "One portion"
+r_meters_note = "Against one meal out of three, at your daily targets. For fibre a full bar is the good thing; for the rest it's the opposite."
+r_ingredients = "Ingredients"
+r_flag_sodium = "· sodium"
+r_flag_phosphorus = "· phosphorus"
+r_flag_sodium_title = "Significant source of sodium"
+r_flag_phosphorus_title = "Significant source of phosphorus"
+r_how = "How it's made"
+r_steps_count = "{{ . }} steps"
+r_start_cooking = "Start cooking"
+r_cook_help = "Big screen, one step at a time, with timers. The screen stays awake."
+r_photo_by = "Photo:"
+r_photo_fallback = "photograph"
+r_photo_author = "by"
+r_photo_license = "licence"
+
+# ── recipe list ──
+l_quick = "Quick"
+l_no_session = "no session"
+l_sides = "Sides"
+
+# ── plan ──
+p_week_food = "The week's food"
+p_week_help = "What you actually eat in seven days: the three sessions, breakfast every morning and the quick meals. You pay more at the till because you buy whole packs — but the surplus rolls into next week, so over time this is the number that counts. The first time you also add"
+p_week_help_tail = "of store-cupboard: oils, vinegar, spices."
+p_interleaved = "{{ .count }} recipes run interleaved. Cooked one after another they would take {{ .sum }} minutes; interleaved, they come out in {{ .minutes }}."
+p_covers = "Covers"
+p_list_for = "List for {{ . }}"
+p_outside_sessions = "Outside the sessions"
+p_daily = "Every day"
+
+# ── cook mode ──
+c_mode = "Cook mode"
+c_exit = "Leave cook mode"
+c_step = "Step {{ . }}"
+c_start_timer = "Start the timer"
+c_next = "Next"
+
+# ── settings ──
+s_kcal = "Calories a day"
+s_protein = "Protein a day"
+s_sodium = "Sodium a day"
+s_remember = "Worth remembering"
+s_your_data = "Your data"
+s_privacy = "Settings, ticked items and cooking progress are saved only in this browser's memory. Nothing goes anywhere, there is no server to receive it and nobody can read it remotely. Clear your browser data and it's gone."
+s_reset = "Back to the defaults"
+s_wipe = "Erase everything saved locally"
+
+# ── shopping (server) ──
+sh_loading = "Working out the list…"
+
+# ── shopping and cook mode (browser, via /app.json) ──
+js_week = "The week"
+js_scope_label = "What you're buying"
+js_notice_week = "One trip to the shop covers the whole week. These are the whole packs you put in the trolley."
+js_notice_session = "What you need on the table for this cooking day. If you did the weekly shop you already have it all — this is just the checklist."
+js_stale = "These prices are {days} days old, so they're estimates rather than today's prices. Run <b>npm run prices:refresh</b> to freshen them."
+js_split = "Split between shops"
+js_split_yes = "You save {sum}."
+js_split_no = "You'd save {sum}."
+js_pantry_suffix = "· store-cupboard"
+js_pantry_note = "<b>Store-cupboard.</b> Oils, vinegar, spices. Bought once every few months, not every week. The first time costs something; after that, almost nothing."
+js_leftover = "· you use {used}, {left} left over"
+js_total_till = "To pay at the till"
+js_total_used = "Value consumed · {label}"
+js_total_note = "The food you actually eat comes to {used} — that's the real weekly spend, the rest stays in the cupboard.<br>The first time you also add {pantry} of store-cupboard."
+js_clear_checks = "Clear the ticks"
+js_portions = "Portions"
+js_portions_help = "How much of each you cook. It's remembered and rewrites everything below."
+js_portions_edited = "You've changed the portions from the plan."
+js_portions_reset = "Back to the plan"
+js_serving_one = "portion"
+js_serving_many = "portions"
+js_wipe_confirm = "Erase everything saved on this phone? Settings, ticks, cooking progress."
+js_step = "Step {n}"
+js_done = "Done"
+js_next = "Next"
+js_timer_done = "Done — reset"
+js_timer_stop = "Stop"
+js_timer_start = "Start the timer"
+
+# ── months (Today page) ──
+month_1 = "January"
+month_2 = "February"
+month_3 = "March"
+month_4 = "April"
+month_5 = "May"
+month_6 = "June"
+month_7 = "July"
+month_8 = "August"
+month_9 = "September"
+month_10 = "October"
+month_11 = "November"
+month_12 = "December"
+
+# ── 404 ──
+e404_label = "Error 404"
+e404_title = "This page doesn't exist"
+e404_body = "You may have mistyped the address, or the recipe was renamed."
+e404_home = "Back to what you're eating today"
+e404_recipes = "See all the recipes"

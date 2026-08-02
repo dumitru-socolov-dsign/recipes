@@ -1,0 +1,16 @@
+{{- /*
+  Alege varianta de limbă a unui câmp dintr-o hartă din data/.
+  Intrare: dict "m" (harta) "f" (numele câmpului)
+  Pe română returnează `f`; pe engleză returnează `f_en` dacă există, altfel tot `f`.
+
+  Perechile stau în același fișier YAML, una sub alta, ca traducerea să fie lângă
+  numărul sau cheia pe care o descrie și să se vadă imediat când una lipsește.
+*/ -}}
+{{- $m := .m -}}
+{{- $v := index $m .f -}}
+{{- if ne site.Language.Lang "ro" -}}
+  {{- with index $m (printf "%s_%s" .f site.Language.Lang) -}}
+    {{- $v = . -}}
+  {{- end -}}
+{{- end -}}
+{{- return $v -}}

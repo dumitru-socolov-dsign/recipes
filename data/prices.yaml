@@ -21,215 +21,220 @@ meta:
 items:
   # ── carne ──
   chicken_thigh_bone_in:
-    pack: { size: 1000, unit: g, label: "tavă ~1 kg" }
+    pack: { size: 1000, unit: g, label: "tavă ~1 kg", label_en: "~1 kg tray" }
     stores:
       tesco: { price: 5.00, updated: "2026-08-02", source: baseline }
       lidl:  { price: 4.79, updated: "2026-08-02", source: baseline }
       aldi:  { price: 4.79, updated: "2026-08-02", source: baseline }
   chicken_thigh_boneless:
-    pack: { size: 600, unit: g, label: "tavă 600 g" }
+    pack: { size: 600, unit: g, label: "tavă 600 g", label_en: "600 g tray" }
     stores:
       tesco: { price: 5.50, updated: "2026-08-02", source: baseline }
       lidl:  { price: 5.29, updated: "2026-08-02", source: baseline }
   pork_shoulder:
-    pack: { size: 500, unit: g, label: "bucată ~500 g" }
+    pack: { size: 500, unit: g, label: "bucată ~500 g", label_en: "~500 g piece" }
     stores:
       tesco: { price: 3.30, updated: "2026-08-02", source: baseline }
       lidl:  { price: 3.15, updated: "2026-08-02", source: baseline }
+  pork_belly:
+    pack: { size: 500, unit: g, label: "bucată ~500 g", label_en: "~500 g piece" }
+    stores:
+      tesco: { price: 3.00, updated: "2026-08-02", source: baseline }
+      lidl:  { price: 2.75, updated: "2026-08-02", source: baseline }
   beef_mince_20:
-    pack: { size: 500, unit: g, label: "pachet 500 g" }
+    pack: { size: 500, unit: g, label: "pachet 500 g", label_en: "500 g pack" }
     stores:
       tesco: { price: 3.95, updated: "2026-08-02", source: baseline }
       lidl:  { price: 3.79, updated: "2026-08-02", source: baseline }
   pork_sausage:
-    pack: { size: 400, unit: g, label: "pachet 400 g (6–8 buc)" }
+    pack: { size: 400, unit: g, label: "pachet 400 g (6–8 buc)", label_en: "400 g pack (6–8)" }
     stores:
       tesco: { price: 2.60, updated: "2026-08-02", source: baseline }
       lidl:  { price: 2.29, updated: "2026-08-02", source: baseline }
 
   # ── pește ──
   salmon_fillet:
-    pack: { size: 240, unit: g, label: "2 file ~240 g" }
+    pack: { size: 240, unit: g, label: "2 file ~240 g", label_en: "2 fillets ~240 g" }
     stores:
       tesco: { price: 5.00, updated: "2026-08-02", source: baseline }
       lidl:  { price: 4.79, updated: "2026-08-02", source: baseline }
   mackerel_tinned:
-    pack: { size: 125, unit: g, label: "conservă 125 g" }
+    pack: { size: 125, unit: g, label: "conservă 125 g", label_en: "125 g tin" }
     stores:
       tesco: { price: 1.30, updated: "2026-08-02", source: baseline }
       lidl:  { price: 1.09, updated: "2026-08-02", source: baseline }
   sardines_tinned:
-    pack: { size: 120, unit: g, label: "conservă 120 g" }
+    pack: { size: 120, unit: g, label: "conservă 120 g", label_en: "120 g tin" }
     stores:
       tesco: { price: 1.40, updated: "2026-08-02", source: baseline }
       lidl:  { price: 1.19, updated: "2026-08-02", source: baseline }
 
   # ── lactate & ouă ──
   egg:
-    pack: { size: 720, unit: g, label: "cutie 12 ouă mari" }
+    pack: { size: 720, unit: g, label: "cutie 12 ouă mari", label_en: "box of 12 large" }
     stores:
       tesco: { price: 3.40, updated: "2026-08-02", source: baseline }
       lidl:  { price: 3.19, updated: "2026-08-02", source: baseline }
   butter_unsalted:
-    pack: { size: 227, unit: g, label: "pachet 227 g" }
+    pack: { size: 227, unit: g, label: "pachet 227 g", label_en: "227 g pack" }
     stores:
       tesco: { price: 2.15, updated: "2026-08-02", source: baseline }
       lidl:  { price: 1.99, updated: "2026-08-02", source: baseline }
   cooking_cream:
-    pack: { size: 250, unit: ml, label: "cutie 250 ml" }
+    pack: { size: 250, unit: ml, label: "cutie 250 ml", label_en: "250 ml carton" }
     stores:
       tesco: { price: 1.35, updated: "2026-08-02", source: baseline }
       lidl:  { price: 1.19, updated: "2026-08-02", source: baseline }
   double_cream:
-    pack: { size: 300, unit: ml, label: "cutie 300 ml" }
+    pack: { size: 300, unit: ml, label: "cutie 300 ml", label_en: "300 ml carton" }
     stores:
       tesco: { price: 1.65, updated: "2026-08-02", source: baseline }
       lidl:  { price: 1.45, updated: "2026-08-02", source: baseline }
 
   # ── băcănie ──
   pork_lard:
-    pack: { size: 250, unit: g, label: "pachet 250 g" }
+    pack: { size: 250, unit: g, label: "pachet 250 g", label_en: "250 g pack" }
     stores:
       tesco: { price: 1.45, updated: "2026-08-02", source: baseline }
       lidl:  { price: 1.25, updated: "2026-08-02", source: baseline }
   walnuts:
-    pack: { size: 200, unit: g, label: "pungă 200 g" }
+    pack: { size: 200, unit: g, label: "pungă 200 g", label_en: "200 g bag" }
     stores:
       tesco: { price: 2.75, updated: "2026-08-02", source: baseline }
       lidl:  { price: 2.29, updated: "2026-08-02", source: baseline }
   rapeseed_oil:
-    pack: { size: 1000, unit: ml, label: "sticlă 1 L" }
+    pack: { size: 1000, unit: ml, label: "sticlă 1 L", label_en: "1 L bottle" }
     stores:
       tesco: { price: 2.99, updated: "2026-08-02", source: baseline }
       lidl:  { price: 2.69, updated: "2026-08-02", source: baseline }
   olive_oil:
-    pack: { size: 500, unit: ml, label: "sticlă 500 ml" }
+    pack: { size: 500, unit: ml, label: "sticlă 500 ml", label_en: "500 ml bottle" }
     stores:
       tesco: { price: 4.75, updated: "2026-08-02", source: baseline }
       lidl:  { price: 3.99, updated: "2026-08-02", source: baseline }
   tomato_paste:
-    pack: { size: 200, unit: g, label: "tub / conservă 200 g" }
+    pack: { size: 200, unit: g, label: "tub / conservă 200 g", label_en: "200 g tube or tin" }
     stores:
       tesco: { price: 1.10, updated: "2026-08-02", source: baseline }
       lidl:  { price: 0.89, updated: "2026-08-02", source: baseline }
   apple_vinegar:
-    pack: { size: 500, unit: ml, label: "sticlă 500 ml" }
+    pack: { size: 500, unit: ml, label: "sticlă 500 ml", label_en: "500 ml bottle" }
     stores:
       tesco: { price: 1.60, updated: "2026-08-02", source: baseline }
       lidl:  { price: 1.29, updated: "2026-08-02", source: baseline }
   dijon_mustard:
-    pack: { size: 215, unit: g, label: "borcan 215 g" }
+    pack: { size: 215, unit: g, label: "borcan 215 g", label_en: "215 g jar" }
     stores:
       tesco: { price: 1.85, updated: "2026-08-02", source: baseline }
       lidl:  { price: 1.49, updated: "2026-08-02", source: baseline }
 
   # ── legume ──
   onion:
-    pack: { size: 1000, unit: g, label: "plasă 1 kg" }
+    pack: { size: 1000, unit: g, label: "plasă 1 kg", label_en: "1 kg net" }
     stores:
       tesco: { price: 1.35, updated: "2026-08-02", source: baseline }
       lidl:  { price: 1.09, updated: "2026-08-02", source: baseline }
   red_onion:
-    pack: { size: 500, unit: g, label: "plasă 500 g" }
+    pack: { size: 500, unit: g, label: "plasă 500 g", label_en: "500 g net" }
     stores:
       tesco: { price: 1.25, updated: "2026-08-02", source: baseline }
       lidl:  { price: 0.99, updated: "2026-08-02", source: baseline }
   carrot:
-    pack: { size: 1000, unit: g, label: "plasă 1 kg" }
+    pack: { size: 1000, unit: g, label: "plasă 1 kg", label_en: "1 kg net" }
     stores:
       tesco: { price: 1.20, updated: "2026-08-02", source: baseline }
       lidl:  { price: 0.95, updated: "2026-08-02", source: baseline }
   cabbage_white:
-    pack: { size: 900, unit: g, label: "o căpățână ~900 g" }
+    pack: { size: 900, unit: g, label: "o căpățână ~900 g", label_en: "1 head ~900 g" }
     stores:
       tesco: { price: 1.30, updated: "2026-08-02", source: baseline }
       lidl:  { price: 0.99, updated: "2026-08-02", source: baseline }
   courgette:
-    pack: { size: 300, unit: g, label: "2 bucăți ~300 g" }
+    pack: { size: 300, unit: g, label: "2 bucăți ~300 g", label_en: "2 pcs ~300 g" }
     stores:
       tesco: { price: 1.25, updated: "2026-08-02", source: baseline }
       lidl:  { price: 0.99, updated: "2026-08-02", source: baseline }
   pepper_red:
-    pack: { size: 375, unit: g, label: "3 bucăți ~375 g" }
+    pack: { size: 375, unit: g, label: "3 bucăți ~375 g", label_en: "3 pcs ~375 g" }
     stores:
       tesco: { price: 2.20, updated: "2026-08-02", source: baseline }
       lidl:  { price: 1.79, updated: "2026-08-02", source: baseline }
   mushrooms:
-    pack: { size: 250, unit: g, label: "tăviță 250 g" }
+    pack: { size: 250, unit: g, label: "tăviță 250 g", label_en: "250 g punnet" }
     stores:
       tesco: { price: 1.45, updated: "2026-08-02", source: baseline }
       lidl:  { price: 1.19, updated: "2026-08-02", source: baseline }
   garlic:
-    pack: { size: 150, unit: g, label: "3 căpățâni" }
+    pack: { size: 150, unit: g, label: "3 căpățâni", label_en: "3 bulbs" }
     stores:
       tesco: { price: 1.40, updated: "2026-08-02", source: baseline }
       lidl:  { price: 1.09, updated: "2026-08-02", source: baseline }
   lemon:
-    pack: { size: 400, unit: g, label: "plasă 4 bucăți" }
+    pack: { size: 400, unit: g, label: "plasă 4 bucăți", label_en: "net of 4" }
     stores:
       tesco: { price: 1.60, updated: "2026-08-02", source: baseline }
       lidl:  { price: 1.29, updated: "2026-08-02", source: baseline }
   parsley:
-    pack: { size: 30, unit: g, label: "legătură 30 g" }
+    pack: { size: 30, unit: g, label: "legătură 30 g", label_en: "30 g bunch" }
     stores:
       tesco: { price: 0.95, updated: "2026-08-02", source: baseline }
       lidl:  { price: 0.79, updated: "2026-08-02", source: baseline }
 
   # ── congelate ──
   broccoli_frozen:
-    pack: { size: 900, unit: g, label: "pungă 900 g" }
+    pack: { size: 900, unit: g, label: "pungă 900 g", label_en: "900 g bag" }
     stores:
       tesco: { price: 1.75, updated: "2026-08-02", source: baseline }
       lidl:  { price: 1.49, updated: "2026-08-02", source: baseline }
   cauliflower_frozen:
-    pack: { size: 900, unit: g, label: "pungă 900 g" }
+    pack: { size: 900, unit: g, label: "pungă 900 g", label_en: "900 g bag" }
     stores:
       tesco: { price: 1.65, updated: "2026-08-02", source: baseline }
       lidl:  { price: 1.39, updated: "2026-08-02", source: baseline }
   green_beans_frozen:
-    pack: { size: 900, unit: g, label: "pungă 900 g" }
+    pack: { size: 900, unit: g, label: "pungă 900 g", label_en: "900 g bag" }
     stores:
       tesco: { price: 1.85, updated: "2026-08-02", source: baseline }
       lidl:  { price: 1.55, updated: "2026-08-02", source: baseline }
 
   # ── condimente (se cumpără rar, costul pe rețetă e neglijabil) ──
   salt:
-    pack: { size: 750, unit: g, label: "cutie 750 g" }
+    pack: { size: 750, unit: g, label: "cutie 750 g", label_en: "750 g box" }
     stores:
       tesco: { price: 0.85, updated: "2026-08-02", source: baseline }
   black_pepper:
-    pack: { size: 50, unit: g, label: "borcan 50 g" }
+    pack: { size: 50, unit: g, label: "borcan 50 g", label_en: "50 g jar" }
     stores:
       tesco: { price: 1.75, updated: "2026-08-02", source: baseline }
   paprika_smoked:
-    pack: { size: 45, unit: g, label: "borcan 45 g" }
+    pack: { size: 45, unit: g, label: "borcan 45 g", label_en: "45 g jar" }
     stores:
       tesco: { price: 1.60, updated: "2026-08-02", source: baseline }
   paprika_sweet:
-    pack: { size: 45, unit: g, label: "borcan 45 g" }
+    pack: { size: 45, unit: g, label: "borcan 45 g", label_en: "45 g jar" }
     stores:
       tesco: { price: 1.40, updated: "2026-08-02", source: baseline }
   cumin:
-    pack: { size: 40, unit: g, label: "borcan 40 g" }
+    pack: { size: 40, unit: g, label: "borcan 40 g", label_en: "40 g jar" }
     stores:
       tesco: { price: 1.50, updated: "2026-08-02", source: baseline }
   caraway:
-    pack: { size: 35, unit: g, label: "borcan 35 g" }
+    pack: { size: 35, unit: g, label: "borcan 35 g", label_en: "35 g jar" }
     stores:
       tesco: { price: 1.50, updated: "2026-08-02", source: baseline }
   rosemary_dried:
-    pack: { size: 20, unit: g, label: "borcan 20 g" }
+    pack: { size: 20, unit: g, label: "borcan 20 g", label_en: "20 g jar" }
     stores:
       tesco: { price: 1.45, updated: "2026-08-02", source: baseline }
   thyme_dried:
-    pack: { size: 20, unit: g, label: "borcan 20 g" }
+    pack: { size: 20, unit: g, label: "borcan 20 g", label_en: "20 g jar" }
     stores:
       tesco: { price: 1.45, updated: "2026-08-02", source: baseline }
   bay_leaf:
-    pack: { size: 10, unit: g, label: "borcan 10 g" }
+    pack: { size: 10, unit: g, label: "borcan 10 g", label_en: "10 g jar" }
     stores:
       tesco: { price: 1.30, updated: "2026-08-02", source: baseline }
   chili_flakes:
-    pack: { size: 35, unit: g, label: "borcan 35 g" }
+    pack: { size: 35, unit: g, label: "borcan 35 g", label_en: "35 g jar" }
     stores:
       tesco: { price: 1.40, updated: "2026-08-02", source: baseline }

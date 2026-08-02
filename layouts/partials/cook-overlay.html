@@ -1,27 +1,27 @@
 {{- /* Scheletul modului de gătit. Se umple din JS; există pe fiecare pagină ca să
        poți relua o sesiune întreruptă de oriunde. */ -}}
-<div class="cook" id="cook" role="dialog" aria-modal="true" aria-label="Mod gătit" hidden>
+<div class="cook" id="cook" role="dialog" aria-modal="true" aria-label="{{ T "c_mode" }}" hidden>
   <div class="cook__bar">
-    <button class="iconbtn" type="button" data-cook="close" aria-label="Ieși din modul gătit">{{ partial "icon.html" "close" }}</button>
+    <button class="iconbtn" type="button" data-cook="close" aria-label="{{ T "c_exit" }}">{{ partial "icon.html" "close" }}</button>
     <div class="cook__prog"><i id="cookProg" style="width:0%"></i></div>
     <span class="cook__count" id="cookCount">1/1</span>
   </div>
 
   <div class="cook__body">
-    <div class="cook__n" id="cookLabel">Pasul 1</div>
+    <div class="cook__n" id="cookLabel">{{ T "c_step" 1 }}</div>
     <div class="cook__text" id="cookText"></div>
     <div class="cook__tip hidden" id="cookTip"></div>
 
     <div class="cook__timer hidden" id="cookTimerBox">
       <div class="clock" id="cookClock">00:00</div>
       <button class="btn btn--primary" type="button" data-cook="timer" id="cookTimerBtn">
-        {{ partial "icon.html" "play" }}<span>Pornește timerul</span>
+        {{ partial "icon.html" "play" }}<span>{{ T "c_start_timer" }}</span>
       </button>
     </div>
   </div>
 
   <div class="cook__foot">
-    <button class="btn" type="button" data-cook="prev">{{ partial "icon.html" "back" }}<span>Înapoi</span></button>
-    <button class="btn btn--primary" type="button" data-cook="next"><span>Următorul</span>{{ partial "icon.html" "next" }}</button>
+    <button class="btn" type="button" data-cook="prev">{{ partial "icon.html" "back" }}<span>{{ T "back" }}</span></button>
+    <button class="btn btn--primary" type="button" data-cook="next"><span>{{ T "c_next" }}</span>{{ partial "icon.html" "next" }}</button>
   </div>
 </div>

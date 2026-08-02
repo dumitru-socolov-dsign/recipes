@@ -1,8 +1,12 @@
 {{- $cur := .RelPermalink -}}
 {{- $sec := .Section -}}
-<nav class="tabbar" aria-label="Navigare principală">
-  <a href="/"              {{ if eq $cur "/" }}aria-current="page"{{ end }}>{{ partial "icon.html" "today" }}<span>Azi</span></a>
-  <a href="/retete/"       {{ if eq $sec "retete" }}aria-current="page"{{ end }}>{{ partial "icon.html" "book" }}<span>Rețete</span></a>
-  <a href="/cumparaturi/"  {{ if eq $cur "/cumparaturi/" }}aria-current="page"{{ end }}>{{ partial "icon.html" "cart" }}<span>Cumpărături</span></a>
-  <a href="/setari/"       {{ if eq $cur "/setari/" }}aria-current="page"{{ end }}>{{ partial "icon.html" "settings" }}<span>Setări</span></a>
+{{- $home    := site.Home -}}
+{{- $recipes := site.GetPage "/retete" -}}
+{{- $shop    := site.GetPage "/cumparaturi" -}}
+{{- $set     := site.GetPage "/setari" -}}
+<nav class="tabbar" aria-label="{{ T "nav_main" }}">
+  <a href="{{ $home.RelPermalink }}"    {{ if eq $cur $home.RelPermalink }}aria-current="page"{{ end }}>{{ partial "icon.html" "today" }}<span>{{ T "nav_today" }}</span></a>
+  <a href="{{ $recipes.RelPermalink }}" {{ if eq $sec "retete" }}aria-current="page"{{ end }}>{{ partial "icon.html" "book" }}<span>{{ T "nav_recipes" }}</span></a>
+  <a href="{{ $shop.RelPermalink }}"    {{ if eq $cur $shop.RelPermalink }}aria-current="page"{{ end }}>{{ partial "icon.html" "cart" }}<span>{{ T "nav_shopping" }}</span></a>
+  <a href="{{ $set.RelPermalink }}"     {{ if eq $cur $set.RelPermalink }}aria-current="page"{{ end }}>{{ partial "icon.html" "settings" }}<span>{{ T "nav_settings" }}</span></a>
 </nav>

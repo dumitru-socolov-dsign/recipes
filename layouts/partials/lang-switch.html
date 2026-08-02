@@ -1,0 +1,17 @@
+{{- /*
+  Comutatorul de limbă din bara de sus.
+  Duce la aceeași pagină în cealaltă limbă. Dacă pagina curentă n-are traducere, duce la
+  pagina de start a celeilalte limbi — mai bine decât un link mort.
+*/ -}}
+{{- $target := "" -}}
+{{- with .Translations -}}
+  {{- $target = (index . 0).RelPermalink -}}
+{{- end -}}
+{{- if not $target -}}
+  {{- range hugo.Sites -}}
+    {{- if ne .Language.Lang site.Language.Lang -}}
+      {{- $target = .Home.RelPermalink -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+<a class="iconbtn iconbtn--lang" href="{{ $target }}" aria-label="{{ T "lang_switch" }}" title="{{ T "lang_switch" }}">{{ T "lang_switch_short" }}</a>

@@ -1,8 +1,19 @@
 {{- /* Service worker generat la build. Versiunea cache-ului conține data build-ului,
        deci rebuild-ul zilnic de la 06:00 invalidează automat cache-ul vechi. */ -}}
+{{- /* Un singur service worker, la rădăcină, cu scope pe tot site-ul. Precache-ul cuprinde
+       AMBELE limbi: comutatorul de limbă trebuie să meargă și fără semnal, altfel jumătate
+       din aplicație dispare exact când ești în magazin, unde ai cea mai mare nevoie de ea. */ -}}
 {{- $js := resources.Get "js/app.js" | js.Build (dict "minify" true "target" "es2020") -}}
-{{- $shell := slice "/" "/retete/" "/plan/" "/cumparaturi/" "/setari/" "/app.json" "/manifest.webmanifest" "/icons/icon.svg" $js.RelPermalink -}}
-{{- range where site.RegularPages "Section" "retete" -}}{{- $shell = $shell | append .RelPermalink -}}{{- end -}}
+{{- $shell := slice "/manifest.webmanifest" "/icons/icon.svg" $js.RelPermalink -}}
+{{- range hugo.Sites -}}
+  {{- $shell = $shell | append (.Home.OutputFormats.Get "json").RelPermalink -}}
+  {{- range .Pages -}}
+    {{- if in (slice "home" "section" "page") .Kind -}}
+      {{- $shell = $shell | append .RelPermalink -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- $shell = uniq $shell -}}
 const VERSION = {{ printf "v-%s-%s" (now.Format "20060102-150405") (substr (now.Format "150405") 0 4) | jsonify }};
 const SHELL = {{ $shell | jsonify }};
 
@@ -33,7 +44,7 @@ self.addEventListener('fetch', (e) => {
 
   /* Navigări și date: rețea întâi, ca rebuild-ul zilnic să se vadă imediat;
      cache-ul e plasa de siguranță când nu ai semnal. */
-  if (isHTML(request) || url.pathname === '/app.json') {
+  if (isHTML(request) || url.pathname.endsWith('/app.json')) {
     e.respondWith((async () => {
       try {
         const net = await fetch(request);

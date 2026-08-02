@@ -1,0 +1,4 @@
+---
+title: "Today"
+appbarTitle: "Kitchen"
+---

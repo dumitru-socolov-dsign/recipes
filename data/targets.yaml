@@ -4,11 +4,13 @@
 #
 # Planul nu conține crupe, făinoase, cartofi și nici alte rădăcinoase amidonoase. Cu proteina
 # ținută sub prag, singura sursă rămasă pentru calorii e grăsimea — de aici raportul de mai jos.
+# Grăsimea vine pe cât posibil din carne grasă, nu din unt: la același plafon de proteine,
+# o bucată de piept de porc pune de două ori mai multă carne în farfurie decât una slabă.
 
 daily:
-  kcal: 3000
-  protein_g: 84
-  fat_g: 275
+  kcal: 3200
+  protein_g: 90
+  fat_g: 300
   carbs_g: 40
   fibre_g: 20
   sodium_mg: 2000
@@ -17,40 +19,61 @@ daily:
 # Praguri pentru semaforul din interfață: sub `good` = verde, între = galben, peste `max` = roșu.
 limits:
   sodium_mg:     { good: 1600, max: 2000 }
-  protein_g:     { good: 84,   max: 91 }
+  protein_g:     { good: 90,   max: 97 }
   potassium_mg:  { good: 3500, max: 4700, tracked: true, hard: false }
   phosphorus_mg: { good: 900,  max: 1200, tracked: true, hard: false }
 
 # Cum se împart caloriile pe zi. Micul dejun e fix (ouă cu cârnat), restul se împarte egal.
 meals:
-  breakfast_kcal: 640
+  breakfast_kcal: 700
   meals_per_day: 3
   default_servings: 1
 
 toggles:
-  include_nuts:    { default: true,  label: "Include nuci" }
-  limit_potassium: { default: false, label: "Limitează potasiul" }
-  low_sodium:      { default: true,  label: "Mod cu sare redusă" }
+  include_nuts:    { default: true,  label: "Include nuci",       label_en: "Include walnuts" }
+  limit_potassium: { default: false, label: "Limitează potasiul", label_en: "Limit potassium" }
+  low_sodium:      { default: true,  label: "Mod cu sare redusă", label_en: "Low-salt mode" }
 
 # Explicații scurte, afișate în Setări lângă fiecare cursor.
 copy:
-  kcal: "3000 kcal înseamnă un surplus mic peste consum — creștere lentă și constantă, fără burtă."
-  protein_g: "1.2 g pe kilogram de greutate. Suficient pentru masă musculară, fără să exagerezi. Restul caloriilor vin din grăsime."
+  kcal: "3200 kcal înseamnă un surplus peste consum — creștere lentă și constantă, fără burtă. Dacă simți că nu-ți ajunge, urcă valoarea: porțiile și lista de cumpărături se recalculează după ea."
+  kcal_en: "3200 kcal is a surplus over what you burn — slow, steady gain, no belly. If it doesn't feel like enough, push the number up: portions and the shopping list are recalculated from it."
+  protein_g: "1.2 g pe kilogram de greutate țintă. Suficient pentru masă musculară, fără să exagerezi. Restul caloriilor vin din grăsime."
+  protein_g_en: "1.2 g per kilo of target body weight. Enough to build muscle without overdoing it. The rest of the calories come from fat."
   sodium_mg: "Recomandarea OMS pentru adulți este sub 2000 mg de sodiu pe zi — adică sub 5 g de sare. Majoritatea rețetelor clasice au atât într-un singur fel de mâncare."
-  fat_g: "Peste 80% din calorii vin din grăsime, fiindcă e singurul loc de unde mai pot veni. Fără amidon în farfurie și cu proteina plafonată, restul e aritmetică."
+  sodium_mg_en: "The WHO recommends under 2000 mg of sodium a day for adults — under 5 g of salt. Most classic recipes hit that in a single dish."
+  fat_g: "Peste 80% din calorii vin din grăsime, fiindcă e singurul loc de unde mai pot veni. Fără amidon în farfurie și cu proteina plafonată, restul e aritmetică. Cea mai mare parte vine acum din carne grasă, nu din unt."
+  fat_g_en: "Over 80% of calories come from fat, because there is nowhere else left. No starch on the plate and protein capped — the rest is arithmetic. Most of it now comes from fatty meat rather than butter."
   carbs_g: "Sub 40 g pe zi, toți din legume. Nimic din crupe, făină, cartofi sau alte rădăcinoase amidonoase."
+  carbs_g_en: "Under 40 g a day, all of it from vegetables. Nothing from grains, flour, potatoes or other starchy roots."
   fibre_g: "Douăzeci de grame e ce livrează efectiv planul, nu ce recomandă manualele — acolo scrie 25–30. Fără cartofi și cereale, restul ar trebui scos din legume, iar tu le vrei în cantități mici. Dacă tranzitul se strică, prima pârghie e varza și broccoli, a doua e apa."
+  fibre_g_en: "Twenty grams is what the plan actually delivers, not what the textbooks ask for — they say 25–30. With no potatoes and no grains the rest would have to come from vegetables, and you want those kept small. If your gut slows down, cabbage and broccoli are the first lever, water the second."
   potassium_mg: "Urmărit informativ. Fără cartofi, principalele surse rămase sunt pasta de roșii, ciupercile și pătrunjelul."
-  phosphorus_mg: "Urmărit informativ. Fosforul din carne și ouă se absoarbe pe jumătate; cel din aditivi (E338–E452, în mezeluri și brânzeturi topite) se absoarbe aproape integral. Nucile și sardinele sunt sursele concentrate din plan."
-  include_nuts: "Nucile aduc aproape 400 kcal pe porție fără gătit și o parte bună din fibre. Au însă mult fosfor — dacă vrei să-l reduci, scoate-le și pune ulei de măsline în loc."
+  potassium_mg_en: "Tracked for information. With potatoes gone, the main sources left are tomato purée, mushrooms and parsley."
+  phosphorus_mg: "Urmărit informativ, și e prețul porțiilor mari de carne: mai multă carne înseamnă proporțional mai mult fosfor. Fosforul din carne și ouă se absoarbe pe jumătate; cel din aditivi (E338–E452, în mezeluri și brânzeturi topite) se absoarbe aproape integral. Nucile și sardinele sunt sursele concentrate din plan — dacă vrei să scazi, scoate întâi nucile."
+  phosphorus_mg_en: "Tracked for information, and it is the price of large meat portions: more meat means proportionally more phosphorus. Phosphorus from meat and eggs is only about half absorbed; the kind added to processed food (E338–E452) is absorbed almost completely. Walnuts and sardines are the concentrated sources here — turn the walnuts off first if you need it lower."
+  include_nuts: "Nucile aduc calorii fără gătit și o parte bună din fibre. Au însă mult fosfor — dacă vrei să-l reduci, scoate-le și pune ulei de măsline în loc."
+  include_nuts_en: "Walnuts bring calories with no cooking and a decent chunk of the fibre. They are also high in phosphorus — drop them and use olive oil instead if you need it lower."
   limit_potassium: "Mută garniturile spre varză, conopidă și fasole verde, cele mai sărace în potasiu dintre legumele din plan."
+  limit_potassium_en: "Shifts the sides towards cabbage, cauliflower and green beans — the lowest-potassium vegetables in the plan."
   low_sodium: "Taie sarea la ~1.2 g pe porție și compensează gustul cu acid, usturoi, boia afumată și rumenire bună."
+  low_sodium_en: "Cuts salt to about 1.2 g per portion and makes up for it with acid, garlic, smoked paprika and proper browning."
 
 # Sfaturi care apar în UI unde e cazul.
 tips:
   salt_substitute_warning: "Nu folosi „sare cu sodiu redus\" (LoSalt și similare). Aceea e clorură de potasiu și schimbă o problemă cu alta."
+  salt_substitute_warning_en: "Don't use low-sodium salt (LoSalt and the like). That is potassium chloride — it swaps one problem for another."
   salt_at_the_end: "Pune sarea la final, peste mâncare, nu în oală. Se simte de două ori mai tare la aceeași cantitate."
+  salt_at_the_end_en: "Salt at the end, over the food, not in the pot. The same amount tastes twice as strong."
   acid_first: "Dacă mâncarea pare fadă, încearcă întâi câteva picături de lămâie sau oțet. De nouă ori din zece, lipsea aciditatea, nu sarea."
+  acid_first_en: "If food tastes flat, try a few drops of lemon or vinegar first. Nine times out of ten what was missing was acid, not salt."
   fat_transition: "Primele două săptămâni pe atâta grăsime, scaunul poate fi moale și energia mai mică. Trece de la sine pe măsură ce crește producția de bilă. Dacă nu trece, scade grăsimea cu 30 g pe zi și urcă înapoi treptat."
+  fat_transition_en: "For the first fortnight on this much fat, stools can be loose and energy lower. It settles by itself as bile production catches up. If it doesn't, drop 30 g of fat a day and build back up slowly."
   fibre_and_water: "Fibrele fără apă înfundă, nu ajută. La atâtea fibre îți trebuie cel puțin 3 litri de apă pe zi — mai ales fiindcă nu mai vine nimic din cartofi."
+  fibre_and_water_en: "Fibre without water blocks you up rather than helping. At this level you want at least 3 litres a day — all the more so with nothing coming from potatoes."
   browning_not_salt: "Rumenirea e sursa de gust care înlocuiește sarea. Tigaie încinsă, un singur strat, și nu atinge mâncarea în primele minute."
+  browning_not_salt_en: "Browning is the flavour that replaces salt. Hot pan, single layer, and don't touch the food for the first few minutes."
+  render_the_fat: "Carnea grasă se pune în tigaie rece, pe foc mediu, singură. Grăsimea se topește și devine mediul în care gătești restul. Pe foc mare se rumenește exteriorul și înăuntru rămâne crudă."
+  render_the_fat_en: "Fatty meat goes into a cold pan on medium heat, on its own. The fat renders out and becomes the medium you cook everything else in. On high heat the outside browns while the inside stays raw."
+  portions_follow_you: "Numărul de porții ales pe o rețetă se ține minte și rescrie lista de cumpărături. Dacă îți trebuie mai mult, urcă-l acolo — nu cumpăra „încă puțin\" din cap."
+  portions_follow_you_en: "The number of portions you set on a recipe is remembered and rewrites the shopping list. If you need more, raise it there — don't buy \"a bit extra\" off the top of your head."

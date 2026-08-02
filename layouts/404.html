@@ -1,13 +1,14 @@
 {{ define "main" }}
+{{- $recipes := site.GetPage "/retete" -}}
 <div class="wrap">
   <div class="page-head" style="padding-top:var(--s-8)">
-    <div class="label">Eroare 404</div>
-    <h1 style="margin-top:var(--s-2)">Pagina asta nu există</h1>
-    <p>Poate ai schimbat adresa din greșeală, sau rețeta a fost redenumită.</p>
+    <div class="label">{{ T "e404_label" }}</div>
+    <h1 style="margin-top:var(--s-2)">{{ T "e404_title" }}</h1>
+    <p>{{ T "e404_body" }}</p>
   </div>
   <div class="stack" style="margin-top:var(--s-5)">
-    <a class="btn btn--primary btn--block" href="/">Înapoi la ce mănânci azi</a>
-    <a class="btn btn--block" href="/retete/">Vezi toate rețetele</a>
+    <a class="btn btn--primary btn--block" href="{{ site.Home.RelPermalink }}">{{ T "e404_home" }}</a>
+    <a class="btn btn--block" href="{{ $recipes.RelPermalink }}">{{ T "e404_recipes" }}</a>
   </div>
 </div>
 {{ end }}

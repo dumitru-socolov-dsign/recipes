@@ -11,19 +11,19 @@ tags: ["cuptor", "pește", "omega-3", "rapid"]
 ingredients:
   - group: "Pește"
     items:
-      - { key: salmon_fillet, qty: 180, unit: g }
+      - { key: salmon_fillet, qty: 240, unit: g }
   - group: "Legume"
     items:
       - { key: green_beans_frozen, qty: 300, unit: g }
       - { key: courgette, qty: 300, unit: g }
       - { key: lemon, qty: 2, unit: buc }
       - { key: garlic, qty: 3, unit: buc }
-      - { key: parsley, qty: 10, unit: g }
+      - { key: parsley, qty: 5, unit: g }
   - group: "Grăsimi și condimente"
     items:
-      - { key: butter_unsalted, qty: 145, unit: g }
+      - { key: butter_unsalted, qty: 165, unit: g }
       - { key: olive_oil, qty: 45, unit: ml }
-      - { key: walnuts, qty: 60, unit: g }
+      - { key: walnuts, qty: 20, unit: g }
       - { key: salt, qty: 2, unit: g }
       - { key: black_pepper, qty: 1, unit: g }
 steps:
@@ -43,7 +43,7 @@ steps:
   - text: "Cât stă în cuptor, prăjește nucile într-o tigaie uscată, pe foc mediu, 3 minute, scuturând tigaia. Când miros, sunt gata. Toacă-le grosier."
     timer: 180
     hands: true
-    tip: "Nucile crude sunt doar grase. Prăjite 3 minute devin ingredient — și sunt 400 de calorii pe care nu trebuie să le gătești."
+    tip: "Nucile crude sunt doar grase. Prăjite 3 minute devin ingredient: se aud sub dinte și miros a nucă, nu a dulap."
   - text: "Scoate tava. Pune restul de unt peste legume, presară sarea peste tot, stoarce a doua lămâie, toarnă restul de ulei de măsline."
     hands: true
     timer: 120
@@ -55,13 +55,14 @@ steps:
 O dată pe săptămână, și doar o dată. Somonul e cea mai scumpă proteină din listă — dar
 grăsimile lui omega-3 sunt singurul lucru pe care restul rețetelor nu-l pot da.
 
-**Porție mai mică decât te-ai aștepta.** Nouăzeci de grame de somon per porție par puțin.
-Sunt de ajuns: caloriile vin din unt, ulei și nuci, iar peștele e acolo pentru grăsimile lui,
-nu pentru volum. Așa costă cinci euro în loc de zece.
+**Singura masă din săptămână cu mai puțină carne, și e intenționat.** O sută douăzeci de
+grame de somon per porție e mai puțin decât ai la porc sau la pui, fiindcă somonul costă de
+trei ori mai mult pe kilogram și are cea mai densă proteină din listă. Caloriile care lipsesc
+vin din unt și ulei de măsline, nu din pește. Așa costă cinci euro porția în loc de nouă.
 
-**Nucile fac ce făceau cartofii.** Umplu farfuria cu ceva consistent și aduc 400 de calorii,
-dar din grăsime, nu din amidon. Aduc și fibrele care altfel ar lipsi din masa asta. Singura
-grijă: au mult fosfor, deci șaizeci de grame la două porții, nu mai mult.
+**Nucile sunt aici pentru contrast, nu pentru calorii.** Douăzeci de grame prăjite dau
+crocantul care lipsește dintr-o farfurie de pește și legume moi. Mai mult n-are rost: nuca
+are cel mai mult fosfor din tot planul, iar masa asta e deja pește.
 
 **Alternativa la o optime din preț:** două conserve de macrou în ulei au aceleași omega-3.
 Dacă săptămâna asta e strânsă cu banii, [macroul](/retete/macrou-ceapa/) face aceeași treabă.

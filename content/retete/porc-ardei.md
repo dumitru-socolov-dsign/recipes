@@ -1,17 +1,18 @@
 ---
-title: "Tocană de ceafă cu ardei și boia"
-summary: "Se face singură în cratiță cât timp somonul e la cuptor. A doua zi e mai bună decât în prima."
+title: "Tocană de porc cu ardei și boia"
+summary: "Aproape jumătate de kilogram de carne la două porții. Se face singură în cratiță cât timp somonul e la cuptor, iar a doua zi e mai bună decât în prima."
 image: "porc-ardei"
 tint: rose
 servings: 2
-time_active: 15
-time_total: 45
+time_active: 18
+time_total: 50
 session: c
 tags: ["plită", "porc", "ieftin"]
 ingredients:
   - group: "Carne"
     items:
-      - { key: pork_shoulder, qty: 300, unit: g }
+      - { key: pork_belly, qty: 320, unit: g }
+      - { key: pork_shoulder, qty: 150, unit: g }
   - group: "Legume"
     items:
       - { key: pepper_red, qty: 375, unit: g }
@@ -20,18 +21,21 @@ ingredients:
       - { key: tomato_paste, qty: 30, unit: g }
   - group: "Grăsimi și condimente"
     items:
-      - { key: pork_lard, qty: 50, unit: g }
-      - { key: butter_unsalted, qty: 95, unit: g }
+      - { key: butter_unsalted, qty: 10, unit: g }
       - { key: double_cream, qty: 50, unit: ml }
       - { key: paprika_sweet, qty: 8, unit: g }
       - { key: bay_leaf, qty: 1, unit: g }
       - { key: salt, qty: 2, unit: g }
       - { key: black_pepper, qty: 1, unit: g }
 steps:
-  - text: "Taie ceafa cuburi de 3 cm și usucă-le cu hârtie. Taie ardeii fâșii late și ceapa solzi."
+  - text: "Taie pieptul de porc cuburi de 2 cm și ceafa cuburi de 3 cm. Usucă tot cu hârtie. Taie ardeii fâșii late și ceapa solzi."
     hands: true
     timer: 360
-  - text: "Cratiță pe foc mare cu untura. Carnea într-un singur strat, 4 minute fără s-o atingi, apoi încă 3 după ce o întorci."
+  - text: "Cratiță pe foc mediu, fără grăsime. Pieptul de porc singur, 8 minute, până lasă destulă untură cât să acopere fundul cratiței."
+    timer: 480
+    hands: true
+    tip: "Foc mediu, nu mare. Grăsimea din piept trebuie să se topească încet; pe foc mare se rumenește exteriorul și înăuntru rămâne crud."
+  - text: "Dă focul mare și adaugă ceafa lângă piept, într-un singur strat. Patru minute fără s-o atingi, apoi încă 3 după ce o întorci."
     timer: 420
     hands: true
   - text: "Dă focul la mediu, adaugă ceapa. Trei minute, răzuind fundul cratiței cu lingura de lemn."
@@ -61,8 +65,14 @@ ireversibil dacă îl ratezi.
 Cel verde e necopt și amărui — exact opusul a ce vrei aici.
 
 **Smântâna leagă sosul în locul amidonului.** Cartoful din tocana clasică se destrăma puțin
-și îngroșa zeama. Fără el, sosul rămâne apos oricât ai fierbe. O sută de mililitri de smântână
-grasă, pe foc stins, fac aceeași treabă și mai aduc și 470 de calorii.
+și îngroșa zeama. Fără el, sosul rămâne apos oricât ai fierbe. Cincizeci de mililitri de
+smântână grasă, pe foc stins, fac aceeași treabă.
+
+**Pieptul de porc aduce și carnea, și grăsimea de gătit.** Trei sute douăzeci de grame
+lasă în cratiță toată untura de care are nevoie rețeta, deci nu mai intră niciun gram de
+grăsime adăugată la început. Cu ceafa alături ies 470 de grame de carne la două porții,
+fără să crească proteina zilei — pieptul are jumătate din proteina cefei la de două ori
+caloriile.
 
 **A doua zi e mai bună.** Grăsimea se așază, boiaua își dă toată culoarea și ardeiul se moaie
 complet. Asta e mâncarea din plan care câștigă cel mai mult din stat la frigider.

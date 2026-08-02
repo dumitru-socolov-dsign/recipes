@@ -1,39 +1,36 @@
 {{ define "main" }}
 {{- $plan := hugo.Data.plan -}}
 {{- $R := partial "lookup.html" . -}}
+{{- $dayShort := partial "tr.html" (dict "m" $plan "f" "day_short") -}}
+{{- $mealNames := partial "tr.html" (dict "m" $plan "f" "meal_names") -}}
+{{- $shop := site.GetPage "/cumparaturi" -}}
 <div class="wrap">
   <div class="page-head">
-    <h1>Planul săptămânii</h1>
+    <h1>{{ .Title }}</h1>
     <p>{{ .Params.summary }}</p>
   </div>
 
   <div class="card">
-    <div class="label">Mâncarea săptămânii</div>
+    <div class="label">{{ T "p_week_food" }}</div>
     <div class="total__v" id="weekCost" style="margin-top:2px">…</div>
     <div class="tiny muted" style="margin-top:var(--s-2)">
-      Cât consumi efectiv în șapte zile: cele trei sesiuni, micul dejun al fiecărei zile
-      și mesele rapide. La casă plătești mai mult, pentru că iei pachete întregi — dar
-      surplusul intră în săptămâna următoare, așa că pe termen lung asta e cifra care contează.
-      Prima dată mai adaugi <b id="weekPantry">…</b> de cămară: uleiuri, oțet, condimente.
+      {{ T "p_week_help" }} <b id="weekPantry">…</b> {{ T "p_week_help_tail" }}
     </div>
   </div>
 
   {{- range $plan.sessions }}
     {{- $s := . -}}
     {{- $tl := index $plan.timelines .id -}}
-    {{- $span := 1 -}}
-    {{- range $tl }}{{ if gt (int .at) $span }}{{ $span = int .at }}{{ end }}{{ end -}}
 
     <section style="margin-top:var(--s-7)">
       <div class="aisle__h">
-        <h2>{{ .name }} · {{ .day_name }}</h2>
+        <h2>{{ partial "tr.html" (dict "m" . "f" "name") }} · {{ partial "tr.html" (dict "m" . "f" "day_name") }}</h2>
         <span class="chip chip--accent aisle__n">{{ .minutes }} min</span>
       </div>
 
+      {{- $sum := 0 }}{{ range .recipes }}{{ with index $R .slug }}{{ $sum = add $sum (partial "calc/recipe.html" .).timeTotal }}{{ end }}{{ end }}
       <p class="tiny muted" style="margin-top:var(--s-3)">
-        {{ len .recipes }} rețete rulează întrețesut. Suma lor separată ar fi
-        {{- $sum := 0 }}{{ range .recipes }}{{ with index $R .slug }}{{ $sum = add $sum (.Params.time_total | default 0) }}{{ end }}{{ end }}
-        {{ $sum }} de minute; întrețesute, ies în {{ $s.minutes }}.
+        {{ T "p_interleaved" (dict "count" (len .recipes) "sum" $sum "minutes" $s.minutes) }}
       </p>
 
       <ol class="steps" style="margin-top:var(--s-4)">
@@ -42,7 +39,7 @@
           <li>
             <div style="display:flex;gap:var(--s-3);align-items:baseline">
               <span class="ing__q" style="flex:0 0 46px">{{ .at }} min</span>
-              <span style="flex:1">{{ .t }}</span>
+              <span style="flex:1">{{ partial "tr.html" (dict "m" . "f" "t") }}</span>
             </div>
             {{- with $rp }}
               <div class="step__meta"><a class="chip" href="{{ .RelPermalink }}">{{ .Title }}</a></div>
@@ -51,35 +48,35 @@
         {{- end }}
       </ol>
 
-      <div class="label" style="margin-top:var(--s-5)">Acoperă</div>
+      <div class="label" style="margin-top:var(--s-5)">{{ T "p_covers" }}</div>
       <ul class="ing">
         {{- range .covers }}
           {{- $m := . }}
           {{- with index $R .slug }}
             <li>
-              <span class="ing__q" style="flex:0 0 92px">{{ index $plan.day_short (int $m.day) }} · {{ index $plan.meal_names $m.meal }}</span>
+              <span class="ing__q" style="flex:0 0 92px">{{ index $dayShort (int $m.day) }} · {{ index $mealNames $m.meal }}</span>
               <span class="ing__n">{{ .Title }}</span>
             </li>
           {{- end }}
         {{- end }}
       </ul>
 
-      <a class="btn btn--block" style="margin-top:var(--s-4)" href="/cumparaturi/?s={{ .id }}">
-        {{ partial "icon.html" "cart" }}<span>Lista pentru {{ .day_name | lower }}</span>
+      <a class="btn btn--block" style="margin-top:var(--s-4)" href="{{ $shop.RelPermalink }}?s={{ .id }}">
+        {{ partial "icon.html" "cart" }}<span>{{ T "p_list_for" (cond (eq site.Language.Lang "ro") (lower (partial "tr.html" (dict "m" . "f" "day_name"))) (partial "tr.html" (dict "m" . "f" "day_name"))) }}</span>
       </a>
     </section>
   {{- end }}
 
   <section style="margin-top:var(--s-7)">
-    <div class="aisle__h"><h2>În afara sesiunilor</h2></div>
+    <div class="aisle__h"><h2>{{ T "p_outside_sessions" }}</h2></div>
     <ul class="ing">
       {{- with index $R $plan.breakfast }}
-        <li><span class="ing__q" style="flex:0 0 92px">Zilnic</span><span class="ing__n"><a href="{{ .RelPermalink }}">{{ .Title }}</a></span></li>
+        <li><span class="ing__q" style="flex:0 0 92px">{{ T "p_daily" }}</span><span class="ing__n"><a href="{{ .RelPermalink }}">{{ .Title }}</a></span></li>
       {{- end }}
       {{- range $plan.fresh }}
         {{- $m := . }}
         {{- with index $R .slug }}
-          <li><span class="ing__q" style="flex:0 0 92px">{{ index $plan.day_short (int $m.day) }} · {{ index $plan.meal_names $m.meal }}</span><span class="ing__n"><a href="{{ .RelPermalink }}">{{ .Title }}</a></span></li>
+          <li><span class="ing__q" style="flex:0 0 92px">{{ index $dayShort (int $m.day) }} · {{ index $mealNames $m.meal }}</span><span class="ing__n"><a href="{{ .RelPermalink }}">{{ .Title }}</a></span></li>
         {{- end }}
       {{- end }}
     </ul>

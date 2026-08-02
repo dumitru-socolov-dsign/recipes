@@ -2,6 +2,10 @@
   app.json — tot ce are nevoie aplicația din browser: rețete cu nutriția și costul
   deja calculate, baza de ingrediente, prețurile, planul și țintele.
   Se generează la build. Telefonul nu mai calculează nimic greu și merge offline.
+
+  Câte un fișier pentru fiecare limbă: /app.json și /en/app.json. Numele de ingrediente,
+  etichetele de pachet, numele de raion și textele interfeței vin deja traduse, ca JS-ul
+  să nu aibă nevoie de niciun dicționar propriu.
 */ -}}
 {{- $recipes := slice -}}
 {{- range where site.RegularPages "Section" "retete" -}}
@@ -25,26 +29,26 @@
     {{- $steps = $steps | append (dict
         "n"     (add $i 1)
         "text"  $st.text
-        "timer" (int ($st.timer | default 0))
-        "temp"  (int ($st.temp | default 0))
-        "tip"   ($st.tip | default "")
-        "hands" ($st.hands | default false)
+        "timer" $st.timer
+        "temp"  $st.temp
+        "tip"   $st.tip
+        "hands" $st.hands
     ) -}}
   {{- end -}}
-  {{- $img := $p.Params.image | default "" -}}
   {{- $recipes = $recipes | append (dict
-      "slug"        $p.File.ContentBaseName
+      "slug"        $c.slug
       "url"         $p.RelPermalink
       "title"       $p.Title
       "summary"     ($p.Params.summary | default "")
-      "image"       $img
-      "tint"        ($p.Params.tint | default "warm")
+      "image"       $c.image
+      "tint"        $c.tint
       "servings"    $c.servings
       "timeActive"  $c.timeActive
       "timeTotal"   $c.timeTotal
-      "session"     ($p.Params.session | default "")
+      "session"     $c.session
       "tags"        ($p.Params.tags | default slice)
-      "quick"       ($p.Params.quick | default false)
+      "quick"       $c.quick
+      "side"        $c.side
       "ingredients" $ings
       "steps"       $steps
       "total"       $c.total
@@ -57,28 +61,92 @@
 
 {{- $ingredients := dict -}}
 {{- range $k, $v := hugo.Data.ingredients -}}
+  {{- $short := $v.short | default $v.name -}}
+  {{- with $v.short }}{{ $short = partial "tr.html" (dict "m" $v "f" "short") }}{{ end -}}
   {{- $ingredients = merge $ingredients (dict $k (dict
-      "name"        $v.name
-      "short"       ($v.short | default $v.name)
+      "name"        (partial "tr.html" (dict "m" $v "f" "name"))
+      "nameEn"      ($v.name_en | default $v.name)
+      "short"       $short
       "aisle"       ($v.aisle | default "pantry")
       "staple"      ($v.staple | default false)
       "yield"       ($v.yield | default 1.0)
       "unitWeight"  ($v.unit_weight | default 0)
       "per100g"     $v.per100g
-      "note"        ($v.note | default "")
       "warnSodium"  ($v.warn_sodium | default false)
       "kHigh"       ($v.k_high | default false)
       "pHigh"       ($v.p_high | default false)
   )) -}}
 {{- end -}}
 
+{{- /* Prețurile: eticheta de pachet e singurul text de aici, deci doar ea se traduce. */ -}}
+{{- $items := dict -}}
+{{- range $k, $v := hugo.Data.prices.items -}}
+  {{- $items = merge $items (dict $k (dict
+      "pack"   (dict "size" $v.pack.size "unit" $v.pack.unit
+                     "label" (partial "tr.html" (dict "m" $v.pack "f" "label")))
+      "stores" $v.stores
+  )) -}}
+{{- end -}}
+{{- $prices := dict "meta" hugo.Data.prices.meta "items" $items -}}
+
+{{- $stores := hugo.Data.stores -}}
+{{- $aisles := dict -}}
+{{- range $k, $v := $stores.aisles -}}
+  {{- $aisles = merge $aisles (dict $k (dict
+      "name" (partial "tr.html" (dict "m" $v "f" "name")) "order" $v.order)) -}}
+{{- end -}}
+{{- $shops := dict -}}
+{{- range $k, $v := $stores.stores -}}
+  {{- $shops = merge $shops (dict $k (dict
+      "name" (partial "tr.html" (dict "m" $v "f" "name")))) -}}
+{{- end -}}
+{{- $strategy := dict
+    "min_saving_for_second_trip" $stores.strategy.min_saving_for_second_trip
+    "verdict_single" (partial "tr.html" (dict "m" $stores.strategy "f" "verdict_single"))
+    "verdict_split"  (partial "tr.html" (dict "m" $stores.strategy "f" "verdict_split")) -}}
+
+{{- /* Planul: numele de zile, de mese și de sesiuni în limba curentă. */ -}}
+{{- $p := hugo.Data.plan -}}
+{{- $sessions := slice -}}
+{{- range $p.sessions -}}
+  {{- $sessions = $sessions | append (dict
+      "id" .id
+      "name"    (partial "tr.html" (dict "m" . "f" "name"))
+      "dayName" (partial "tr.html" (dict "m" . "f" "day_name"))
+      "day" .day "start" .start "minutes" .minutes
+      "recipes" .recipes "covers" .covers) -}}
+{{- end -}}
+{{- $plan := dict
+    "breakfast" $p.breakfast
+    "sessions"  $sessions
+    "fresh"     $p.fresh
+    "spare"     $p.spare
+    "dayNames"  (partial "tr.html" (dict "m" $p "f" "day_names"))
+    "dayShort"  (partial "tr.html" (dict "m" $p "f" "day_short"))
+    "mealNames" (partial "tr.html" (dict "m" $p "f" "meal_names")) -}}
+
+{{- /* Textele interfeței folosite din browser. */ -}}
+{{- $ui := dict -}}
+{{- range $k := slice
+    "js_week" "js_scope_label" "js_notice_week" "js_notice_session" "js_stale" "js_split"
+    "js_split_yes" "js_split_no" "js_pantry_suffix" "js_pantry_note" "js_leftover"
+    "js_total_till" "js_total_used" "js_total_note" "js_clear_checks" "js_portions"
+    "js_portions_help" "js_portions_edited" "js_portions_reset" "js_serving_one"
+    "js_serving_many" "js_wipe_confirm" "js_step" "js_done" "js_next" "js_timer_done"
+    "js_timer_stop" "js_timer_start" "u_pieces" -}}
+  {{- $ui = merge $ui (dict (strings.TrimPrefix "js_" $k) (T $k)) -}}
+{{- end -}}
+
 {{- $out := dict
     "generated"   (now.Format "2006-01-02T15:04:05Z07:00")
     "buildDate"   (now.Format "2006-01-02")
+    "lang"        site.Language.Lang
+    "locale"      site.Params.localeTag
+    "ui"          $ui
     "targets"     hugo.Data.targets
-    "stores"      hugo.Data.stores
-    "prices"      hugo.Data.prices
-    "plan"        hugo.Data.plan
+    "stores"      (dict "aisles" $aisles "stores" $shops "strategy" $strategy)
+    "prices"      $prices
+    "plan"        $plan
     "ingredients" $ingredients
     "recipes"     $recipes
 -}}

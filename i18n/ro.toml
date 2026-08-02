@@ -1,0 +1,154 @@
+# Textele interfeței, în română.
+# Aici stau doar șirurile din șabloane și din app.js. Numele ingredientelor, ale raioanelor
+# și textele din plan stau în data/*.yaml, în perechi `x` / `x_en`, ca să rămână lângă
+# numărul pe care îl descriu.
+#
+# Cheile care încep cu `js_` se livrează în /app.json și sunt folosite din browser.
+
+# ── navigație și cadru ──
+nav_today = "Azi"
+nav_recipes = "Rețete"
+nav_shopping = "Cumpărături"
+nav_settings = "Setări"
+nav_main = "Navigare principală"
+back = "Înapoi"
+theme_toggle = "Schimbă tema"
+lang_switch = "Switch to English"
+lang_switch_short = "EN"
+
+# ── acasă ──
+home_heading = "Azi mănânci"
+home_made_fresh = "se face pe loc"
+home_day_total = "Totalul zilei"
+home_next_session = "Următoarea sesiune de gătit"
+home_today = "Azi"
+home_tomorrow = "Mâine"
+home_session_meta = "{{ .minutes }} de minute, {{ .count }} rețete în paralel"
+home_shopping_list = "Lista de cumpărături"
+home_see_plan = "Vezi planul săptămânii"
+
+# ── unități și etichete nutriționale ──
+u_kcal = "kcal"
+u_protein = "proteine g"
+u_fat = "grăsimi g"
+u_carbs = "carbo g"
+u_sodium = "sodiu mg"
+u_euro = "euro"
+u_pieces = "buc"
+n_calories = "Calorii"
+n_protein = "Proteine"
+n_sodium = "Sodiu"
+n_potassium = "Potasiu"
+n_phosphorus = "Fosfor"
+n_fibre = "Fibre"
+
+# ── pagina unei rețete ──
+r_min_total = "min total"
+r_min_hands = "min de mâini"
+r_cost_total = "în total"
+r_servings = "Porții"
+r_servings_help = "Cantitățile și lista de cumpărături se recalculează"
+r_servings_group = "Număr de porții"
+r_servings_less = "Mai puține porții"
+r_servings_more = "Mai multe porții"
+r_per_serving = "O porție"
+r_meters_note = "Raportat la o masă din trei, la țintele tale zilnice. La fibre, bara plină e lucrul bun; la restul, invers."
+r_ingredients = "Ingrediente"
+r_flag_sodium = "· sodiu"
+r_flag_phosphorus = "· fosfor"
+r_flag_sodium_title = "Sursă importantă de sodiu"
+r_flag_phosphorus_title = "Sursă importantă de fosfor"
+r_how = "Cum se face"
+r_steps_count = "{{ . }} pași"
+r_start_cooking = "Începe gătitul"
+r_cook_help = "Ecran mare, un pas pe rând, cu timere. Ecranul rămâne aprins."
+r_photo_by = "Fotografie:"
+r_photo_fallback = "fotografie"
+r_photo_author = "de"
+r_photo_license = "licență"
+
+# ── lista de rețete ──
+l_quick = "Rapide"
+l_no_session = "fără sesiune"
+l_sides = "Garnituri"
+
+# ── plan ──
+p_week_food = "Mâncarea săptămânii"
+p_week_help = "Cât consumi efectiv în șapte zile: cele trei sesiuni, micul dejun al fiecărei zile și mesele rapide. La casă plătești mai mult, pentru că iei pachete întregi — dar surplusul intră în săptămâna următoare, așa că pe termen lung asta e cifra care contează. Prima dată mai adaugi"
+p_week_help_tail = "de cămară: uleiuri, oțet, condimente."
+p_interleaved = "{{ .count }} rețete rulează întrețesut. Suma lor separată ar fi {{ .sum }} de minute; întrețesute, ies în {{ .minutes }}."
+p_covers = "Acoperă"
+p_list_for = "Lista pentru {{ . }}"
+p_outside_sessions = "În afara sesiunilor"
+p_daily = "Zilnic"
+
+# ── mod gătit ──
+c_mode = "Mod gătit"
+c_exit = "Ieși din modul gătit"
+c_step = "Pasul {{ . }}"
+c_start_timer = "Pornește timerul"
+c_next = "Următorul"
+
+# ── setări ──
+s_kcal = "Calorii pe zi"
+s_protein = "Proteine pe zi"
+s_sodium = "Sodiu pe zi"
+s_remember = "De reținut"
+s_your_data = "Datele tale"
+s_privacy = "Setările, bifele din listă și progresul la gătit se salvează doar în memoria acestui browser. Nu pleacă nicăieri, nu există server care să le primească și nimeni nu le poate citi de la distanță. Dacă golești datele browserului, dispar."
+s_reset = "Revino la valorile implicite"
+s_wipe = "Șterge tot ce e salvat local"
+
+# ── cumpărături (server) ──
+sh_loading = "Se calculează lista…"
+
+# ── cumpărături și mod gătit (browser, via /app.json) ──
+js_week = "Săptămâna"
+js_scope_label = "Ce cumperi"
+js_notice_week = "Un singur drum la magazin acoperă toată săptămâna. Astea sunt pachetele întregi pe care le pui în coș."
+js_notice_session = "Ce ai nevoie pe masă în ziua asta de gătit. Dacă ai făcut cumpărăturile pe săptămână, ai deja tot — asta e doar lista de verificat."
+js_stale = "Prețurile au {days} de zile, deci sunt estimări, nu prețuri de azi. Rulează <b>npm run prices:refresh</b> ca să le împrospătezi."
+js_split = "Împarte între magazine"
+js_split_yes = "Economisești {sum}."
+js_split_no = "Ai economisi {sum}."
+js_pantry_suffix = "· cămară"
+js_pantry_note = "<b>Cămara.</b> Uleiuri, oțet, condimente. Se cumpără o dată la câteva luni, nu în fiecare săptămână. Prima dată costă ceva; după aia, aproape nimic."
+js_leftover = "· folosești {used}, rămâne {left}"
+js_total_till = "De plătit la casă"
+js_total_used = "Valoarea consumată · {label}"
+js_total_note = "Mâncarea consumată face {used} — asta e cheltuiala reală pe săptămână, restul rămâne în dulap.<br>Prima dată mai adaugi {pantry} de cămară."
+js_clear_checks = "Șterge bifele"
+js_portions = "Porții"
+js_portions_help = "Cât gătești din fiecare. Se ține minte și rescrie tot ce e mai jos."
+js_portions_edited = "Ai schimbat porțiile față de plan."
+js_portions_reset = "Revino la plan"
+js_serving_one = "porție"
+js_serving_many = "porții"
+js_wipe_confirm = "Ștergi toate datele salvate pe acest telefon? Setări, bife, progres la gătit."
+js_step = "Pasul {n}"
+js_done = "Gata"
+js_next = "Următorul"
+js_timer_done = "Gata — resetează"
+js_timer_stop = "Oprește"
+js_timer_start = "Pornește timerul"
+
+# ── luni (pagina Azi) ──
+month_1 = "ianuarie"
+month_2 = "februarie"
+month_3 = "martie"
+month_4 = "aprilie"
+month_5 = "mai"
+month_6 = "iunie"
+month_7 = "iulie"
+month_8 = "august"
+month_9 = "septembrie"
+month_10 = "octombrie"
+month_11 = "noiembrie"
+month_12 = "decembrie"
+
+# ── 404 ──
+e404_label = "Eroare 404"
+e404_title = "Pagina asta nu există"
+e404_body = "Poate ai schimbat adresa din greșeală, sau rețeta a fost redenumită."
+e404_home = "Înapoi la ce mănânci azi"
+e404_recipes = "Vezi toate rețetele"

@@ -11,7 +11,7 @@ tags: ["plită", "pui", "rapid"]
 ingredients:
   - group: "Carne"
     items:
-      - { key: chicken_thigh_bone_in, qty: 330, unit: g }
+      - { key: chicken_thigh_bone_in, qty: 380, unit: g }
   - group: "Legume"
     items:
       - { key: mushrooms, qty: 250, unit: g }
@@ -21,12 +21,12 @@ ingredients:
       - { key: parsley, qty: 10, unit: g }
   - group: "Sos"
     items:
-      - { key: double_cream, qty: 250, unit: ml }
+      - { key: double_cream, qty: 240, unit: ml }
       - { key: dijon_mustard, qty: 10, unit: g }
   - group: "Grăsimi și condimente"
     items:
       - { key: pork_lard, qty: 20, unit: g }
-      - { key: butter_unsalted, qty: 45, unit: g }
+      - { key: butter_unsalted, qty: 42, unit: g }
       - { key: thyme_dried, qty: 2, unit: g }
       - { key: salt, qty: 1.5, unit: g }
       - { key: black_pepper, qty: 1, unit: g }

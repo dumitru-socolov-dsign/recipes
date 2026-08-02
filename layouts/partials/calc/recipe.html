@@ -2,10 +2,24 @@
   Agregă o rețetă întreagă: nutriție totală, per porție, cost, grupuri de ingrediente.
   Intrare: pagina rețetei (.)
   Ieșire:  dict
+
+  Bilingv: cantitățile, porțiile, timpii și timerele se citesc ÎNTOTDEAUNA din varianta
+  română a paginii, care e sursa de adevăr. Traducerea nu poartă decât text — titlu, rezumat
+  și textul pașilor. Așa nu există niciun drum prin care o traducere uitată să schimbe câte
+  grame de carne cumperi sau cât ține un timer.
 */ -}}
 {{- $page := . -}}
+
+{{- /* Varianta-sursă: româna. Pe pagina română, ea însăși. */ -}}
+{{- $src := $page -}}
+{{- if ne $page.Lang "ro" -}}
+  {{- range $page.AllTranslations -}}
+    {{- if eq .Lang "ro" -}}{{- $src = . -}}{{- end -}}
+  {{- end -}}
+{{- end -}}
+
 {{- $store := hugo.Data.prices.meta.default_store -}}
-{{- $servings := float ($page.Params.servings | default 1) -}}
+{{- $servings := float ($src.Params.servings | default 1) -}}
 {{- if lt $servings 1.0 }}{{ $servings = 1.0 }}{{ end -}}
 
 {{- $s := newScratch -}}
@@ -17,11 +31,20 @@
 {{- $s.Set "flat" slice -}}
 {{- $s.Set "oldestPrice" "" -}}
 
-{{- range $page.Params.ingredients -}}
-  {{- $groupName := .group | default "" -}}
+{{- range $src.Params.ingredients -}}
+  {{- $groupKey := .group | default "" -}}
+  {{- $groupName := $groupKey -}}
+  {{- /* Numele grupului e text, deci se traduce: `group_en` în varianta engleză a rețetei,
+         căutat după poziție. Lipsa lui lasă numele românesc, care e vizibil greșit — mai bine
+         decât un titlu gol. */ -}}
+  {{- if ne $page.Lang "ro" -}}
+    {{- with $page.Params.groups -}}
+      {{- with index . (len ($s.Get "groups")) -}}{{- $groupName = . -}}{{- end -}}
+    {{- end -}}
+  {{- end -}}
   {{- $rows := slice -}}
   {{- range .items -}}
-    {{- $r := partial "calc/ingredient.html" (dict "item" . "store" $store "page" $page.File.Path) -}}
+    {{- $r := partial "calc/ingredient.html" (dict "item" . "store" $store "page" $src.File.Path) -}}
     {{- $rows = $rows | append $r -}}
     {{- $s.Add "flat" (slice $r) -}}
     {{- $s.Add "cost" $r.cost -}}
@@ -45,9 +68,31 @@
 {{- end -}}
 
 {{- $cost := $s.Get "cost" -}}
-{{- $steps := $page.Params.steps | default slice -}}
+
+{{- /* Pașii: textul din pagina curentă, cronometrele din cea română. Traducerea nu are voie
+       să atingă un timer — o cifră greșită acolo arde mâncarea, nu doar strică o propoziție. */ -}}
+{{- $srcSteps := $src.Params.steps | default slice -}}
+{{- $ownSteps := $page.Params.steps | default slice -}}
+{{- $steps := slice -}}
+{{- range $i, $st := $srcSteps -}}
+  {{- $text := $st.text -}}
+  {{- $tip := $st.tip | default "" -}}
+  {{- if ne $page.Lang "ro" -}}
+    {{- with index $ownSteps $i -}}
+      {{- $text = .text | default $text -}}
+      {{- $tip = .tip | default "" -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $steps = $steps | append (dict
+      "text"  $text
+      "tip"   $tip
+      "timer" (int ($st.timer | default 0))
+      "temp"  (int ($st.temp | default 0))
+      "hands" ($st.hands | default false)
+  ) -}}
+{{- end -}}
 {{- $timerTotal := 0 -}}
-{{- range $steps -}}{{- $timerTotal = add $timerTotal (int (.timer | default 0)) -}}{{- end -}}
+{{- range $steps -}}{{- $timerTotal = add $timerTotal .timer -}}{{- end -}}
 
 {{- return (dict
     "servings"     $servings
@@ -61,6 +106,12 @@
     "steps"        $steps
     "stepCount"    (len $steps)
     "timerSeconds" $timerTotal
-    "timeActive"   ($page.Params.time_active | default 0)
-    "timeTotal"    ($page.Params.time_total | default 0)
+    "timeActive"   ($src.Params.time_active | default 0)
+    "timeTotal"    ($src.Params.time_total | default 0)
+    "session"      ($src.Params.session | default "")
+    "image"        ($src.Params.image | default "")
+    "tint"         ($src.Params.tint | default "amber")
+    "quick"        ($src.Params.quick | default false)
+    "side"         ($src.Params.side | default false)
+    "slug"         $src.File.ContentBaseName
 ) -}}

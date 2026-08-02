@@ -2,11 +2,11 @@
 {{- $c := partial "calc/recipe.html" . -}}
 {{- $t := hugo.Data.targets -}}
 {{- $meals := float $t.meals.meals_per_day -}}
-{{- $img := resources.Get (printf "img/retete/%s.jpg" (.Params.image | default "x")) -}}
+{{- $img := resources.Get (printf "img/retete/%s.jpg" ($c.image | default "x")) -}}
 
-<article class="recipe" data-recipe="{{ .File.ContentBaseName }}" data-base-servings="{{ $c.servings }}">
+<article class="recipe" data-recipe="{{ $c.slug }}" data-base-servings="{{ $c.servings }}" data-base-cost="{{ $c.cost }}">
 
-  <div class="tile__media tile--{{ .Params.tint | default "amber" }}"
+  <div class="tile__media tile--{{ $c.tint }}"
        style="aspect-ratio:16/10;border-radius:0{{ with $img }};background-image:url({{ (.Resize "900x q75 webp").RelPermalink }}){{ end }}">
     {{- if not $img }}<span class="tile__glyph" aria-hidden="true">{{ substr .Title 0 1 }}</span>{{ end }}
   </div>
@@ -18,9 +18,9 @@
     </div>
 
     <div class="chips">
-      <span class="chip">{{ partial "icon.html" "clock" }}{{ $c.timeTotal }} min total</span>
-      <span class="chip">{{ partial "icon.html" "pot" }}{{ $c.timeActive }} min de mâini</span>
-      <span class="chip">{{ partial "icon.html" "euro" }}<span data-out="costTotal">{{ lang.FormatNumber 2 $c.cost }}</span> în total</span>
+      <span class="chip">{{ partial "icon.html" "clock" }}{{ $c.timeTotal }} {{ T "r_min_total" }}</span>
+      <span class="chip">{{ partial "icon.html" "pot" }}{{ $c.timeActive }} {{ T "r_min_hands" }}</span>
+      <span class="chip">{{ partial "icon.html" "euro" }}<span data-out="costTotal">{{ lang.FormatNumber 2 $c.cost }}</span> {{ T "r_cost_total" }}</span>
       {{- range .Params.tags }}<span class="chip">{{ . }}</span>{{ end }}
     </div>
 
@@ -29,32 +29,32 @@
     {{/* ─── porții ─── */}}
     <div style="display:flex;align-items:center;justify-content:space-between;gap:var(--s-4)">
       <div>
-        <div class="label">Porții</div>
-        <div class="tiny muted" style="margin-top:2px">Cantitățile se recalculează</div>
+        <div class="label">{{ T "r_servings" }}</div>
+        <div class="tiny muted" style="margin-top:2px">{{ T "r_servings_help" }}</div>
       </div>
-      <div class="stepper" role="group" aria-label="Număr de porții">
-        <button type="button" data-serv="-" aria-label="Mai puține porții">−</button>
+      <div class="stepper" role="group" aria-label="{{ T "r_servings_group" }}">
+        <button type="button" data-serv="-" aria-label="{{ T "r_servings_less" }}">−</button>
         <span class="stepper__val" data-out="servings" aria-live="polite">{{ lang.FormatNumber 0 $c.servings }}</span>
-        <button type="button" data-serv="+" aria-label="Mai multe porții">+</button>
+        <button type="button" data-serv="+" aria-label="{{ T "r_servings_more" }}">+</button>
       </div>
     </div>
 
     <hr class="rule">
 
     {{/* ─── nutriție ─── */}}
-    <h2>O porție</h2>
+    <h2>{{ T "r_per_serving" }}</h2>
     <div class="nutri" style="margin-top:var(--s-3)">
-      <div class="nutri__cell"><div class="nutri__v">{{ lang.FormatNumber 0 $c.perServing.kcal }}</div><div class="nutri__k">kcal</div></div>
-      <div class="nutri__cell"><div class="nutri__v">{{ lang.FormatNumber 0 $c.perServing.protein }}</div><div class="nutri__k">proteine g</div></div>
-      <div class="nutri__cell"><div class="nutri__v">{{ lang.FormatNumber 0 $c.perServing.fat }}</div><div class="nutri__k">grăsimi g</div></div>
-      <div class="nutri__cell"><div class="nutri__v">{{ lang.FormatNumber 0 $c.perServing.carbs }}</div><div class="nutri__k">carbo g</div></div>
+      <div class="nutri__cell"><div class="nutri__v">{{ lang.FormatNumber 0 $c.perServing.kcal }}</div><div class="nutri__k">{{ T "u_kcal" }}</div></div>
+      <div class="nutri__cell"><div class="nutri__v">{{ lang.FormatNumber 0 $c.perServing.protein }}</div><div class="nutri__k">{{ T "u_protein" }}</div></div>
+      <div class="nutri__cell"><div class="nutri__v">{{ lang.FormatNumber 0 $c.perServing.fat }}</div><div class="nutri__k">{{ T "u_fat" }}</div></div>
+      <div class="nutri__cell"><div class="nutri__v">{{ lang.FormatNumber 0 $c.perServing.carbs }}</div><div class="nutri__k">{{ T "u_carbs" }}</div></div>
     </div>
 
     <div style="margin-top:var(--s-4)">
       {{- $mk := slice
-        (dict "k" "sodium"     "n" "Sodiu"  "u" "mg" "lim" $t.limits.sodium_mg)
-        (dict "k" "potassium"  "n" "Potasiu" "u" "mg" "lim" $t.limits.potassium_mg)
-        (dict "k" "phosphorus" "n" "Fosfor"  "u" "mg" "lim" $t.limits.phosphorus_mg) -}}
+        (dict "k" "sodium"     "n" (T "n_sodium")     "u" "mg" "lim" $t.limits.sodium_mg)
+        (dict "k" "potassium"  "n" (T "n_potassium")  "u" "mg" "lim" $t.limits.potassium_mg)
+        (dict "k" "phosphorus" "n" (T "n_phosphorus") "u" "mg" "lim" $t.limits.phosphorus_mg) -}}
       {{- range $mk -}}
         {{- $v := index $c.perServing .k -}}
         {{- $share := div (float .lim.max) $meals -}}
@@ -72,18 +72,17 @@
       {{- $fibShare := div (float $t.daily.fibre_g) $meals -}}
       {{- $fibPct := math.Min 100 (mul 100 (div $fib $fibShare)) -}}
       <div class="meter">
-        <div class="meter__row"><span class="muted">Fibre</span><b>{{ lang.FormatNumber 0 $fib }} g<span class="muted" style="font-weight:400"> / {{ lang.FormatNumber 0 $fibShare }}</span></b></div>
+        <div class="meter__row"><span class="muted">{{ T "n_fibre" }}</span><b>{{ lang.FormatNumber 0 $fib }} g<span class="muted" style="font-weight:400"> / {{ lang.FormatNumber 0 $fibShare }}</span></b></div>
         <div class="meter__bar"><i class="meter__fill {{ cond (lt $fibPct 60.0) "is-bad" (cond (lt $fibPct 100.0) "is-warn" "") }}" style="width:{{ $fibPct }}%"></i></div>
       </div>
 
-      <p class="tiny muted" style="margin-top:var(--s-3)">Raportat la o masă din trei, la țintele tale zilnice.
-      La fibre, bara plină e lucrul bun; la restul, invers.</p>
+      <p class="tiny muted" style="margin-top:var(--s-3)">{{ T "r_meters_note" }}</p>
     </div>
 
     <hr class="rule">
 
     {{/* ─── ingrediente ─── */}}
-    <h2>Ingrediente</h2>
+    <h2>{{ T "r_ingredients" }}</h2>
     <div style="margin-top:var(--s-3)">
       {{- range $c.groups }}
         <div class="ing-group">
@@ -92,7 +91,7 @@
             {{- range .items }}
               <li data-ing="{{ .key }}" data-qty="{{ .qty }}" data-unit="{{ .unit }}">
                 <span class="ing__q" data-out="qty">{{ partial "fmt/qty.html" (dict "qty" .qty "unit" .unit) }}</span>
-                <span class="ing__n">{{ .short }}{{ if .warnSodium }} <span class="ing__flag" title="Sursă importantă de sodiu">· sodiu</span>{{ end }}{{ if .pHigh }} <span class="ing__flag" title="Sursă importantă de fosfor">· fosfor</span>{{ end }}</span>
+                <span class="ing__n">{{ .short }}{{ if .warnSodium }} <span class="ing__flag" title="{{ T "r_flag_sodium_title" }}">{{ T "r_flag_sodium" }}</span>{{ end }}{{ if .pHigh }} <span class="ing__flag" title="{{ T "r_flag_phosphorus_title" }}">{{ T "r_flag_phosphorus" }}</span>{{ end }}</span>
               </li>
             {{- end }}
           </ul>
@@ -104,14 +103,14 @@
 
     {{/* ─── pași ─── */}}
     <div style="display:flex;align-items:center;justify-content:space-between;gap:var(--s-3);margin-bottom:var(--s-4)">
-      <h2>Cum se face</h2>
-      <span class="label">{{ $c.stepCount }} pași</span>
+      <h2>{{ T "r_how" }}</h2>
+      <span class="label">{{ T "r_steps_count" $c.stepCount }}</span>
     </div>
 
-    <button class="btn btn--primary btn--block" type="button" data-cook="start" data-recipe="{{ .File.ContentBaseName }}">
-      {{ partial "icon.html" "pot" }}<span>Începe gătitul</span>
+    <button class="btn btn--primary btn--block" type="button" data-cook="start" data-recipe="{{ $c.slug }}">
+      {{ partial "icon.html" "pot" }}<span>{{ T "r_start_cooking" }}</span>
     </button>
-    <p class="tiny muted" style="margin-top:var(--s-2);text-align:center">Ecran mare, un pas pe rând, cu timere. Ecranul rămâne aprins.</p>
+    <p class="tiny muted" style="margin-top:var(--s-2);text-align:center">{{ T "r_cook_help" }}</p>
 
     <ol class="steps" style="margin-top:var(--s-5)">
       {{- range $c.steps }}
@@ -133,10 +132,10 @@
       <div class="prose">{{ .Content }}</div>
     {{- end }}
 
-    {{- with index (hugo.Data.credits | default dict) .File.ContentBaseName }}
+    {{- with index (hugo.Data.credits | default dict) $c.slug }}
       <p class="tiny muted" style="margin-top:var(--s-6)">
-        Fotografie: {{ with .source }}<a href="{{ . }}" rel="noopener nofollow">{{ end }}{{ .title | default "fotografie" }}{{ if .source }}</a>{{ end }}
-        de {{ .creator }}, licență {{ with .license_url }}<a href="{{ . }}" rel="license noopener nofollow">{{ end }}{{ .license }}{{ if .license_url }}</a>{{ end }}.
+        {{ T "r_photo_by" }} {{ with .source }}<a href="{{ . }}" rel="noopener nofollow">{{ end }}{{ .title | default (T "r_photo_fallback") }}{{ if .source }}</a>{{ end }}
+        {{ T "r_photo_author" }} {{ .creator }}, {{ T "r_photo_license" }} {{ with .license_url }}<a href="{{ . }}" rel="license noopener nofollow">{{ end }}{{ .license }}{{ if .license_url }}</a>{{ end }}.
       </p>
     {{- end }}
 

@@ -1,92 +1,80 @@
 {{ define "main" }}
 {{- $t := hugo.Data.targets -}}
+{{- $copy := $t.copy -}}
+{{- $tips := $t.tips -}}
 <div class="wrap">
   <div class="page-head">
-    <h1>Setări</h1>
+    <h1>{{ .Title }}</h1>
     <p>{{ .Params.summary }}</p>
   </div>
 
   <form class="set" id="settings" onsubmit="return false">
 
     <div class="set__row">
-      <div class="set__top"><b>Calorii pe zi</b><span class="set__val"><span data-set-out="kcal"></span> kcal</span></div>
-      <input type="range" data-set="kcal" min="1800" max="4200" step="50">
-      <div class="set__help">{{ $t.copy.kcal }}</div>
+      <div class="set__top"><b>{{ T "s_kcal" }}</b><span class="set__val"><span data-set-out="kcal"></span> {{ T "u_kcal" }}</span></div>
+      <input type="range" data-set="kcal" min="1800" max="4600" step="50">
+      <div class="set__help">{{ partial "tr.html" (dict "m" $copy "f" "kcal") }}</div>
     </div>
 
     <div class="set__row">
-      <div class="set__top"><b>Proteine pe zi</b><span class="set__val"><span data-set-out="protein"></span> g</span></div>
+      <div class="set__top"><b>{{ T "s_protein" }}</b><span class="set__val"><span data-set-out="protein"></span> g</span></div>
       <input type="range" data-set="protein" min="45" max="150" step="1">
-      <div class="set__help">{{ $t.copy.protein_g }}</div>
+      <div class="set__help">{{ partial "tr.html" (dict "m" $copy "f" "protein_g") }}</div>
     </div>
 
     <div class="set__row">
-      <div class="set__top"><b>Sodiu pe zi</b><span class="set__val"><span data-set-out="sodium"></span> mg</span></div>
+      <div class="set__top"><b>{{ T "s_sodium" }}</b><span class="set__val"><span data-set-out="sodium"></span> mg</span></div>
       <input type="range" data-set="sodium" min="1000" max="3500" step="50">
-      <div class="set__help">{{ $t.copy.sodium_mg }}</div>
+      <div class="set__help">{{ partial "tr.html" (dict "m" $copy "f" "sodium_mg") }}</div>
     </div>
 
     <hr class="rule">
 
-    <label class="switch">
-      <div>
-        <b style="font-size:.9375rem">{{ $t.toggles.include_nuts.label }}</b>
-        <div class="set__help">{{ $t.copy.include_nuts }}</div>
-      </div>
-      <input type="checkbox" data-set="includeNuts">
-      <span class="switch__track"></span>
-    </label>
-
-    <label class="switch">
-      <div>
-        <b style="font-size:.9375rem">{{ $t.toggles.limit_potassium.label }}</b>
-        <div class="set__help">{{ $t.copy.limit_potassium }}</div>
-      </div>
-      <input type="checkbox" data-set="limitPotassium">
-      <span class="switch__track"></span>
-    </label>
-
-    <label class="switch">
-      <div>
-        <b style="font-size:.9375rem">{{ $t.toggles.low_sodium.label }}</b>
-        <div class="set__help">{{ $t.copy.low_sodium }}</div>
-      </div>
-      <input type="checkbox" data-set="lowSodium">
-      <span class="switch__track"></span>
-    </label>
+    {{- range slice "include_nuts" "limit_potassium" "low_sodium" }}
+      {{- $key := . }}
+      {{- $toggle := index $t.toggles $key }}
+      {{- $js := dict "include_nuts" "includeNuts" "limit_potassium" "limitPotassium" "low_sodium" "lowSodium" }}
+      <label class="switch">
+        <div>
+          <b style="font-size:.9375rem">{{ partial "tr.html" (dict "m" $toggle "f" "label") }}</b>
+          <div class="set__help">{{ partial "tr.html" (dict "m" $copy "f" $key) }}</div>
+        </div>
+        <input type="checkbox" data-set="{{ index $js $key }}">
+        <span class="switch__track"></span>
+      </label>
+    {{- end }}
 
     <hr class="rule">
 
     <div>
-      <h2>De reținut</h2>
+      <h2>{{ T "s_remember" }}</h2>
       <div class="stack" style="margin-top:var(--s-3)">
-        <div class="notice notice--warn">
-          <svg viewBox="0 0 24 24"><use href="#i-warn"/></svg>
-          <div>{{ $t.tips.salt_substitute_warning }}</div>
-        </div>
-        <div class="notice"><svg viewBox="0 0 24 24"><use href="#i-info"/></svg><div>{{ $t.tips.salt_at_the_end }}</div></div>
-        <div class="notice"><svg viewBox="0 0 24 24"><use href="#i-info"/></svg><div>{{ $t.tips.acid_first }}</div></div>
-        <div class="notice notice--warn">
-          <svg viewBox="0 0 24 24"><use href="#i-warn"/></svg>
-          <div>{{ $t.tips.fat_transition }}</div>
-        </div>
-        <div class="notice"><svg viewBox="0 0 24 24"><use href="#i-info"/></svg><div>{{ $t.tips.fibre_and_water }}</div></div>
-        <div class="notice"><svg viewBox="0 0 24 24"><use href="#i-info"/></svg><div>{{ $t.tips.browning_not_salt }}</div></div>
+        {{- $notices := slice
+            (dict "k" "salt_substitute_warning" "warn" true)
+            (dict "k" "portions_follow_you"     "warn" false)
+            (dict "k" "render_the_fat"          "warn" false)
+            (dict "k" "salt_at_the_end"         "warn" false)
+            (dict "k" "acid_first"              "warn" false)
+            (dict "k" "fat_transition"          "warn" true)
+            (dict "k" "fibre_and_water"         "warn" false)
+            (dict "k" "browning_not_salt"       "warn" false) }}
+        {{- range $notices }}
+          <div class="notice{{ if .warn }} notice--warn{{ end }}">
+            <svg viewBox="0 0 24 24"><use href="#i-{{ cond .warn "warn" "info" }}"/></svg>
+            <div>{{ partial "tr.html" (dict "m" $tips "f" .k) }}</div>
+          </div>
+        {{- end }}
       </div>
     </div>
 
     <hr class="rule">
 
     <div>
-      <h2>Datele tale</h2>
-      <p class="set__help" style="margin-top:var(--s-2)">
-        Setările, bifele din listă și progresul la gătit se salvează doar în memoria acestui
-        browser. Nu pleacă nicăieri, nu există server care să le primească și nimeni nu le poate
-        citi de la distanță. Dacă golești datele browserului, dispar.
-      </p>
+      <h2>{{ T "s_your_data" }}</h2>
+      <p class="set__help" style="margin-top:var(--s-2)">{{ T "s_privacy" }}</p>
       <div class="stack" style="margin-top:var(--s-4)">
-        <button class="btn btn--block" type="button" id="resetSettings">Revino la valorile implicite</button>
-        <button class="btn btn--block" type="button" id="wipeAll">Șterge tot ce e salvat local</button>
+        <button class="btn btn--block" type="button" id="resetSettings">{{ T "s_reset" }}</button>
+        <button class="btn btn--block" type="button" id="wipeAll">{{ T "s_wipe" }}</button>
       </div>
     </div>
 

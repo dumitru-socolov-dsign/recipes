@@ -12,7 +12,9 @@
 # ─────────────────────────── CARNE ───────────────────────────
 chicken_thigh_bone_in:
   name: "Pulpe superioare de pui, cu os și piele"
+  name_en: "Chicken thighs, bone-in and skin-on"
   short: "Pulpe de pui"
+  short_en: "Chicken thighs"
   aisle: meat
   yield: 0.72
   per100g: { kcal: 209, protein: 17.0, fat: 15.4, carbs: 0, fibre: 0, sodium: 82, potassium: 230, phosphorus: 160 }
@@ -20,22 +22,38 @@ chicken_thigh_bone_in:
 
 chicken_thigh_boneless:
   name: "Pulpe de pui dezosate, cu piele"
+  name_en: "Boneless chicken thighs, skin-on"
   short: "Pulpe dezosate"
+  short_en: "Boneless thighs"
   aisle: meat
   yield: 1.0
   per100g: { kcal: 221, protein: 18.0, fat: 16.5, carbs: 0, fibre: 0, sodium: 85, potassium: 240, phosphorus: 165 }
 
 pork_shoulder:
   name: "Ceafă / spată de porc"
+  name_en: "Pork shoulder / collar steaks"
   short: "Ceafă de porc"
+  short_en: "Pork shoulder"
   aisle: meat
   yield: 0.95
   per100g: { kcal: 240, protein: 17.0, fat: 19.0, carbs: 0, fibre: 0, sodium: 60, potassium: 320, phosphorus: 180 }
-  note: "Bucata cu cel mai bun raport grăsime/preț din tot magazinul."
+  note: "Aduce gustul de carne friptă. Merge în tandem cu pieptul de porc, care aduce caloriile — separat, fiecare ar strica echilibrul."
+
+pork_belly:
+  name: "Piept de porc (fleică), fără os"
+  name_en: "Pork belly, boneless"
+  short: "Piept de porc"
+  short_en: "Pork belly"
+  aisle: meat
+  yield: 1.0
+  per100g: { kcal: 518, protein: 9.3, fat: 53.0, carbs: 0, fibre: 0, sodium: 32, potassium: 185, phosphorus: 100 }
+  note: "Cheia porțiilor mari. Are jumătate din proteina cefei și de două ori caloriile, deci încape de două ori mai multă carne în farfurie la același plafon de proteine. Pe calorie e mai ieftină decât untul, și își gătește singură grăsimea în care se prăjește restul."
 
 beef_mince_20:
   name: "Mincă de vită 20% grăsime"
+  name_en: "Pork shoulder / collar steaks"
   short: "Mincă de vită"
+  short_en: "Pork shoulder"
   aisle: meat
   yield: 1.0
   per100g: { kcal: 254, protein: 17.0, fat: 20.0, carbs: 0, fibre: 0, sodium: 66, potassium: 270, phosphorus: 158 }
@@ -43,7 +61,9 @@ beef_mince_20:
 
 pork_sausage:
   name: "Cârnați de porc (>85% carne)"
+  name_en: "Pork sausages (>85% pork)"
   short: "Cârnați"
+  short_en: "Sausages"
   aisle: meat
   yield: 1.0
   per100g: { kcal: 305, protein: 15.0, fat: 26.0, carbs: 1.5, fibre: 0.5, sodium: 800, potassium: 220, phosphorus: 190 }
@@ -53,7 +73,9 @@ pork_sausage:
 # ─────────────────────────── PEȘTE ───────────────────────────
 salmon_fillet:
   name: "File de somon"
+  name_en: "Salmon fillets"
   short: "Somon"
+  short_en: "Salmon"
   aisle: fish
   yield: 1.0
   per100g: { kcal: 208, protein: 20.0, fat: 13.0, carbs: 0, fibre: 0, sodium: 59, potassium: 363, phosphorus: 240 }
@@ -61,7 +83,9 @@ salmon_fillet:
 
 mackerel_tinned:
   name: "Macrou la conservă, în ulei"
+  name_en: "Tinned mackerel in oil"
   short: "Macrou conservă"
+  short_en: "Tinned mackerel"
   aisle: pantry
   yield: 0.75
   per100g: { kcal: 250, protein: 21.0, fat: 18.0, carbs: 0, fibre: 0, sodium: 350, potassium: 280, phosphorus: 250 }
@@ -69,7 +93,9 @@ mackerel_tinned:
 
 sardines_tinned:
   name: "Sardine la conservă, în ulei de măsline"
+  name_en: "Tinned sardines in olive oil"
   short: "Sardine"
+  short_en: "Sardines"
   aisle: pantry
   yield: 0.75
   per100g: { kcal: 208, protein: 25.0, fat: 11.5, carbs: 0, fibre: 0, sodium: 400, potassium: 400, phosphorus: 490 }
@@ -79,7 +105,9 @@ sardines_tinned:
 # ─────────────────────── LACTATE & OUĂ ───────────────────────
 egg:
   name: "Ouă mari"
+  name_en: "Large eggs"
   short: "Ouă"
+  short_en: "Eggs"
   aisle: dairy
   yield: 0.89
   unit_weight: 60
@@ -87,7 +115,9 @@ egg:
 
 butter_unsalted:
   name: "Unt nesărat"
+  name_en: "Unsalted butter"
   short: "Unt"
+  short_en: "Butter"
   aisle: dairy
   yield: 1.0
   per100g: { kcal: 717, protein: 0.9, fat: 81.0, carbs: 0.1, fibre: 0, sodium: 11, potassium: 24, phosphorus: 24 }
@@ -95,7 +125,9 @@ butter_unsalted:
 
 double_cream:
   name: "Smântână grasă pentru frișcă (48%)"
+  name_en: "Double cream (48%)"
   short: "Smântână grasă"
+  short_en: "Double cream"
   aisle: dairy
   yield: 1.0
   per100g: { kcal: 467, protein: 2.1, fat: 48.0, carbs: 2.8, fibre: 0, sodium: 24, potassium: 75, phosphorus: 60 }
@@ -103,7 +135,9 @@ double_cream:
 
 cooking_cream:
   name: "Smântână pentru gătit (20%)"
+  name_en: "Single cream (20%)"
   short: "Smântână de gătit"
+  short_en: "Single cream"
   aisle: dairy
   yield: 1.0
   per100g: { kcal: 195, protein: 2.4, fat: 20.0, carbs: 3.0, fibre: 0, sodium: 50, potassium: 120, phosphorus: 70 }
@@ -111,7 +145,9 @@ cooking_cream:
 # ─────────────────────── GRĂSIMI & BĂCĂNIE ───────────────────
 pork_lard:
   name: "Untură de porc"
+  name_en: "Lard"
   short: "Untură"
+  short_en: "Lard"
   aisle: pantry
   yield: 1.0
   per100g: { kcal: 899, protein: 0, fat: 99.8, carbs: 0, fibre: 0, sodium: 2, potassium: 0, phosphorus: 0 }
@@ -119,7 +155,9 @@ pork_lard:
 
 rapeseed_oil:
   name: "Ulei de rapiță"
+  name_en: "Rapeseed oil"
   short: "Ulei"
+  short_en: "Oil"
   aisle: pantry
   staple: true
   yield: 1.0
@@ -128,7 +166,9 @@ rapeseed_oil:
 
 olive_oil:
   name: "Ulei de măsline extravirgin"
+  name_en: "Extra virgin olive oil"
   short: "Ulei de măsline"
+  short_en: "Olive oil"
   aisle: pantry
   staple: true
   yield: 1.0
@@ -137,7 +177,9 @@ olive_oil:
 
 walnuts:
   name: "Miez de nucă"
+  name_en: "Walnut halves"
   short: "Nuci"
+  short_en: "Walnuts"
   aisle: pantry
   yield: 1.0
   per100g: { kcal: 654, protein: 15.2, fat: 65.2, carbs: 7.0, fibre: 6.7, sodium: 2, potassium: 441, phosphorus: 346 }
@@ -146,7 +188,9 @@ walnuts:
 
 tomato_paste:
   name: "Pastă de roșii concentrată"
+  name_en: "Tomato purée, concentrated"
   short: "Pastă de roșii"
+  short_en: "Tomato purée"
   aisle: pantry
   staple: true
   yield: 1.0
@@ -155,7 +199,9 @@ tomato_paste:
 
 apple_vinegar:
   name: "Oțet de mere"
+  name_en: "Cider vinegar"
   short: "Oțet"
+  short_en: "Vinegar"
   aisle: pantry
   staple: true
   yield: 1.0
@@ -164,7 +210,9 @@ apple_vinegar:
 
 dijon_mustard:
   name: "Muștar Dijon"
+  name_en: "Dijon mustard"
   short: "Muștar"
+  short_en: "Mustard"
   aisle: pantry
   staple: true
   yield: 1.0
@@ -175,21 +223,27 @@ dijon_mustard:
 # Toate în cantități mici: volum și fibre, nu calorii. Nimic amidonos.
 onion:
   name: "Ceapă"
+  name_en: "Onions"
   short: "Ceapă"
+  short_en: "Onions"
   aisle: produce
   yield: 0.90
   per100g: { kcal: 40, protein: 1.1, fat: 0.1, carbs: 7.6, fibre: 1.7, sodium: 4, potassium: 146, phosphorus: 29 }
 
 red_onion:
   name: "Ceapă roșie"
+  name_en: "Red onions"
   short: "Ceapă roșie"
+  short_en: "Red onions"
   aisle: produce
   yield: 0.90
   per100g: { kcal: 40, protein: 1.1, fat: 0.1, carbs: 7.6, fibre: 1.7, sodium: 4, potassium: 146, phosphorus: 29 }
 
 carrot:
   name: "Morcovi"
+  name_en: "Carrots"
   short: "Morcovi"
+  short_en: "Carrots"
   aisle: produce
   yield: 0.88
   per100g: { kcal: 41, protein: 0.9, fat: 0.2, carbs: 6.8, fibre: 2.8, sodium: 69, potassium: 320, phosphorus: 35 }
@@ -197,7 +251,9 @@ carrot:
 
 cabbage_white:
   name: "Varză albă"
+  name_en: "White cabbage"
   short: "Varză"
+  short_en: "Cabbage"
   aisle: produce
   yield: 0.80
   per100g: { kcal: 25, protein: 1.3, fat: 0.1, carbs: 3.3, fibre: 2.5, sodium: 18, potassium: 170, phosphorus: 26 }
@@ -205,21 +261,27 @@ cabbage_white:
 
 courgette:
   name: "Dovlecel"
+  name_en: "Courgettes"
   short: "Dovlecel"
+  short_en: "Courgette"
   aisle: produce
   yield: 0.95
   per100g: { kcal: 17, protein: 1.2, fat: 0.3, carbs: 2.1, fibre: 1.0, sodium: 8, potassium: 261, phosphorus: 38 }
 
 pepper_red:
   name: "Ardei gras roșu"
+  name_en: "Red peppers"
   short: "Ardei"
+  short_en: "Peppers"
   aisle: produce
   yield: 0.85
   per100g: { kcal: 31, protein: 1.0, fat: 0.3, carbs: 3.9, fibre: 2.1, sodium: 4, potassium: 211, phosphorus: 26 }
 
 mushrooms:
   name: "Ciuperci champignon"
+  name_en: "Button mushrooms"
   short: "Ciuperci"
+  short_en: "Mushrooms"
   aisle: produce
   yield: 0.97
   per100g: { kcal: 22, protein: 3.1, fat: 0.3, carbs: 2.3, fibre: 1.0, sodium: 5, potassium: 318, phosphorus: 86 }
@@ -228,7 +290,9 @@ mushrooms:
 
 garlic:
   name: "Usturoi"
+  name_en: "Garlic"
   short: "Usturoi"
+  short_en: "Garlic"
   aisle: produce
   yield: 0.87
   unit_weight: 5
@@ -236,7 +300,9 @@ garlic:
 
 lemon:
   name: "Lămâie"
+  name_en: "Lemons"
   short: "Lămâie"
+  short_en: "Lemons"
   aisle: produce
   yield: 0.45
   unit_weight: 100
@@ -244,7 +310,9 @@ lemon:
 
 parsley:
   name: "Pătrunjel verde"
+  name_en: "Fresh parsley"
   short: "Pătrunjel"
+  short_en: "Parsley"
   aisle: produce
   yield: 0.90
   per100g: { kcal: 36, protein: 3.0, fat: 0.8, carbs: 3.0, fibre: 3.3, sodium: 56, potassium: 554, phosphorus: 58 }
@@ -253,7 +321,9 @@ parsley:
 # Coloana vertebrală a garniturilor: fără amidon, ieftine, gata tăiate, zero risipă.
 broccoli_frozen:
   name: "Broccoli congelat"
+  name_en: "Frozen broccoli florets"
   short: "Broccoli"
+  short_en: "Broccoli"
   aisle: frozen
   yield: 1.0
   per100g: { kcal: 34, protein: 2.8, fat: 0.4, carbs: 4.0, fibre: 3.0, sodium: 33, potassium: 316, phosphorus: 66 }
@@ -261,7 +331,9 @@ broccoli_frozen:
 
 cauliflower_frozen:
   name: "Conopidă congelată"
+  name_en: "Frozen cauliflower florets"
   short: "Conopidă"
+  short_en: "Cauliflower"
   aisle: frozen
   yield: 1.0
   per100g: { kcal: 25, protein: 1.9, fat: 0.3, carbs: 2.6, fibre: 2.4, sodium: 30, potassium: 299, phosphorus: 44 }
@@ -269,7 +341,9 @@ cauliflower_frozen:
 
 green_beans_frozen:
   name: "Fasole verde congelată"
+  name_en: "Frozen green beans"
   short: "Fasole verde"
+  short_en: "Green beans"
   aisle: frozen
   yield: 1.0
   per100g: { kcal: 33, protein: 1.8, fat: 0.2, carbs: 3.8, fibre: 3.2, sodium: 6, potassium: 211, phosphorus: 38 }
@@ -277,7 +351,9 @@ green_beans_frozen:
 # ───────────────────────── CONDIMENTE ────────────────────────
 salt:
   name: "Sare"
+  name_en: "Salt"
   short: "Sare"
+  short_en: "Salt"
   aisle: spices
   staple: true
   yield: 1.0
@@ -287,7 +363,9 @@ salt:
 
 black_pepper:
   name: "Piper negru măcinat"
+  name_en: "Ground black pepper"
   short: "Piper"
+  short_en: "Black pepper"
   aisle: spices
   staple: true
   yield: 1.0
@@ -295,7 +373,9 @@ black_pepper:
 
 paprika_smoked:
   name: "Boia afumată"
+  name_en: "Smoked paprika"
   short: "Boia afumată"
+  short_en: "Smoked paprika"
   aisle: spices
   staple: true
   yield: 1.0
@@ -304,7 +384,9 @@ paprika_smoked:
 
 paprika_sweet:
   name: "Boia dulce"
+  name_en: "Sweet paprika"
   short: "Boia"
+  short_en: "Paprika"
   aisle: spices
   staple: true
   yield: 1.0
@@ -312,7 +394,9 @@ paprika_sweet:
 
 cumin:
   name: "Chimion măcinat"
+  name_en: "Ground cumin"
   short: "Chimion"
+  short_en: "Cumin"
   aisle: spices
   staple: true
   yield: 1.0
@@ -320,7 +404,9 @@ cumin:
 
 caraway:
   name: "Chimen"
+  name_en: "Caraway seeds"
   short: "Chimen"
+  short_en: "Caraway"
   aisle: spices
   staple: true
   yield: 1.0
@@ -328,7 +414,9 @@ caraway:
 
 rosemary_dried:
   name: "Rozmarin uscat"
+  name_en: "Dried rosemary"
   short: "Rozmarin"
+  short_en: "Rosemary"
   aisle: spices
   staple: true
   yield: 1.0
@@ -336,7 +424,9 @@ rosemary_dried:
 
 thyme_dried:
   name: "Cimbru uscat"
+  name_en: "Dried thyme"
   short: "Cimbru"
+  short_en: "Thyme"
   aisle: spices
   staple: true
   yield: 1.0
@@ -344,7 +434,9 @@ thyme_dried:
 
 bay_leaf:
   name: "Frunze de dafin"
+  name_en: "Bay leaves"
   short: "Dafin"
+  short_en: "Bay"
   aisle: spices
   staple: true
   yield: 1.0
@@ -352,7 +444,9 @@ bay_leaf:
 
 chili_flakes:
   name: "Fulgi de chili"
+  name_en: "Chilli flakes"
   short: "Chili"
+  short_en: "Chilli"
   aisle: spices
   staple: true
   yield: 1.0

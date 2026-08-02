@@ -67,10 +67,14 @@
   {{- end -}}
 {{- end -}}
 
+{{- $name  := partial "tr.html" (dict "m" $ing "f" "name") -}}
+{{- $short := $ing.short | default $ing.name -}}
+{{- with $ing.short }}{{ $short = partial "tr.html" (dict "m" $ing "f" "short") }}{{ end -}}
+
 {{- return (dict
     "key"        $key
-    "name"       $ing.name
-    "short"      ($ing.short | default $ing.name)
+    "name"       $name
+    "short"      $short
     "aisle"      ($ing.aisle | default "pantry")
     "qty"        $qty
     "unit"       $unit

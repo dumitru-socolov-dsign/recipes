@@ -12,11 +12,11 @@ ingredients:
   - group: "De bază"
     items:
       - { key: egg, qty: 2, unit: buc }
-      - { key: pork_sausage, qty: 50, unit: g }
-      - { key: cabbage_white, qty: 70, unit: g }
+      - { key: pork_sausage, qty: 55, unit: g }
+      - { key: cabbage_white, qty: 80, unit: g }
   - group: "Grăsimi și condimente"
     items:
-      - { key: butter_unsalted, qty: 45, unit: g }
+      - { key: butter_unsalted, qty: 48, unit: g }
       - { key: black_pepper, qty: 0.5, unit: g }
 steps:
   - text: "Taie cârnatul în rondele groase de un centimetru și varza fâșii subțiri."
@@ -36,17 +36,17 @@ Rutina asta era deja corectă înainte să existe planul. E ieftină, e rapidă,
 care pornește ziua bine, și nu necesită nicio decizie la șapte dimineața.
 
 **Varza a luat locul cartofilor.** Aceeași funcție — ceva care se prăjește în grăsimea scursă
-din cârnat și umple tigaia — cu o cincime din carbohidrați și la nouă cenți porția. Caloriile
-care lipseau au venit din zece grame de unt în plus, care nu se văd în farfurie.
+din cârnat și umple tigaia — cu o cincime din carbohidrați și la zece cenți porția. Caloriile
+care lipseau au venit din unt, care nu se vede în farfurie.
 
-Dacă te plictisește, șaptezeci de grame de ciuperci fac exact aceeași treabă și sunt mai bune
+Dacă te plictisește, optzeci de grame de ciuperci fac exact aceeași treabă și sunt mai bune
 cu ouăle. Costă însă de patru ori mai mult, deci ține-le pentru weekend.
 
 **Singurul lucru de verificat: eticheta cârnatului.** Cârnații sunt singurul aliment
 procesat din toată săptămâna, și acolo se ascund două lucruri care contează:
 
-- **Sodiul.** Cincizeci de grame de cârnat aduc ~400 mg de sodiu — un sfert din ziua ta,
-  din cea mai mică bucată de mâncare din farfurie. De aceea nu mai pui sare peste ouă.
+- **Sodiul.** Cincizeci și cinci de grame de cârnat aduc ~440 mg de sodiu — un sfert din ziua
+  ta, din cea mai mică bucată de mâncare din farfurie. De aceea nu mai pui sare peste ouă.
 - **Fosfații adăugați** (E338–E452 pe etichetă). Fosforul din carne se absoarbe pe jumătate;
   cel din aditivi se absoarbe aproape integral. Caută pe etichetă „>85% carne de porc" și
   lipsa codurilor E de mai sus.
