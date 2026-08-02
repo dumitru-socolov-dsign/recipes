@@ -25,7 +25,9 @@ Instalabil pe telefon (Add to Home Screen). Funcționează offline după prima v
 
 ## Cerințe
 
-- **Hugo extended ≥ 0.146** — `hugo version` trebuie să conțină `+extended`
+- **Hugo extended ≥ 0.156** — `hugo version` trebuie să conțină `+extended`.
+  Șabloanele folosesc `hugo.Data`, care nu există înainte de 0.156. `hugo.toml` are o gardă
+  care oprește build-ul cu mesaj clar dacă versiunea e prea veche. Testat pe 0.164.0.
 - **Node ≥ 20** doar pentru unelte (prețuri, imagini). Nu e nevoie la build.
 
 Nicio dependență npm în producție. Fără Hugo Modules, deci fără Go.
@@ -163,16 +165,25 @@ Când ridici versiunea de Hugo local, schimb-o și în `build.sh`. Poți verific
 
 ### Pages (varianta clasică, încă funcționează)
 
-Dacă ai deja un proiect Pages sau preferi fluxul vechi:
+Dacă ai deja un proiect Pages:
 
 | Setare | Valoare |
 |---|---|
-| Framework preset | Hugo |
-| Build command | `hugo --gc --minify` |
+| Framework preset | None |
+| Build command | `bash build.sh` |
 | Build output directory | `public` |
-| Environment variable | `HUGO_VERSION` = `0.164.0` |
 
-Aici `wrangler.jsonc` și `build.sh` sunt ignorate.
+**Nu folosi presetul Hugo.** Acela rulează `hugo --gc --minify` cu versiunea din imaginea
+de build a Cloudflare, care e mult în urmă — la data scrierii, 0.147.7 — și build-ul eșuează
+cu erori de șablon care nu spun de ce. `bash build.sh` descarcă versiunea corectă și e exact
+scriptul folosit și de fluxul Workers, deci ai un singur mod de a construi, peste tot.
+(`bash build.sh`, nu `./build.sh`, ca să nu depindă de bitul de execuție al fișierului.)
+
+Alternativa, dacă vrei totuși presetul Hugo: build command `hugo --gc --minify` plus
+variabila `HUGO_VERSION` = `0.164.0`. Merge, dar versiunea trăiește atunci într-o setare
+de dashboard pe care o uiți, nu în repo, lângă cod.
+
+Aici `wrangler.jsonc` e ignorat.
 
 ### Rebuild zilnic la 06:00
 

@@ -67,12 +67,11 @@ main() {
   hugo version
   command -v node &> /dev/null && echo "Node.js: $(node --version)" || true
 
-  git config --global core.quotepath false
+  # Diacriticele din numele fișierelor, corect afișate în log-uri.
+  git config --global core.quotepath false || true
 
-  if [[ $(git rev-parse --is-shallow-repository 2>/dev/null || echo false) == true ]]; then
-    echo "Aduc tot istoricul Git..."
-    git fetch --unshallow
-  fi
+  # Fără `git fetch --unshallow`: `enableGitInfo` e false, deci istoricul nu e folosit
+  # nicăieri, iar pe unele medii de build fetch-ul eșuează și oprește tot degeaba.
 
   if [[ -f package-lock.json ]]; then
     echo "Instalez dependențele Node.js..."
