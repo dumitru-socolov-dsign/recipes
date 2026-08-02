@@ -1,15 +1,18 @@
 # Ținte nutriționale implicite pentru o zi.
 # Toate sunt editabile din pagina Setări; valorile de acolo se salvează local pe telefon
 # și au prioritate față de ce scrie aici.
+#
+# Planul nu conține crupe, făinoase, cartofi și nici alte rădăcinoase amidonoase. Cu proteina
+# ținută sub prag, singura sursă rămasă pentru calorii e grăsimea — de aici raportul de mai jos.
 
 daily:
   kcal: 3000
   protein_g: 84
-  fat_g: 194
-  carbs_g: 230
+  fat_g: 275
+  carbs_g: 40
+  fibre_g: 20
   sodium_mg: 2000
-  fibre_g: 30
-  water_ml: 2500
+  water_ml: 3000
 
 # Praguri pentru semaforul din interfață: sub `good` = verde, între = galben, peste `max` = roșu.
 limits:
@@ -20,12 +23,12 @@ limits:
 
 # Cum se împart caloriile pe zi. Micul dejun e fix (ouă cu cârnat), restul se împarte egal.
 meals:
-  breakfast_kcal: 620
+  breakfast_kcal: 640
   meals_per_day: 3
   default_servings: 1
 
 toggles:
-  include_tubers:  { default: true,  label: "Include cartofi și rădăcinoase" }
+  include_nuts:    { default: true,  label: "Include nuci" }
   limit_potassium: { default: false, label: "Limitează potasiul" }
   low_sodium:      { default: true,  label: "Mod cu sare redusă" }
 
@@ -34,10 +37,13 @@ copy:
   kcal: "3000 kcal înseamnă un surplus mic peste consum — creștere lentă și constantă, fără burtă."
   protein_g: "1.2 g pe kilogram de greutate. Suficient pentru masă musculară, fără să exagerezi. Restul caloriilor vin din grăsime."
   sodium_mg: "Recomandarea OMS pentru adulți este sub 2000 mg de sodiu pe zi — adică sub 5 g de sare. Majoritatea rețetelor clasice au atât într-un singur fel de mâncare."
-  potassium_mg: "Urmărit informativ. Cartofii, roșiile și ciupercile sunt principalele surse."
-  phosphorus_mg: "Urmărit informativ. Fosforul din carne și ouă se absoarbe pe jumătate; cel din aditivi (E338–E452, în mezeluri și brânzeturi topite) se absoarbe aproape integral."
-  include_tubers: "Cartoful nu este nici crupă, nici făinos. Îți dă cele mai ieftine calorii din magazin și volum pentru un tranzit bun. Dacă îl scoți, tot ce lipsește trebuie acoperit din grăsime."
-  limit_potassium: "Schimbă garniturile spre varză, conopidă și fasole verde și adaugă pasul de fierbere-și-aruncat-apa la cartofi."
+  fat_g: "Peste 80% din calorii vin din grăsime, fiindcă e singurul loc de unde mai pot veni. Fără amidon în farfurie și cu proteina plafonată, restul e aritmetică."
+  carbs_g: "Sub 40 g pe zi, toți din legume. Nimic din crupe, făină, cartofi sau alte rădăcinoase amidonoase."
+  fibre_g: "Douăzeci de grame e ce livrează efectiv planul, nu ce recomandă manualele — acolo scrie 25–30. Fără cartofi și cereale, restul ar trebui scos din legume, iar tu le vrei în cantități mici. Dacă tranzitul se strică, prima pârghie e varza și broccoli, a doua e apa."
+  potassium_mg: "Urmărit informativ. Fără cartofi, principalele surse rămase sunt pasta de roșii, ciupercile și pătrunjelul."
+  phosphorus_mg: "Urmărit informativ. Fosforul din carne și ouă se absoarbe pe jumătate; cel din aditivi (E338–E452, în mezeluri și brânzeturi topite) se absoarbe aproape integral. Nucile și sardinele sunt sursele concentrate din plan."
+  include_nuts: "Nucile aduc aproape 400 kcal pe porție fără gătit și o parte bună din fibre. Au însă mult fosfor — dacă vrei să-l reduci, scoate-le și pune ulei de măsline în loc."
+  limit_potassium: "Mută garniturile spre varză, conopidă și fasole verde, cele mai sărace în potasiu dintre legumele din plan."
   low_sodium: "Taie sarea la ~1.2 g pe porție și compensează gustul cu acid, usturoi, boia afumată și rumenire bună."
 
 # Sfaturi care apar în UI unde e cazul.
@@ -45,4 +51,6 @@ tips:
   salt_substitute_warning: "Nu folosi „sare cu sodiu redus\" (LoSalt și similare). Aceea e clorură de potasiu și schimbă o problemă cu alta."
   salt_at_the_end: "Pune sarea la final, peste mâncare, nu în oală. Se simte de două ori mai tare la aceeași cantitate."
   acid_first: "Dacă mâncarea pare fadă, încearcă întâi câteva picături de lămâie sau oțet. De nouă ori din zece, lipsea aciditatea, nu sarea."
-  potato_leaching: "Taie cartofii mărunt, fierbe-i în apă multă și aruncă apa. Scade potasiul cu peste jumătate."
+  fat_transition: "Primele două săptămâni pe atâta grăsime, scaunul poate fi moale și energia mai mică. Trece de la sine pe măsură ce crește producția de bilă. Dacă nu trece, scade grăsimea cu 30 g pe zi și urcă înapoi treptat."
+  fibre_and_water: "Fibrele fără apă înfundă, nu ajută. La atâtea fibre îți trebuie cel puțin 3 litri de apă pe zi — mai ales fiindcă nu mai vine nimic din cartofi."
+  browning_not_salt: "Rumenirea e sursa de gust care înlocuiește sarea. Tigaie încinsă, un singur strat, și nu atinge mâncarea în primele minute."

@@ -1,73 +1,74 @@
 # Generat de tools/fetch-images.mjs. Atribuirea e cerută de licențele Creative Commons.
 chiftele-vita:
-  title: "Baked Meatballs"
-  creator: "TheGirlsNY"
-  license: "BY-SA 2.0"
-  license_url: "https://creativecommons.org/licenses/by-sa/2.0/"
-  source: "https://www.flickr.com/photos/55768440@N00/3609529302"
+  creator: TheGirlsNY
+  license: BY-SA 2.0
+  license_url: https://creativecommons.org/licenses/by-sa/2.0/
+  source: https://www.flickr.com/photos/55768440@N00/3609529302
+  title: Baked Meatballs
+conopida-unt:
+  creator: kurmanstaff
+  license: BY 2.0
+  license_url: https://creativecommons.org/licenses/by/2.0/
+  source: https://www.flickr.com/photos/62558987@N07/52817763381
+  title: Roasted Cauliflower & Broccoli with Basil Remoulade KCI_3626
 macrou-ceapa:
-  title: "Peppered mackerel with new potatoes in hollandaise sauce, bacon, vine tomatoes, asparagus and beetroot & red pepper salad"
-  creator: "CharmaineZoe's Marvelous Melange"
-  license: "BY 2.0"
-  license_url: "https://creativecommons.org/licenses/by/2.0/"
-  source: "https://www.flickr.com/photos/53499099@N00/15991621069"
-omleta-cartofi:
-  title: "Vegan potato omelette / Tortilla de patata sin huevo (vegan)"
-  creator: "Lablascovegmenu"
-  license: "BY 2.0"
-  license_url: "https://creativecommons.org/licenses/by/2.0/"
-  source: "https://www.flickr.com/photos/35022955@N06/4502306959"
+  creator: adactio
+  license: BY 2.0
+  license_url: https://creativecommons.org/licenses/by/2.0/
+  source: https://www.flickr.com/photos/74105777@N00/38733516
+  title: Soy glazed mackerel
+omleta-ciuperci:
+  creator: Mr Michael Phams
+  license: BY-SA 2.0
+  license_url: https://creativecommons.org/licenses/by-sa/2.0/
+  source: https://www.flickr.com/photos/32003811@N04/3802859017
+  title: Spinach Mushroom Omelette
 oua-carnat:
-  title: "Mmm... fried egg, sliced sausage, and hash browns on a grilled bun"
-  creator: "jeffreyw"
-  license: "BY 2.0"
-  license_url: "https://creativecommons.org/licenses/by/2.0/"
-  source: "https://www.flickr.com/photos/7927684@N03/6226666569"
+  creator: jeffreyw
+  license: BY 2.0
+  license_url: https://creativecommons.org/licenses/by/2.0/
+  source: https://www.flickr.com/photos/7927684@N03/6226666569
+  title: Mmm... fried egg, sliced sausage, and hash browns on a grilled bun
 porc-ardei:
-  title: "Pork goulash on Spätzle"
-  creator: "WordRidden"
-  license: "BY 2.0"
-  license_url: "https://creativecommons.org/licenses/by/2.0/"
-  source: "https://www.flickr.com/photos/97844767@N00/1856670019"
+  creator: WordRidden
+  license: BY 2.0
+  license_url: https://creativecommons.org/licenses/by/2.0/
+  source: https://www.flickr.com/photos/97844767@N00/1856670019
+  title: Pork goulash on Spätzle
 porc-varza:
-  title: "Baked Pork and Fennel Sausages, pumpkin with rosemary + garlic, braised red cabbage + Granny Smith apples"
-  creator: "avlxyz"
-  license: "BY-SA 2.0"
-  license_url: "https://creativecommons.org/licenses/by-sa/2.0/"
-  source: "https://www.flickr.com/photos/10559879@N00/3528399092"
+  creator: avlxyz
+  license: BY-SA 2.0
+  license_url: https://creativecommons.org/licenses/by-sa/2.0/
+  source: https://www.flickr.com/photos/10559879@N00/3528399092
+  title: Baked Pork and Fennel Sausages, pumpkin with rosemary + garlic, braised red
+    cabbage + Granny Smith apples
 pui-smantana-ciuperci:
-  title: "Chicken in mushroom sauce"
-  creator: "Ruth and Dave"
-  license: "BY 2.0"
-  license_url: "https://creativecommons.org/licenses/by/2.0/"
-  source: "https://www.flickr.com/photos/95142644@N00/3110849402"
-pui-tava-cartofi:
-  title: "roasted chicken + potatoes"
-  creator: "nyaa_birdies_perch"
-  license: "BY 2.0"
-  license_url: "https://creativecommons.org/licenses/by/2.0/"
-  source: "https://www.flickr.com/photos/94862897@N00/5869503166"
-radacinoase-unt:
-  title: "Roasted Root Vegetables"
-  creator: "Laurel Fan"
-  license: "BY-SA 2.0"
-  license_url: "https://creativecommons.org/licenses/by-sa/2.0/"
-  source: "https://www.flickr.com/photos/18295242@N00/3986882777"
+  creator: Ruth and Dave
+  license: BY 2.0
+  license_url: https://creativecommons.org/licenses/by/2.0/
+  source: https://www.flickr.com/photos/95142644@N00/3110849402
+  title: Chicken in mushroom sauce
+pui-tava-conopida:
+  creator: HaJunkiyada
+  license: BY-SA 4.0
+  license_url: https://creativecommons.org/licenses/by-sa/4.0/
+  source: https://commons.wikimedia.org/w/index.php?curid=181753375
+  title: Liat Portal for Foodie Disorder - Grilled Chicken with Roasted Vegetables
 sardine-ceapa:
-  title: "2006 sardines plate flash"
-  creator: "Rl"
-  license: "BY-SA 3.0"
-  license_url: "https://creativecommons.org/licenses/by-sa/3.0/"
-  source: "https://commons.wikimedia.org/w/index.php?curid=778589"
+  creator: Lplatebigcheese
+  license: BY 2.0
+  license_url: https://creativecommons.org/licenses/by/2.0/
+  source: https://www.flickr.com/photos/89365565@N00/2188302686
+  title: Cuisine, sardine // Испанская кухня
 somon-lamaie:
-  title: "Baked Salmon with Parsley and Lemon Breadcrumbs - hot from oven"
-  creator: "avlxyz"
-  license: "BY-SA 2.0"
-  license_url: "https://creativecommons.org/licenses/by-sa/2.0/"
-  source: "https://www.flickr.com/photos/10559879@N00/4780854087"
+  creator: Audrey Kirchner
+  license: BY-SA 2.0
+  license_url: https://creativecommons.org/licenses/by-sa/2.0/
+  source: https://www.flickr.com/photos/41032843@N05/8006930015
+  title: DSCN3796 salmon fillet
 varza-calda-chimen:
-  title: "Stir-fried cabbage and chicken gizzard"
-  creator: "pelican"
-  license: "BY-SA 2.0"
-  license_url: "https://creativecommons.org/licenses/by-sa/2.0/"
-  source: "https://www.flickr.com/photos/85936780@N00/2206134344"
+  creator: pelican
+  license: BY-SA 2.0
+  license_url: https://creativecommons.org/licenses/by-sa/2.0/
+  source: https://www.flickr.com/photos/85936780@N00/2206134344
+  title: Stir-fried cabbage and chicken gizzard

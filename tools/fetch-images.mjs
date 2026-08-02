@@ -31,10 +31,10 @@ const ONLY = (() => {
  * not  — cuvinte care descalifică imediat
  */
 const RECIPES = {
-  'pui-tava-cartofi': {
-    q: ['roast chicken potatoes', 'roasted chicken thighs', 'chicken tray bake'],
-    must: [['chicken'], ['potato', 'potatoes', 'roast', 'roasted', 'tray']],
-    not: ['soup', 'salad', 'sandwich', 'burger', 'raw', 'curry', 'noodle'],
+  'pui-tava-conopida': {
+    q: ['roasted chicken thighs cauliflower', 'roast chicken thighs tray', 'roasted chicken thighs'],
+    must: [['chicken'], ['roast', 'roasted', 'tray', 'baked', 'oven']],
+    not: ['soup', 'salad', 'sandwich', 'burger', 'raw', 'curry', 'noodle', 'potato', 'potatoes', 'rice', 'pasta'],
   },
   'porc-varza': {
     q: ['braised pork cabbage', 'pork and cabbage stew', 'cabbage with bacon'],
@@ -44,7 +44,7 @@ const RECIPES = {
   'chiftele-vita': {
     q: ['baked meatballs', 'beef meatballs', 'meatballs oven tray'],
     must: [['meatball', 'meatballs']],
-    not: ['spaghetti', 'pasta', 'sub', 'sandwich', 'burger', 'soup', 'ikea', 'noodle'],
+    not: ['spaghetti', 'pasta', 'sub', 'sandwich', 'burger', 'soup', 'ikea', 'noodle', 'rice', 'potato', 'potatoes'],
   },
   'pui-smantana-ciuperci': {
     q: ['chicken with mushroom sauce', 'creamy chicken mushrooms', 'chicken mushroom skillet'],
@@ -54,7 +54,7 @@ const RECIPES = {
   'somon-lamaie': {
     q: ['baked salmon fillet', 'roasted salmon lemon', 'grilled salmon fillet'],
     must: [['salmon'], ['baked', 'roast', 'roasted', 'grilled', 'fillet', 'filet', 'oven', 'cooked']],
-    not: ['benedict', 'smoked', 'sushi', 'sashimi', 'bagel', 'raw', 'pasta', 'burger', 'salad', 'river'],
+    not: ['benedict', 'smoked', 'sushi', 'sashimi', 'bagel', 'raw', 'pasta', 'burger', 'salad', 'river', 'potato', 'potatoes', 'rice', 'breadcrumb', 'breadcrumbs', 'crumb'],
   },
   'porc-ardei': {
     q: ['pork goulash', 'pork stew peppers', 'goulash'],
@@ -66,10 +66,10 @@ const RECIPES = {
     must: [['cabbage']],
     not: ['soup', 'borscht', 'salad', 'coleslaw', 'roll', 'raw', 'dumpling', 'stuffed', 'field', 'garden'],
   },
-  'radacinoase-unt': {
-    q: ['roasted root vegetables', 'roasted carrots parsnips', 'oven roasted vegetables'],
-    must: [['roast', 'roasted', 'baked'], ['vegetable', 'vegetables', 'carrot', 'carrots', 'parsnip', 'root', 'veg']],
-    not: ['soup', 'juice', 'raw', 'salad', 'cake', 'market'],
+  'conopida-unt': {
+    q: ['roasted cauliflower broccoli', 'roasted cauliflower', 'oven roasted broccoli'],
+    must: [['roast', 'roasted', 'baked'], ['cauliflower', 'broccoli']],
+    not: ['soup', 'juice', 'raw', 'salad', 'cake', 'market', 'rice', 'cheese', 'potato', 'field'],
   },
   'oua-carnat': {
     q: ['fried eggs and sausage', 'full breakfast eggs sausage', 'fried egg breakfast plate'],
@@ -79,17 +79,17 @@ const RECIPES = {
   'sardine-ceapa': {
     q: ['sardines on plate', 'tinned sardines', 'sardines'],
     must: [['sardine', 'sardines']],
-    not: ['sea', 'shoal', 'aquarium', 'fishing', 'boat', 'market', 'factory'],
+    not: ['sea', 'shoal', 'aquarium', 'fishing', 'boat', 'market', 'factory', 'toast', 'bread', 'pasta', 'potato'],
   },
-  'omleta-cartofi': {
-    q: ['potato omelette', 'spanish tortilla potato', 'tortilla de patatas'],
-    must: [['omelette', 'omelet', 'tortilla', 'frittata']],
-    not: ['wrap', 'mexican', 'chips', 'burrito', 'taco', 'flour'],
+  'omleta-ciuperci': {
+    q: ['mushroom omelette', 'omelette with mushrooms', 'mushroom frittata'],
+    must: [['omelette', 'omelet', 'frittata'], ['mushroom', 'mushrooms']],
+    not: ['wrap', 'mexican', 'chips', 'burrito', 'taco', 'flour', 'potato', 'tortilla', 'banana', 'leaf', 'rice'],
   },
   'macrou-ceapa': {
     q: ['cooked mackerel plate', 'grilled mackerel', 'mackerel fillet cooked'],
     must: [['mackerel'], ['cooked', 'grilled', 'fried', 'baked', 'plate', 'fillet', 'smoked', 'dish']],
-    not: ['raw', 'sea', 'market', 'fishing', 'octopus', 'aquarium', 'catch', 'ice'],
+    not: ['raw', 'sea', 'market', 'fishing', 'octopus', 'aquarium', 'catch', 'ice', 'potato', 'potatoes', 'rice', 'bread', 'toast', 'dauphinoise', 'gratin', 'pie', 'mash'],
   },
 };
 

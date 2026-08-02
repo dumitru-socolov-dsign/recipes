@@ -203,8 +203,17 @@ Cron-ul GitHub e best-effort: poate întârzia 5–15 minute. De aceea sunt dou�
 ## Nutriție
 
 Valorile implicite din `data/targets.yaml` țintesc 3000 kcal, 84 g proteine și sub 2000 mg
-sodiu pe zi — pragul recomandat de OMS pentru adulți. Caloriile suplimentare vin din grăsime,
-nu din proteine.
+sodiu pe zi — pragul recomandat de OMS pentru adulți.
+
+Planul nu conține cereale, făinoase, cartofi sau alte rădăcinoase amidonoase, iar legumele
+intră în cantități mici. Cu proteina plafonată la 84 g, singura sursă rămasă pentru restul
+caloriilor e grăsimea: rezultatul e ~275 g grăsime și sub 40 g carbohidrați pe zi, adică
+peste 80% din calorii din grăsime. Nu e o alegere de stil, e ce rămâne după constrângeri.
+
+Consecința pe care o urmărește aplicația explicit: **fibrele**. Cartoful era principala sursă,
+iar înlocuitorii — varză, conopidă, broccoli, nuci — ajung la ~20 g pe zi, sub recomandarea
+generală de 25–30 g. Fibrele se afișează per porție, cu bară proprie, iar acolo bara plină e
+lucrul bun; la sodiu, potasiu și fosfor e invers.
 
 Rețetele afișează și potasiul și fosforul per porție, informativ. Toate țintele se pot
 schimba din pagina **Setări**; valorile alese rămân în browser.

@@ -11,12 +11,12 @@ sessions:
     start: "17:00"
     minutes: 55
     recipes:
-      - { slug: pui-tava-cartofi, servings: 2 }
+      - { slug: pui-tava-conopida, servings: 2 }
       - { slug: porc-varza, servings: 2 }
     covers:
-      - { day: 0, meal: dinner, slug: pui-tava-cartofi }
+      - { day: 0, meal: dinner, slug: pui-tava-conopida }
       - { day: 1, meal: lunch,  slug: porc-varza }
-      - { day: 1, meal: dinner, slug: pui-tava-cartofi }
+      - { day: 1, meal: dinner, slug: pui-tava-conopida }
       - { day: 2, meal: lunch,  slug: porc-varza }
 
   - id: b
@@ -24,7 +24,7 @@ sessions:
     day: 2            # marți
     day_name: "Marți"
     start: "18:00"
-    minutes: 58
+    minutes: 52
     recipes:
       - { slug: chiftele-vita, servings: 3 }
       - { slug: pui-smantana-ciuperci, servings: 2 }
@@ -45,11 +45,13 @@ sessions:
       - { slug: somon-lamaie, servings: 2 }
       - { slug: porc-ardei, servings: 2 }
       - { slug: varza-calda-chimen, servings: 2 }
+    # Somonul nu se mănâncă vineri: prânzul de vineri e deja sardine, iar peștele gras și
+    # oasele mici din conservă încarcă fosforul. Se împing amândouă porțiile după sardine.
     covers:
-      - { day: 5, meal: dinner, slug: somon-lamaie }
+      - { day: 5, meal: dinner, slug: porc-ardei }
       - { day: 6, meal: lunch,  slug: porc-ardei }
       - { day: 6, meal: dinner, slug: somon-lamaie }
-      - { day: 0, meal: lunch,  slug: porc-ardei }
+      - { day: 0, meal: lunch,  slug: somon-lamaie }
 
 # Mese care nu vin din batch cooking — se fac pe loc, în câteva minute.
 fresh:
@@ -57,8 +59,9 @@ fresh:
 
 # Rețete de rezervă, fără loc fix în plan.
 spare:
-  - omleta-cartofi
+  - omleta-ciuperci
   - macrou-ceapa
+  - conopida-unt
 
 day_names: ["Duminică", "Luni", "Marți", "Miercuri", "Joi", "Vineri", "Sâmbătă"]
 day_short: ["Du", "Lu", "Ma", "Mi", "Jo", "Vi", "Sâ"]
@@ -72,36 +75,38 @@ meal_names:
 # Suma duratelor rețetelor e mult mai mare decât durata sesiunii — exact asta e ideea.
 timelines:
   a:
-    - { at: 0,  r: pui-tava-cartofi,  t: "Pornește cuptorul la 220°C. Scoate puiul din frigider." }
-    - { at: 2,  r: pui-tava-cartofi,  t: "Taie cartofii, ceapa și usturoiul pentru tavă." }
-    - { at: 8,  r: pui-tava-cartofi,  t: "Condimentează legumele, așază puiul deasupra, bagă tava în cuptor." }
-    - { at: 12, r: porc-varza,        t: "Cât se coace: taie ceafa, varza, morcovul și cartofii." }
-    - { at: 20, r: porc-varza,        t: "Rumenește carnea în cratiță, apoi ceapa și morcovul." }
-    - { at: 27, r: porc-varza,        t: "Varză, condimente, carne, cartofi, apă. Capac, foc mic." }
-    - { at: 48, r: pui-tava-cartofi,  t: "Scoate tava, pune untul și sarea, încă 5 minute în cuptor." }
+    - { at: 0,  r: pui-tava-conopida, t: "Pornește cuptorul la 220°C. Scoate puiul din frigider, topește untura." }
+    - { at: 3,  r: pui-tava-conopida, t: "Conopida congelată direct în tavă, cu ceapa și usturoiul. Untura peste tot." }
+    - { at: 8,  r: pui-tava-conopida, t: "Usucă pulpele cu hârtie, așază-le peste legume, bagă tava în cuptor." }
+    - { at: 12, r: porc-varza,        t: "Cât se coace: taie ceafa, varza, ceapa și morcovul." }
+    - { at: 20, r: porc-varza,        t: "Rumenește carnea în untură, pe foc mare. Apoi ceapa și morcovul." }
+    - { at: 28, r: porc-varza,        t: "Varză, condimente, oțet, carne, 100 ml apă. Capac, foc mic." }
+    - { at: 48, r: pui-tava-conopida, t: "Scoate tava, pune untul, sarea și lămâia, încă 5 minute în cuptor." }
+    - { at: 50, r: porc-varza,        t: "Fără capac, foc mare 3 minute ca să scadă zeama." }
     - { at: 53, r: porc-varza,        t: "Unt și sare în tocană. Împarte totul în cutii." }
   b:
-    - { at: 0,  r: chiftele-vita,          t: "Cuptorul la 210°C. Taie cartofii, morcovii și păstârnacul." }
-    - { at: 7,  r: chiftele-vita,          t: "Bagă tava cu rădăcinoase — au nevoie de 15 minute avans." }
-    - { at: 8,  r: pui-smantana-ciuperci,  t: "Pune cartofii la fiert în apă multă, fără sare." }
-    - { at: 10, r: chiftele-vita,          t: "Rade ceapa peste carne, adaugă oul și condimentele." }
-    - { at: 15, r: chiftele-vita,          t: "Formează 12 chiftele cu mâinile ude." }
-    - { at: 22, r: chiftele-vita,          t: "Scoate tava, adaugă chiftelele lângă legume, înapoi 22 de minute." }
-    - { at: 24, r: pui-smantana-ciuperci,  t: "Rumenește ciupercile în tigaie, fără să le atingi." }
-    - { at: 30, r: pui-smantana-ciuperci,  t: "Puiul și ceapa în aceeași tigaie." }
-    - { at: 37, r: pui-smantana-ciuperci,  t: "Smântână și muștar, foc mic, fără clocot." }
-    - { at: 42, r: pui-smantana-ciuperci,  t: "Scurge cartofii, adaugă-i cu untul. Gata." }
-    - { at: 46, r: chiftele-vita,          t: "Scoate tava, unt și sare peste tot." }
-    - { at: 52, r: chiftele-vita,          t: "Lasă 5 minute, apoi împarte în cutii." }
+    - { at: 0,  r: chiftele-vita,          t: "Cuptorul la 210°C. Topește untura, conopida și broccoli direct în tavă." }
+    - { at: 5,  r: chiftele-vita,          t: "Bagă tava cu legume — au nevoie de 15 minute avans." }
+    - { at: 7,  r: pui-smantana-ciuperci,  t: "Dezosează puiul, taie ciupercile și ceapa." }
+    - { at: 12, r: chiftele-vita,          t: "Rade ceapa peste carne, adaugă oul și condimentele." }
+    - { at: 16, r: chiftele-vita,          t: "Formează 12 chiftele cu mâinile ude." }
+    - { at: 20, r: chiftele-vita,          t: "Scoate tava, adaugă chiftelele lângă legume, înapoi 22 de minute." }
+    - { at: 22, r: pui-smantana-ciuperci,  t: "Rumenește ciupercile în untură, fără să le atingi." }
+    - { at: 28, r: pui-smantana-ciuperci,  t: "Puiul și ceapa în aceeași tigaie." }
+    - { at: 34, r: pui-smantana-ciuperci,  t: "Fasolea verde congelată peste pui, 3 minute." }
+    - { at: 37, r: pui-smantana-ciuperci,  t: "Smântână grasă și muștar, foc mic, fără clocot." }
+    - { at: 43, r: pui-smantana-ciuperci,  t: "Foc stins, unt și sare. Gata." }
+    - { at: 44, r: chiftele-vita,          t: "Scoate tava, unt și sare peste tot." }
+    - { at: 47, r: chiftele-vita,          t: "Lasă 5 minute, apoi împarte în cutii." }
   c:
-    - { at: 0,  r: porc-ardei,     t: "Taie ceafa, ardeii, ceapa și cartofii." }
-    - { at: 8,  r: porc-ardei,     t: "Rumenește carnea pe foc mare, apoi călește ceapa." }
-    - { at: 15, r: porc-ardei,     t: "Foc stins: boiaua. Apoi pastă de roșii, ardei, apă. Capac." }
-    - { at: 17, r: somon-lamaie,   t: "Cuptorul la 200°C. Cartofii pentru somon la fiert." }
-    - { at: 22, r: somon-lamaie,   t: "Unt topit cu usturoi și lămâie. Așază somonul în tavă." }
-    - { at: 28, r: somon-lamaie,   t: "Somonul în cuptor, 12 minute. Fasolea la minutul 6." }
-    - { at: 30, r: varza-calda-chimen, t: "Taie varza fâșii." }
-    - { at: 34, r: porc-ardei,     t: "Adaugă cartofii în tocană, încă 12 minute." }
-    - { at: 36, r: varza-calda-chimen, t: "Varza la tigaie pe foc mare, 5 minute." }
-    - { at: 41, r: somon-lamaie,   t: "Scoate somonul, finalizează cartofii cu unt." }
-    - { at: 46, r: porc-ardei,     t: "Unt și sare în tocană. Împarte tot în cutii." }
+    - { at: 0,  r: porc-ardei,     t: "Taie ceafa, ardeii și ceapa." }
+    - { at: 6,  r: porc-ardei,     t: "Rumenește carnea în untură, pe foc mare, apoi călește ceapa." }
+    - { at: 14, r: porc-ardei,     t: "Foc stins: boiaua. Apoi pastă de roșii, ardei, 120 ml apă. Capac." }
+    - { at: 16, r: somon-lamaie,   t: "Cuptorul la 200°C. Dovlecelul rondele, în tavă cu ulei de măsline." }
+    - { at: 21, r: somon-lamaie,   t: "Unt topit cu usturoi și lămâie. Așază somonul peste dovlecel." }
+    - { at: 26, r: somon-lamaie,   t: "Somonul în cuptor, 12 minute. Fasolea la minutul 6." }
+    - { at: 29, r: somon-lamaie,   t: "Prăjește nucile în tigaie uscată, 3 minute. Toacă-le." }
+    - { at: 33, r: varza-calda-chimen, t: "Taie varza fâșii. Untura în tigaie, ceapa și chimenul." }
+    - { at: 38, r: somon-lamaie,   t: "Scoate somonul: unt, sare, lămâie, nuci deasupra." }
+    - { at: 41, r: varza-calda-chimen, t: "Varza la tigaie pe foc mare, 5 minute. Apoi unt și oțet." }
+    - { at: 46, r: porc-ardei,     t: "Foc stins: smântână, unt și sare în tocană. Împarte tot în cutii." }

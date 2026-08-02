@@ -47,7 +47,7 @@ const getData = () => (_data ??= fetch('/app.json', { cache: 'no-cache' }).then(
 const SETTINGS_KEY = 'settings.v1';
 const DEFAULTS = {
   kcal: 3000, protein: 84, sodium: 2000,
-  includeTubers: true, limitPotassium: false, lowSodium: true,
+  includeNuts: true, limitPotassium: false, lowSodium: true,
   store: 'tesco', split: false,
 };
 const getSettings = () => ({ ...DEFAULTS, ...store.get(SETTINGS_KEY, {}) });
@@ -318,7 +318,7 @@ function scopeRecipes(d, scope) {
 
 /**
  * Cantitățile necesare se însumează o singură dată pe tot domeniul, apoi se rotunjesc
- * la pachete. Altfel un sac de cartofi ar fi numărat de trei ori într-o săptămână.
+ * la pachete. Altfel o pungă de conopidă ar fi numărată de trei ori într-o săptămână.
  */
 function buildList(d, scope) {
   const { label, recipes, sess } = scopeRecipes(d, scope);

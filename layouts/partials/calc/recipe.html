@@ -9,7 +9,7 @@
 {{- if lt $servings 1.0 }}{{ $servings = 1.0 }}{{ end -}}
 
 {{- $s := newScratch -}}
-{{- range $k := slice "kcal" "protein" "fat" "carbs" "sodium" "potassium" "phosphorus" -}}
+{{- range $k := slice "kcal" "protein" "fat" "carbs" "fibre" "sodium" "potassium" "phosphorus" -}}
   {{- $s.Set $k 0.0 -}}
 {{- end -}}
 {{- $s.Set "cost" 0.0 -}}
@@ -38,7 +38,7 @@
 
 {{- $total := dict -}}
 {{- $per := dict -}}
-{{- range $k := slice "kcal" "protein" "fat" "carbs" "sodium" "potassium" "phosphorus" -}}
+{{- range $k := slice "kcal" "protein" "fat" "carbs" "fibre" "sodium" "potassium" "phosphorus" -}}
   {{- $v := $s.Get $k -}}
   {{- $total = merge $total (dict $k $v) -}}
   {{- $per = merge $per (dict $k (div $v $servings)) -}}

@@ -65,7 +65,19 @@
           <div class="meter__bar"><i class="meter__fill {{ $cls }}" style="width:{{ $pct }}%"></i></div>
         </div>
       {{- end -}}
-      <p class="tiny muted" style="margin-top:var(--s-3)">Raportat la o masă din trei, la țintele tale zilnice.</p>
+
+      {{- /* Fibrele sunt un prag de jos, nu unul de sus: verde când îl atingi, nu când stai sub el.
+             De aceea nu intră în lista de mai sus, care colorează invers. */ -}}
+      {{- $fib := $c.perServing.fibre -}}
+      {{- $fibShare := div (float $t.daily.fibre_g) $meals -}}
+      {{- $fibPct := math.Min 100 (mul 100 (div $fib $fibShare)) -}}
+      <div class="meter">
+        <div class="meter__row"><span class="muted">Fibre</span><b>{{ lang.FormatNumber 0 $fib }} g<span class="muted" style="font-weight:400"> / {{ lang.FormatNumber 0 $fibShare }}</span></b></div>
+        <div class="meter__bar"><i class="meter__fill {{ cond (lt $fibPct 60.0) "is-bad" (cond (lt $fibPct 100.0) "is-warn" "") }}" style="width:{{ $fibPct }}%"></i></div>
+      </div>
+
+      <p class="tiny muted" style="margin-top:var(--s-3)">Raportat la o masă din trei, la țintele tale zilnice.
+      La fibre, bara plină e lucrul bun; la restul, invers.</p>
     </div>
 
     <hr class="rule">

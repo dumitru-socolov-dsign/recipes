@@ -1,5 +1,5 @@
 ---
-title: "Sardine cu ceapă roșie și lămâie"
+title: "Sardine cu ceapă roșie, varză crudă și nuci"
 summary: "Zero gătit, cinci minute, o conservă și un cuțit. Prânzul de vineri, când n-ai apucat încă să gătești."
 image: "sardine-ceapa"
 tint: sage
@@ -12,39 +12,40 @@ ingredients:
   - group: "De bază"
     items:
       - { key: sardines_tinned, qty: 120, unit: g }
-      - { key: potato, qty: 500, unit: g }
+      - { key: cabbage_white, qty: 150, unit: g }
       - { key: red_onion, qty: 80, unit: g }
       - { key: lemon, qty: 0.5, unit: buc }
       - { key: parsley, qty: 5, unit: g }
   - group: "Grăsimi și condimente"
     items:
-      - { key: olive_oil, qty: 25, unit: ml }
-      - { key: butter_unsalted, qty: 60, unit: g }
+      - { key: olive_oil, qty: 85, unit: ml }
+      - { key: walnuts, qty: 30, unit: g }
       - { key: black_pepper, qty: 0.5, unit: g }
 steps:
-  - text: "Încălzește cartofii fierți de la sesiunea anterioară cu untul, în tigaie sau la microunde. Dacă n-ai, fierbe-i acum — 18 minute, și rețeta durează 20 în loc de 5."
-    timer: 180
-    hands: true
   - text: "Taie ceapa roșie cât poți de subțire și pune-o într-un bol cu zeama de la jumătatea de lămâie. Lasă-o acolo 3 minute — acidul îi ia iuțeala și o face crocantă."
     timer: 180
     hands: true
     tip: "Ceapa crudă murată rapid în lămâie e altceva decât ceapa crudă. Trei minute schimbă complet felul."
-  - text: "Scurge conserva pe jumătate — uleiul din ea e bun, dar nu tot. Pune sardinele peste cartofi, ceapa cu lămâie deasupra, uleiul de măsline, piperul și pătrunjelul."
+  - text: "Cât stă ceapa, taie varza fâșii cât poți de subțiri și pune-o în castron. Toarnă uleiul de măsline peste ea și freac-o cu mâna 30 de secunde."
+    hands: true
+    timer: 60
+    tip: "Varza crudă frecată cu ulei și sucul de la ceapă se înmoaie ca și cum ar fi fost gătită, dar rămâne crocantă. Fără pasul ăsta e doar o legumă tare în castron."
+  - text: "Scurge conserva pe jumătate — uleiul din ea e bun, dar nu tot. Pune sardinele peste varză, ceapa cu lămâie deasupra, nucile rupte în mână, piperul și pătrunjelul."
     hands: true
   - text: "Fără sare. Conserva are deja 360 mg de sodiu."
     hands: true
 ---
 
 Planul are o gaură: vineri la prânz mâncarea de marți s-a terminat, iar sesiunea de gătit
-e abia seara. Asta o astupă.
+e abia seara. Asta o astupă, fără să aprinzi nimic.
 
 **De ce sardine și nu ton.** Sardinele au de patru ori mai multe omega-3, costă la fel, și
 au calciu din oasele mici care se mănâncă. Tonul e proteină slabă și cam atât.
 
-**Un avertisment cinstit:** sardinele au mult fosfor — tot din oasele alea. O conservă e
-în regulă. Două pe zi, nu.
+**Caloriile vin din ulei și nuci, nu din volum.** Optzeci și cinci de mililitri de ulei de măsline
+par mult turnați peste o salată. Sunt 750 de calorii și sunt tot rostul rețetei — fără ele
+masa asta ar fi un sfert de prânz. Varza e acolo pentru volum și fibre, nu pentru energie.
 
-**Dacă nu ai cartofi gata fierți,** rețeta asta nu mai are rost — durează cât una normală.
-Fierbe întotdeauna cu jumătate de kilogram mai mulți cartofi decât îți trebuie la sesiunea
-de gătit și ține-i în frigider. Sunt baza pentru asta, pentru [omletă](/retete/omleta-cartofi/)
-și pentru orice altceva.
+**Un avertisment cinstit:** sardinele au mult fosfor — tot din oasele alea — și nucile la fel.
+Împreună, masa asta e cea mai încărcată în fosfor din săptămână. Odată pe săptămână e în
+regulă; nu o repeta două zile la rând.

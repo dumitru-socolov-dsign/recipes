@@ -80,8 +80,23 @@ items:
     stores:
       tesco: { price: 1.35, updated: "2026-08-02", source: baseline }
       lidl:  { price: 1.19, updated: "2026-08-02", source: baseline }
+  double_cream:
+    pack: { size: 300, unit: ml, label: "cutie 300 ml" }
+    stores:
+      tesco: { price: 1.65, updated: "2026-08-02", source: baseline }
+      lidl:  { price: 1.45, updated: "2026-08-02", source: baseline }
 
   # ── băcănie ──
+  pork_lard:
+    pack: { size: 250, unit: g, label: "pachet 250 g" }
+    stores:
+      tesco: { price: 1.45, updated: "2026-08-02", source: baseline }
+      lidl:  { price: 1.25, updated: "2026-08-02", source: baseline }
+  walnuts:
+    pack: { size: 200, unit: g, label: "pungă 200 g" }
+    stores:
+      tesco: { price: 2.75, updated: "2026-08-02", source: baseline }
+      lidl:  { price: 2.29, updated: "2026-08-02", source: baseline }
   rapeseed_oil:
     pack: { size: 1000, unit: ml, label: "sticlă 1 L" }
     stores:
@@ -109,11 +124,6 @@ items:
       lidl:  { price: 1.49, updated: "2026-08-02", source: baseline }
 
   # ── legume ──
-  potato:
-    pack: { size: 2500, unit: g, label: "sac 2.5 kg" }
-    stores:
-      tesco: { price: 2.75, updated: "2026-08-02", source: baseline }
-      lidl:  { price: 2.29, updated: "2026-08-02", source: baseline }
   onion:
     pack: { size: 1000, unit: g, label: "plasă 1 kg" }
     stores:
@@ -129,11 +139,6 @@ items:
     stores:
       tesco: { price: 1.20, updated: "2026-08-02", source: baseline }
       lidl:  { price: 0.95, updated: "2026-08-02", source: baseline }
-  parsnip:
-    pack: { size: 500, unit: g, label: "pachet 500 g" }
-    stores:
-      tesco: { price: 1.30, updated: "2026-08-02", source: baseline }
-      lidl:  { price: 1.09, updated: "2026-08-02", source: baseline }
   cabbage_white:
     pack: { size: 900, unit: g, label: "o căpățână ~900 g" }
     stores:

@@ -30,10 +30,10 @@
 
     <label class="switch">
       <div>
-        <b style="font-size:.9375rem">{{ $t.toggles.include_tubers.label }}</b>
-        <div class="set__help">{{ $t.copy.include_tubers }}</div>
+        <b style="font-size:.9375rem">{{ $t.toggles.include_nuts.label }}</b>
+        <div class="set__help">{{ $t.copy.include_nuts }}</div>
       </div>
-      <input type="checkbox" data-set="includeTubers">
+      <input type="checkbox" data-set="includeNuts">
       <span class="switch__track"></span>
     </label>
 
@@ -66,7 +66,12 @@
         </div>
         <div class="notice"><svg viewBox="0 0 24 24"><use href="#i-info"/></svg><div>{{ $t.tips.salt_at_the_end }}</div></div>
         <div class="notice"><svg viewBox="0 0 24 24"><use href="#i-info"/></svg><div>{{ $t.tips.acid_first }}</div></div>
-        <div class="notice"><svg viewBox="0 0 24 24"><use href="#i-info"/></svg><div>{{ $t.tips.potato_leaching }}</div></div>
+        <div class="notice notice--warn">
+          <svg viewBox="0 0 24 24"><use href="#i-warn"/></svg>
+          <div>{{ $t.tips.fat_transition }}</div>
+        </div>
+        <div class="notice"><svg viewBox="0 0 24 24"><use href="#i-info"/></svg><div>{{ $t.tips.fibre_and_water }}</div></div>
+        <div class="notice"><svg viewBox="0 0 24 24"><use href="#i-info"/></svg><div>{{ $t.tips.browning_not_salt }}</div></div>
       </div>
     </div>
 

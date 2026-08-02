@@ -1,9 +1,13 @@
 # Bază de ingrediente.
 # per100g = valori pentru 100 g de produs CRUD, așa cum se cumpără.
-#   kcal · protein g · fat g · carbs g · sodium mg · potassium mg · phosphorus mg
+#   kcal · protein g · fat g · carbs g · fibre g · sodium mg · potassium mg · phosphorus mg
+#   `carbs` sunt carbohidrați disponibili (fără fibre), ca pe etichetele europene.
 # yield = fracțiunea comestibilă (os, coajă, pierdere la curățat). 1.0 = totul se mănâncă.
 # aisle = raionul din magazin (vezi stores.yaml)
 # k_high / p_high = marchez sursele importante de potasiu / fosfor, pentru avertismentele din UI
+#
+# Planul nu conține crupe, făinoase, cartofi și nici alte rădăcinoase amidonoase.
+# Caloriile vin din grăsime; legumele sunt acolo pentru volum, fibre și gust, în cantități mici.
 
 # ─────────────────────────── CARNE ───────────────────────────
 chicken_thigh_bone_in:
@@ -11,7 +15,7 @@ chicken_thigh_bone_in:
   short: "Pulpe de pui"
   aisle: meat
   yield: 0.72
-  per100g: { kcal: 209, protein: 17.0, fat: 15.4, carbs: 0, sodium: 82, potassium: 230, phosphorus: 160 }
+  per100g: { kcal: 209, protein: 17.0, fat: 15.4, carbs: 0, fibre: 0, sodium: 82, potassium: 230, phosphorus: 160 }
   note: "Cu os și piele — de 3× mai ieftină decât pieptul și cu mult mai multă grăsime."
 
 chicken_thigh_boneless:
@@ -19,14 +23,14 @@ chicken_thigh_boneless:
   short: "Pulpe dezosate"
   aisle: meat
   yield: 1.0
-  per100g: { kcal: 221, protein: 18.0, fat: 16.5, carbs: 0, sodium: 85, potassium: 240, phosphorus: 165 }
+  per100g: { kcal: 221, protein: 18.0, fat: 16.5, carbs: 0, fibre: 0, sodium: 85, potassium: 240, phosphorus: 165 }
 
 pork_shoulder:
   name: "Ceafă / spată de porc"
   short: "Ceafă de porc"
   aisle: meat
   yield: 0.95
-  per100g: { kcal: 240, protein: 17.0, fat: 19.0, carbs: 0, sodium: 60, potassium: 320, phosphorus: 180 }
+  per100g: { kcal: 240, protein: 17.0, fat: 19.0, carbs: 0, fibre: 0, sodium: 60, potassium: 320, phosphorus: 180 }
   note: "Bucata cu cel mai bun raport grăsime/preț din tot magazinul."
 
 beef_mince_20:
@@ -34,7 +38,7 @@ beef_mince_20:
   short: "Mincă de vită"
   aisle: meat
   yield: 1.0
-  per100g: { kcal: 254, protein: 17.0, fat: 20.0, carbs: 0, sodium: 66, potassium: 270, phosphorus: 158 }
+  per100g: { kcal: 254, protein: 17.0, fat: 20.0, carbs: 0, fibre: 0, sodium: 66, potassium: 270, phosphorus: 158 }
   note: "Alege 20%, nu 5% — mai ieftină și mai multe calorii."
 
 pork_sausage:
@@ -42,7 +46,7 @@ pork_sausage:
   short: "Cârnați"
   aisle: meat
   yield: 1.0
-  per100g: { kcal: 305, protein: 15.0, fat: 26.0, carbs: 1.5, sodium: 800, potassium: 220, phosphorus: 190 }
+  per100g: { kcal: 305, protein: 15.0, fat: 26.0, carbs: 1.5, fibre: 0.5, sodium: 800, potassium: 220, phosphorus: 190 }
   warn_sodium: true
   note: "Verifică eticheta: >85% carne, fără fosfați adăugați (E338–E452) și fără pesmet."
 
@@ -52,7 +56,7 @@ salmon_fillet:
   short: "Somon"
   aisle: fish
   yield: 1.0
-  per100g: { kcal: 208, protein: 20.0, fat: 13.0, carbs: 0, sodium: 59, potassium: 363, phosphorus: 240 }
+  per100g: { kcal: 208, protein: 20.0, fat: 13.0, carbs: 0, fibre: 0, sodium: 59, potassium: 363, phosphorus: 240 }
   note: "Scump, dar o dată pe săptămână merită pentru omega-3."
 
 mackerel_tinned:
@@ -60,7 +64,7 @@ mackerel_tinned:
   short: "Macrou conservă"
   aisle: pantry
   yield: 0.75
-  per100g: { kcal: 250, protein: 21.0, fat: 18.0, carbs: 0, sodium: 350, potassium: 280, phosphorus: 250 }
+  per100g: { kcal: 250, protein: 21.0, fat: 18.0, carbs: 0, fibre: 0, sodium: 350, potassium: 280, phosphorus: 250 }
   note: "Aceleași omega-3 ca somonul, la o optime din preț."
 
 sardines_tinned:
@@ -68,7 +72,7 @@ sardines_tinned:
   short: "Sardine"
   aisle: pantry
   yield: 0.75
-  per100g: { kcal: 208, protein: 25.0, fat: 11.5, carbs: 0, sodium: 400, potassium: 400, phosphorus: 490 }
+  per100g: { kcal: 208, protein: 25.0, fat: 11.5, carbs: 0, fibre: 0, sodium: 400, potassium: 400, phosphorus: 490 }
   p_high: true
   note: "Foarte bogate în fosfor (oasele). Maxim o conservă pe zi."
 
@@ -79,31 +83,47 @@ egg:
   aisle: dairy
   yield: 0.89
   unit_weight: 60
-  per100g: { kcal: 143, protein: 12.6, fat: 9.5, carbs: 0.7, sodium: 142, potassium: 138, phosphorus: 198 }
+  per100g: { kcal: 143, protein: 12.6, fat: 9.5, carbs: 0.7, fibre: 0, sodium: 142, potassium: 138, phosphorus: 198 }
 
 butter_unsalted:
   name: "Unt nesărat"
   short: "Unt"
   aisle: dairy
   yield: 1.0
-  per100g: { kcal: 717, protein: 0.9, fat: 81.0, carbs: 0.1, sodium: 11, potassium: 24, phosphorus: 24 }
+  per100g: { kcal: 717, protein: 0.9, fat: 81.0, carbs: 0.1, fibre: 0, sodium: 11, potassium: 24, phosphorus: 24 }
   note: "Nesărat — controlezi tu sarea. Cel sărat are 580 mg Na/100 g."
+
+double_cream:
+  name: "Smântână grasă pentru frișcă (48%)"
+  short: "Smântână grasă"
+  aisle: dairy
+  yield: 1.0
+  per100g: { kcal: 467, protein: 2.1, fat: 48.0, carbs: 2.8, fibre: 0, sodium: 24, potassium: 75, phosphorus: 60 }
+  note: "De 2.4× mai multe calorii decât cea de gătit, la aceeași proteină. Nu dă în clocot dacă focul e mic."
 
 cooking_cream:
   name: "Smântână pentru gătit (20%)"
-  short: "Smântână"
+  short: "Smântână de gătit"
   aisle: dairy
   yield: 1.0
-  per100g: { kcal: 195, protein: 2.4, fat: 20.0, carbs: 3.0, sodium: 50, potassium: 120, phosphorus: 70 }
+  per100g: { kcal: 195, protein: 2.4, fat: 20.0, carbs: 3.0, fibre: 0, sodium: 50, potassium: 120, phosphorus: 70 }
 
 # ─────────────────────── GRĂSIMI & BĂCĂNIE ───────────────────
+pork_lard:
+  name: "Untură de porc"
+  short: "Untură"
+  aisle: pantry
+  yield: 1.0
+  per100g: { kcal: 899, protein: 0, fat: 99.8, carbs: 0, fibre: 0, sodium: 2, potassium: 0, phosphorus: 0 }
+  note: "Rezistă la foc mare fără să se ardă și nu aduce nici proteină, nici potasiu, nici fosfor. Calorii curate."
+
 rapeseed_oil:
   name: "Ulei de rapiță"
   short: "Ulei"
   aisle: pantry
   staple: true
   yield: 1.0
-  per100g: { kcal: 884, protein: 0, fat: 100, carbs: 0, sodium: 0, potassium: 0, phosphorus: 0 }
+  per100g: { kcal: 884, protein: 0, fat: 100, carbs: 0, fibre: 0, sodium: 0, potassium: 0, phosphorus: 0 }
   note: "Cele mai ieftine calorii din magazin: 8800 kcal la ~3 €."
 
 olive_oil:
@@ -112,8 +132,17 @@ olive_oil:
   aisle: pantry
   staple: true
   yield: 1.0
-  per100g: { kcal: 884, protein: 0, fat: 100, carbs: 0, sodium: 0, potassium: 0, phosphorus: 0 }
+  per100g: { kcal: 884, protein: 0, fat: 100, carbs: 0, fibre: 0, sodium: 0, potassium: 0, phosphorus: 0 }
   note: "Doar la final, la rece. La prăjit se degradează și e păcat de bani."
+
+walnuts:
+  name: "Miez de nucă"
+  short: "Nuci"
+  aisle: pantry
+  yield: 1.0
+  per100g: { kcal: 654, protein: 15.2, fat: 65.2, carbs: 7.0, fibre: 6.7, sodium: 2, potassium: 441, phosphorus: 346 }
+  p_high: true
+  note: "Singurele calorii din plan care nu trebuie gătite. Aduc și fibre, dar au mult fosfor — maxim ~70 g pe zi."
 
 tomato_paste:
   name: "Pastă de roșii concentrată"
@@ -121,7 +150,7 @@ tomato_paste:
   aisle: pantry
   staple: true
   yield: 1.0
-  per100g: { kcal: 82, protein: 4.3, fat: 0.5, carbs: 19.0, sodium: 59, potassium: 1014, phosphorus: 83 }
+  per100g: { kcal: 82, protein: 4.3, fat: 0.5, carbs: 15.0, fibre: 4.1, sodium: 59, potassium: 1014, phosphorus: 83 }
   k_high: true
 
 apple_vinegar:
@@ -130,7 +159,7 @@ apple_vinegar:
   aisle: pantry
   staple: true
   yield: 1.0
-  per100g: { kcal: 21, protein: 0, fat: 0, carbs: 0.9, sodium: 5, potassium: 73, phosphorus: 8 }
+  per100g: { kcal: 21, protein: 0, fat: 0, carbs: 0.9, fibre: 0, sodium: 5, potassium: 73, phosphorus: 8 }
   note: "Cel mai puternic înlocuitor al sării. Aciditatea păcălește creierul."
 
 dijon_mustard:
@@ -139,75 +168,61 @@ dijon_mustard:
   aisle: pantry
   staple: true
   yield: 1.0
-  per100g: { kcal: 66, protein: 4.0, fat: 3.3, carbs: 5.8, sodium: 1120, potassium: 138, phosphorus: 84 }
+  per100g: { kcal: 66, protein: 4.0, fat: 3.3, carbs: 1.8, fibre: 4.0, sodium: 1120, potassium: 138, phosphorus: 84 }
   warn_sodium: true
 
 # ─────────────────────────── LEGUME ──────────────────────────
-potato:
-  name: "Cartofi"
-  short: "Cartofi"
-  aisle: produce
-  yield: 0.85
-  per100g: { kcal: 77, protein: 2.0, fat: 0.1, carbs: 17.0, sodium: 6, potassium: 425, phosphorus: 57 }
-  k_high: true
-  note: "Cele mai ieftine calorii dintre alimentele întregi. Nu e crupă și nu e făinos."
-
+# Toate în cantități mici: volum și fibre, nu calorii. Nimic amidonos.
 onion:
   name: "Ceapă"
   short: "Ceapă"
   aisle: produce
   yield: 0.90
-  per100g: { kcal: 40, protein: 1.1, fat: 0.1, carbs: 9.3, sodium: 4, potassium: 146, phosphorus: 29 }
+  per100g: { kcal: 40, protein: 1.1, fat: 0.1, carbs: 7.6, fibre: 1.7, sodium: 4, potassium: 146, phosphorus: 29 }
 
 red_onion:
   name: "Ceapă roșie"
   short: "Ceapă roșie"
   aisle: produce
   yield: 0.90
-  per100g: { kcal: 40, protein: 1.1, fat: 0.1, carbs: 9.3, sodium: 4, potassium: 146, phosphorus: 29 }
+  per100g: { kcal: 40, protein: 1.1, fat: 0.1, carbs: 7.6, fibre: 1.7, sodium: 4, potassium: 146, phosphorus: 29 }
 
 carrot:
   name: "Morcovi"
   short: "Morcovi"
   aisle: produce
   yield: 0.88
-  per100g: { kcal: 41, protein: 0.9, fat: 0.2, carbs: 9.6, sodium: 69, potassium: 320, phosphorus: 35 }
-
-parsnip:
-  name: "Păstârnac"
-  short: "Păstârnac"
-  aisle: produce
-  yield: 0.85
-  per100g: { kcal: 75, protein: 1.2, fat: 0.3, carbs: 18.0, sodium: 10, potassium: 375, phosphorus: 71 }
+  per100g: { kcal: 41, protein: 0.9, fat: 0.2, carbs: 6.8, fibre: 2.8, sodium: 69, potassium: 320, phosphorus: 35 }
+  note: "Cea mai dulce legumă din listă — de asta intră în cantități mici, doar cât să dea gust."
 
 cabbage_white:
   name: "Varză albă"
   short: "Varză"
   aisle: produce
   yield: 0.80
-  per100g: { kcal: 25, protein: 1.3, fat: 0.1, carbs: 5.8, sodium: 18, potassium: 170, phosphorus: 26 }
-  note: "Cea mai ieftină legumă din raft, și una dintre puținele cu potasiu mic."
+  per100g: { kcal: 25, protein: 1.3, fat: 0.1, carbs: 3.3, fibre: 2.5, sodium: 18, potassium: 170, phosphorus: 26 }
+  note: "Cea mai ieftină legumă din raft, cu potasiu mic și fibre multe. Absoarbe grăsimea ca un burete."
 
 courgette:
   name: "Dovlecel"
   short: "Dovlecel"
   aisle: produce
   yield: 0.95
-  per100g: { kcal: 17, protein: 1.2, fat: 0.3, carbs: 3.1, sodium: 8, potassium: 261, phosphorus: 38 }
+  per100g: { kcal: 17, protein: 1.2, fat: 0.3, carbs: 2.1, fibre: 1.0, sodium: 8, potassium: 261, phosphorus: 38 }
 
 pepper_red:
   name: "Ardei gras roșu"
   short: "Ardei"
   aisle: produce
   yield: 0.85
-  per100g: { kcal: 31, protein: 1.0, fat: 0.3, carbs: 6.0, sodium: 4, potassium: 211, phosphorus: 26 }
+  per100g: { kcal: 31, protein: 1.0, fat: 0.3, carbs: 3.9, fibre: 2.1, sodium: 4, potassium: 211, phosphorus: 26 }
 
 mushrooms:
   name: "Ciuperci champignon"
   short: "Ciuperci"
   aisle: produce
   yield: 0.97
-  per100g: { kcal: 22, protein: 3.1, fat: 0.3, carbs: 3.3, sodium: 5, potassium: 318, phosphorus: 86 }
+  per100g: { kcal: 22, protein: 3.1, fat: 0.3, carbs: 2.3, fibre: 1.0, sodium: 5, potassium: 318, phosphorus: 86 }
   k_high: true
   note: "Rumenite bine, dau umami — înlocuiesc o parte din sare."
 
@@ -217,7 +232,7 @@ garlic:
   aisle: produce
   yield: 0.87
   unit_weight: 5
-  per100g: { kcal: 149, protein: 6.4, fat: 0.5, carbs: 33.0, sodium: 17, potassium: 401, phosphorus: 153 }
+  per100g: { kcal: 149, protein: 6.4, fat: 0.5, carbs: 30.9, fibre: 2.1, sodium: 17, potassium: 401, phosphorus: 153 }
 
 lemon:
   name: "Lămâie"
@@ -225,22 +240,23 @@ lemon:
   aisle: produce
   yield: 0.45
   unit_weight: 100
-  per100g: { kcal: 29, protein: 1.1, fat: 0.3, carbs: 9.0, sodium: 2, potassium: 138, phosphorus: 16 }
+  per100g: { kcal: 29, protein: 1.1, fat: 0.3, carbs: 6.2, fibre: 2.8, sodium: 2, potassium: 138, phosphorus: 16 }
 
 parsley:
   name: "Pătrunjel verde"
   short: "Pătrunjel"
   aisle: produce
   yield: 0.90
-  per100g: { kcal: 36, protein: 3.0, fat: 0.8, carbs: 6.3, sodium: 56, potassium: 554, phosphorus: 58 }
+  per100g: { kcal: 36, protein: 3.0, fat: 0.8, carbs: 3.0, fibre: 3.3, sodium: 56, potassium: 554, phosphorus: 58 }
 
 # ────────────────────────── CONGELATE ────────────────────────
+# Coloana vertebrală a garniturilor: fără amidon, ieftine, gata tăiate, zero risipă.
 broccoli_frozen:
   name: "Broccoli congelat"
   short: "Broccoli"
   aisle: frozen
   yield: 1.0
-  per100g: { kcal: 34, protein: 2.8, fat: 0.4, carbs: 7.0, sodium: 33, potassium: 316, phosphorus: 66 }
+  per100g: { kcal: 34, protein: 2.8, fat: 0.4, carbs: 4.0, fibre: 3.0, sodium: 33, potassium: 316, phosphorus: 66 }
   note: "Congelat = același aport, jumătate de preț, zero risipă."
 
 cauliflower_frozen:
@@ -248,14 +264,15 @@ cauliflower_frozen:
   short: "Conopidă"
   aisle: frozen
   yield: 1.0
-  per100g: { kcal: 25, protein: 1.9, fat: 0.3, carbs: 5.0, sodium: 30, potassium: 299, phosphorus: 44 }
+  per100g: { kcal: 25, protein: 1.9, fat: 0.3, carbs: 2.6, fibre: 2.4, sodium: 30, potassium: 299, phosphorus: 44 }
+  note: "Ține locul cartofului la volum, cu o cincime din carbohidrați. Se rumenește în cuptor dacă are grăsime destulă și nu e înghesuită."
 
 green_beans_frozen:
   name: "Fasole verde congelată"
   short: "Fasole verde"
   aisle: frozen
   yield: 1.0
-  per100g: { kcal: 33, protein: 1.8, fat: 0.2, carbs: 7.0, sodium: 6, potassium: 211, phosphorus: 38 }
+  per100g: { kcal: 33, protein: 1.8, fat: 0.2, carbs: 3.8, fibre: 3.2, sodium: 6, potassium: 211, phosphorus: 38 }
 
 # ───────────────────────── CONDIMENTE ────────────────────────
 salt:
@@ -264,7 +281,7 @@ salt:
   aisle: spices
   staple: true
   yield: 1.0
-  per100g: { kcal: 0, protein: 0, fat: 0, carbs: 0, sodium: 38758, potassium: 8, phosphorus: 0 }
+  per100g: { kcal: 0, protein: 0, fat: 0, carbs: 0, fibre: 0, sodium: 38758, potassium: 8, phosphorus: 0 }
   warn_sodium: true
   note: "Pusă la final, pe suprafață, se simte de două ori mai tare decât cea încorporată."
 
@@ -274,7 +291,7 @@ black_pepper:
   aisle: spices
   staple: true
   yield: 1.0
-  per100g: { kcal: 251, protein: 10.4, fat: 3.3, carbs: 64.0, sodium: 20, potassium: 1329, phosphorus: 173 }
+  per100g: { kcal: 251, protein: 10.4, fat: 3.3, carbs: 38.7, fibre: 25.3, sodium: 20, potassium: 1329, phosphorus: 173 }
 
 paprika_smoked:
   name: "Boia afumată"
@@ -282,7 +299,7 @@ paprika_smoked:
   aisle: spices
   staple: true
   yield: 1.0
-  per100g: { kcal: 282, protein: 14.1, fat: 13.0, carbs: 54.0, sodium: 68, potassium: 2280, phosphorus: 314 }
+  per100g: { kcal: 282, protein: 14.1, fat: 13.0, carbs: 19.5, fibre: 34.9, sodium: 68, potassium: 2280, phosphorus: 314 }
   note: "Cel mai bun raport aromă/preț din raft. Dă senzație de fum și de sare."
 
 paprika_sweet:
@@ -291,7 +308,7 @@ paprika_sweet:
   aisle: spices
   staple: true
   yield: 1.0
-  per100g: { kcal: 282, protein: 14.1, fat: 13.0, carbs: 54.0, sodium: 68, potassium: 2280, phosphorus: 314 }
+  per100g: { kcal: 282, protein: 14.1, fat: 13.0, carbs: 19.5, fibre: 34.9, sodium: 68, potassium: 2280, phosphorus: 314 }
 
 cumin:
   name: "Chimion măcinat"
@@ -299,7 +316,7 @@ cumin:
   aisle: spices
   staple: true
   yield: 1.0
-  per100g: { kcal: 375, protein: 17.8, fat: 22.3, carbs: 44.0, sodium: 168, potassium: 1788, phosphorus: 499 }
+  per100g: { kcal: 375, protein: 17.8, fat: 22.3, carbs: 33.7, fibre: 10.5, sodium: 168, potassium: 1788, phosphorus: 499 }
 
 caraway:
   name: "Chimen"
@@ -307,7 +324,7 @@ caraway:
   aisle: spices
   staple: true
   yield: 1.0
-  per100g: { kcal: 333, protein: 19.8, fat: 14.6, carbs: 51.9, sodium: 17, potassium: 1351, phosphorus: 568 }
+  per100g: { kcal: 333, protein: 19.8, fat: 14.6, carbs: 13.9, fibre: 38.0, sodium: 17, potassium: 1351, phosphorus: 568 }
 
 rosemary_dried:
   name: "Rozmarin uscat"
@@ -315,7 +332,7 @@ rosemary_dried:
   aisle: spices
   staple: true
   yield: 1.0
-  per100g: { kcal: 331, protein: 4.9, fat: 15.2, carbs: 64.0, sodium: 50, potassium: 955, phosphorus: 70 }
+  per100g: { kcal: 331, protein: 4.9, fat: 15.2, carbs: 21.0, fibre: 42.6, sodium: 50, potassium: 955, phosphorus: 70 }
 
 thyme_dried:
   name: "Cimbru uscat"
@@ -323,7 +340,7 @@ thyme_dried:
   aisle: spices
   staple: true
   yield: 1.0
-  per100g: { kcal: 276, protein: 9.1, fat: 7.4, carbs: 63.9, sodium: 55, potassium: 814, phosphorus: 201 }
+  per100g: { kcal: 276, protein: 9.1, fat: 7.4, carbs: 26.9, fibre: 37.0, sodium: 55, potassium: 814, phosphorus: 201 }
 
 bay_leaf:
   name: "Frunze de dafin"
@@ -331,7 +348,7 @@ bay_leaf:
   aisle: spices
   staple: true
   yield: 1.0
-  per100g: { kcal: 313, protein: 7.6, fat: 8.4, carbs: 75.0, sodium: 23, potassium: 529, phosphorus: 113 }
+  per100g: { kcal: 313, protein: 7.6, fat: 8.4, carbs: 48.7, fibre: 26.3, sodium: 23, potassium: 529, phosphorus: 113 }
 
 chili_flakes:
   name: "Fulgi de chili"
@@ -339,4 +356,4 @@ chili_flakes:
   aisle: spices
   staple: true
   yield: 1.0
-  per100g: { kcal: 282, protein: 12.0, fat: 14.3, carbs: 50.0, sodium: 30, potassium: 2000, phosphorus: 300 }
+  per100g: { kcal: 282, protein: 12.0, fat: 14.3, carbs: 22.8, fibre: 27.2, sodium: 30, potassium: 2000, phosphorus: 300 }
