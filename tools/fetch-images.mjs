@@ -2,48 +2,117 @@
 /**
  * Aduce câte o fotografie cu licență liberă pentru fiecare rețetă, prin Openverse.
  *
- *   node tools/fetch-images.mjs           # doar ce lipsește
- *   node tools/fetch-images.mjs --force   # reia tot
+ *   node tools/fetch-images.mjs              # doar ce lipsește
+ *   node tools/fetch-images.mjs --force      # reia tot
+ *   node tools/fetch-images.mjs --only somon-lamaie,porc-varza
  *
  * Imaginile ajung în assets/img/retete/<slug>.jpg (Hugo le redimensionează la build),
- * iar atribuirea — obligatorie la licențele CC — în data/credits.yaml.
+ * iar atribuirea — obligatorie la licențele Creative Commons — în data/credits.yaml.
+ *
+ * Căutarea simplă întoarce orice: „pork cabbage" dă găluște, „chicken mushroom" dă
+ * suflé de ciocolată. De aceea fiecare rețetă declară ce TREBUIE și ce NU TREBUIE să
+ * apară în titlul fotografiei, iar candidații se filtrează după asta.
  */
 import { mkdirSync, existsSync, writeFileSync, readFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { join } from 'node:path';
 
 const OUT = 'assets/img/retete';
-const FORCE = process.argv.includes('--force');
+const args = process.argv.slice(2);
+const FORCE = args.includes('--force');
+const ONLY = (() => {
+  const i = args.indexOf('--only');
+  return i === -1 ? null : new Set((args[i + 1] || '').split(',').filter(Boolean));
+})();
 
-/* Fiecare rețetă are mai multe interogări, de la specific la generic.
-   Se oprește la prima care întoarce rezultate. */
-const QUERIES = {
-  'pui-tava-cartofi':      ['roast chicken potatoes', 'roast chicken', 'chicken thighs'],
-  'porc-varza':            ['pork cabbage', 'braised pork', 'cabbage stew'],
-  'chiftele-vita':         ['meatballs', 'beef meatballs', 'meatball'],
-  'pui-smantana-ciuperci': ['chicken mushroom cream', 'chicken mushrooms', 'creamy chicken'],
-  'somon-lamaie':          ['baked salmon lemon', 'salmon fillet', 'salmon'],
-  'porc-ardei':            ['pork goulash', 'pork stew', 'goulash'],
-  'varza-calda-chimen':    ['fried cabbage', 'cooked cabbage', 'cabbage'],
-  'radacinoase-unt':       ['roasted root vegetables', 'roasted carrots', 'roast vegetables'],
-  'oua-carnat':            ['fried eggs sausage', 'eggs and sausage', 'fried egg breakfast'],
-  'sardine-ceapa':         ['sardines plate', 'sardines', 'canned sardines'],
-  'omleta-cartofi':        ['potato omelette', 'spanish omelette', 'omelette'],
-  'macrou-ceapa':          ['mackerel plate', 'mackerel fillet', 'mackerel'],
+/**
+ * q    — interogări, de la specific la generic; se încearcă pe rând
+ * must — grupuri de sinonime; titlul trebuie să conțină cel puțin unul din FIECARE grup
+ * not  — cuvinte care descalifică imediat
+ */
+const RECIPES = {
+  'pui-tava-cartofi': {
+    q: ['roast chicken potatoes', 'roasted chicken thighs', 'chicken tray bake'],
+    must: [['chicken'], ['potato', 'potatoes', 'roast', 'roasted', 'tray']],
+    not: ['soup', 'salad', 'sandwich', 'burger', 'raw', 'curry', 'noodle'],
+  },
+  'porc-varza': {
+    q: ['braised pork cabbage', 'pork and cabbage stew', 'cabbage with bacon'],
+    must: [['cabbage'], ['pork', 'braised', 'stew', 'bacon', 'cooked', 'fried']],
+    not: ['dumpling', 'gyoza', 'roll', 'soup', 'salad', 'coleslaw', 'raw', 'field'],
+  },
+  'chiftele-vita': {
+    q: ['baked meatballs', 'beef meatballs', 'meatballs oven tray'],
+    must: [['meatball', 'meatballs']],
+    not: ['spaghetti', 'pasta', 'sub', 'sandwich', 'burger', 'soup', 'ikea', 'noodle'],
+  },
+  'pui-smantana-ciuperci': {
+    q: ['chicken with mushroom sauce', 'creamy chicken mushrooms', 'chicken mushroom skillet'],
+    must: [['chicken'], ['mushroom', 'mushrooms', 'cream', 'creamy']],
+    not: ['soup', 'souffle', 'cake', 'pie', 'raw', 'pizza', 'sandwich', 'chocolate'],
+  },
+  'somon-lamaie': {
+    q: ['baked salmon fillet', 'roasted salmon lemon', 'grilled salmon fillet'],
+    must: [['salmon'], ['baked', 'roast', 'roasted', 'grilled', 'fillet', 'filet', 'oven', 'cooked']],
+    not: ['benedict', 'smoked', 'sushi', 'sashimi', 'bagel', 'raw', 'pasta', 'burger', 'salad', 'river'],
+  },
+  'porc-ardei': {
+    q: ['pork goulash', 'pork stew peppers', 'goulash'],
+    must: [['goulash', 'stew', 'pork']],
+    not: ['soup', 'raw', 'sandwich', 'burger', 'pig'],
+  },
+  'varza-calda-chimen': {
+    q: ['fried cabbage', 'sauteed cabbage', 'buttered cabbage'],
+    must: [['cabbage']],
+    not: ['soup', 'borscht', 'salad', 'coleslaw', 'roll', 'raw', 'dumpling', 'stuffed', 'field', 'garden'],
+  },
+  'radacinoase-unt': {
+    q: ['roasted root vegetables', 'roasted carrots parsnips', 'oven roasted vegetables'],
+    must: [['roast', 'roasted', 'baked'], ['vegetable', 'vegetables', 'carrot', 'carrots', 'parsnip', 'root', 'veg']],
+    not: ['soup', 'juice', 'raw', 'salad', 'cake', 'market'],
+  },
+  'oua-carnat': {
+    q: ['fried eggs and sausage', 'full breakfast eggs sausage', 'fried egg breakfast plate'],
+    must: [['egg', 'eggs']],
+    not: ['cake', 'benedict', 'sandwich', 'burger', 'raw', 'salad', 'nest', 'easter', 'carton'],
+  },
+  'sardine-ceapa': {
+    q: ['sardines on plate', 'tinned sardines', 'sardines'],
+    must: [['sardine', 'sardines']],
+    not: ['sea', 'shoal', 'aquarium', 'fishing', 'boat', 'market', 'factory'],
+  },
+  'omleta-cartofi': {
+    q: ['potato omelette', 'spanish tortilla potato', 'tortilla de patatas'],
+    must: [['omelette', 'omelet', 'tortilla', 'frittata']],
+    not: ['wrap', 'mexican', 'chips', 'burrito', 'taco', 'flour'],
+  },
+  'macrou-ceapa': {
+    q: ['cooked mackerel plate', 'grilled mackerel', 'mackerel fillet cooked'],
+    must: [['mackerel'], ['cooked', 'grilled', 'fried', 'baked', 'plate', 'fillet', 'smoked', 'dish']],
+    not: ['raw', 'sea', 'market', 'fishing', 'octopus', 'aquarium', 'catch', 'ice'],
+  },
 };
 
 const UA = 'bucatarie-recipe-site/1.0 (static site build)';
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const norm = (s) => (s || '').toLowerCase();
 
-async function search(q) {
+async function search(q, page = 1) {
   const u = new URL('https://api.openverse.org/v1/images/');
   u.searchParams.set('q', q);
   u.searchParams.set('license_type', 'commercial,modification');
-  u.searchParams.set('page_size', '12');
+  u.searchParams.set('page_size', '20');
+  u.searchParams.set('page', String(page));
   u.searchParams.set('mature', 'false');
   const r = await fetch(u, { headers: { 'User-Agent': UA } });
   if (!r.ok) throw new Error(`Openverse ${r.status}`);
   return (await r.json()).results || [];
+}
+
+function accepts(result, spec) {
+  const t = norm(result.title) + ' ' + norm((result.tags || []).map((x) => x.name).join(' '));
+  if (spec.not.some((w) => t.includes(w))) return false;
+  return spec.must.every((group) => group.some((w) => t.includes(w)));
 }
 
 mkdirSync(OUT, { recursive: true });
@@ -61,25 +130,33 @@ if (existsSync('data/credits.yaml')) {
   }
 }
 
-for (const [slug, queries] of Object.entries(QUERIES)) {
+for (const [slug, spec] of Object.entries(RECIPES)) {
+  if (ONLY && !ONLY.has(slug)) continue;
   const dest = join(OUT, `${slug}.jpg`);
-  if (existsSync(dest) && !FORCE) { console.log(`· ${slug} — există deja`); continue; }
+  if (existsSync(dest) && !FORCE && !ONLY) { console.log(`· ${slug} — există deja`); continue; }
 
+  let pick = null, seen = 0;
   try {
-    let results = [];
-    for (const q of queries) {
-      results = await search(q);
-      if (results.length) break;
-      await sleep(300);
+    outer:
+    for (const q of spec.q) {
+      for (const page of [1, 2]) {
+        const results = await search(q, page);
+        if (!results.length) break;
+        seen += results.length;
+        for (const r of results) {
+          if (!r.url || (r.width ?? 0) < 600) continue;
+          if (accepts(r, spec)) { pick = r; break outer; }
+        }
+        await sleep(250);
+      }
     }
-    const pick = results.find((r) => r.url && (r.width ?? 0) >= 640) || results[0];
-    if (!pick) { console.log(`✗ ${slug} — niciun rezultat`); continue; }
+    if (!pick) { console.log(`✗ ${slug.padEnd(24)} ${seen} candidați, niciunul potrivit`); continue; }
 
     const img = await fetch(pick.url, { headers: { 'User-Agent': UA } });
     if (!img.ok) { console.log(`✗ ${slug} — descărcare ${img.status}`); continue; }
     writeFileSync(dest, Buffer.from(await img.arrayBuffer()));
 
-    /* Decupare la 3:2 și redimensionare — Hugo se ocupă apoi de webp și de variante. */
+    /* Decupare la 3:2 — Hugo se ocupă apoi de webp și de variantele de dimensiune. */
     execFileSync('convert', [dest, '-auto-orient', '-resize', '1400x1400^',
       '-gravity', 'center', '-extent', '1200x800', '-quality', '82', dest]);
 
@@ -90,18 +167,16 @@ for (const [slug, queries] of Object.entries(QUERIES)) {
       license_url: pick.license_url || '',
       source: pick.foreign_landing_url || pick.url,
     };
-    console.log(`✓ ${slug} — ${credits[slug].creator} (${credits[slug].license})`);
-    await sleep(400);
+    console.log(`✓ ${slug.padEnd(24)} „${(pick.title || '').slice(0, 46)}" — ${credits[slug].creator}`);
+    await sleep(350);
   } catch (e) {
     console.log(`✗ ${slug} — ${e.message}`);
   }
 }
 
-{
-  const yaml = ['# Generat de tools/fetch-images.mjs. Atribuirea e cerută de licențele Creative Commons.']
-    .concat(Object.entries(credits).map(([k, v]) =>
-      `${k}:\n` + Object.entries(v).map(([a, b]) => `  ${a}: ${JSON.stringify(b)}`).join('\n')))
-    .join('\n');
-  writeFileSync('data/credits.yaml', yaml + '\n');
-  console.log(`\nAtribuiri scrise în data/credits.yaml (${Object.keys(credits).length})`);
-}
+const yaml = ['# Generat de tools/fetch-images.mjs. Atribuirea e cerută de licențele Creative Commons.']
+  .concat(Object.entries(credits).sort(([a], [b]) => a.localeCompare(b)).map(([k, v]) =>
+    `${k}:\n` + Object.entries(v).map(([a, b]) => `  ${a}: ${JSON.stringify(b)}`).join('\n')))
+  .join('\n');
+writeFileSync('data/credits.yaml', yaml + '\n');
+console.log(`\nAtribuiri în data/credits.yaml: ${Object.keys(credits).length}`);

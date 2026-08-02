@@ -288,6 +288,13 @@ function initCook() {
     }
   });
 
+  /* Legătură directă: /retete/x/?cook=1 intră direct în modul gătit. */
+  const deep = new URLSearchParams(location.search).get('cook');
+  if (deep) {
+    const slug = deep === '1' ? $('[data-cook="start"]')?.dataset.recipe : deep;
+    if (slug) { Cook.open(slug, 0); return; }
+  }
+
   /* Reluare: dacă ai închis aplicația în mijlocul gătitului, o redeschidem de unde ai rămas. */
   const active = store.get('cook.active', null);
   if (active && $(`[data-cook="start"][data-recipe="${active}"]`)) Cook.open(active);
