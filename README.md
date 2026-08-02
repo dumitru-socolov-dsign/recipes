@@ -35,7 +35,8 @@ Nicio dependență npm în producție. Fără Hugo Modules, deci fără Go.
 ```bash
 hugo server --bind 0.0.0.0     # deschide http://localhost:1313
                                # --bind 0.0.0.0 îl face vizibil de pe telefon în aceeași rețea
-hugo --minify                  # build de producție în ./public
+hugo --gc --minify             # build rapid în ./public
+./build.sh                     # build identic cu cel de pe Cloudflare
 ```
 
 ## Structură
@@ -128,33 +129,62 @@ Aduce fotografii cu licență liberă prin Openverse, le decupează la 3:2 și s
 la finalul fiecărei rețete. Dacă înlocuiești o poză cu una proprie, șterge intrarea din
 `data/credits.yaml`.
 
-## Deploy pe Cloudflare Pages
+## Deploy pe Cloudflare
 
-1. Împinge repo-ul pe GitHub.
-2. Cloudflare Dashboard → **Workers & Pages** → **Create** → **Pages** → **Connect to Git**.
-3. Alege repo-ul și setează:
+Cloudflare are două fluxuri. Cel recomandat acum, și cel pe care e configurat repo-ul,
+e **Workers cu assets statice**. Se recunoaște după faptul că interfața îți cere un
+**Deploy command** — Pages nu are așa ceva.
 
-   | Setare | Valoare |
-   |---|---|
-   | Framework preset | Hugo |
-   | Build command | `hugo --minify` |
-   | Build output directory | `public` |
-   | Environment variable | `HUGO_VERSION` = `0.164.0` |
+### Workers (recomandat)
 
-4. Deploy. Fiecare push reconstruiește automat.
+Workers & Pages → **Create** → **Workers** → **Import a repository** → alege `recipes`.
+
+| Setare | Valoare |
+|---|---|
+| Build command | **lasă gol** |
+| Deploy command | `npx wrangler deploy` |
+| Environment variable | `SKIP_DEPENDENCY_INSTALL` = `true` |
+
+Restul e deja în repo: `wrangler.jsonc` spune că assets-urile sunt în `./public`, iar
+build-ul propriu-zis îl face `build.sh`.
+
+**De ce build command gol și un script separat.** Imaginea de build a Cloudflare vine cu o
+versiune veche de Hugo, iar site-ul folosește sintaxa de layout din Hugo ≥ 0.146.
+`build.sh` descarcă exact versiunea din `HUGO_VERSION` și abia apoi construiește. Tot acolo
+e fixat și fusul orar `Europe/Dublin`, care contează: pagina „Azi mănânci" și rotația
+sesiunilor de gătit se calculează la build din data curentă.
+
+Când ridici versiunea de Hugo local, schimb-o și în `build.sh`. Poți verifica înainte să
+împingi, fiindcă scriptul rulează identic și local:
+
+```bash
+./build.sh
+```
+
+### Pages (varianta clasică, încă funcționează)
+
+Dacă ai deja un proiect Pages sau preferi fluxul vechi:
+
+| Setare | Valoare |
+|---|---|
+| Framework preset | Hugo |
+| Build command | `hugo --gc --minify` |
+| Build output directory | `public` |
+| Environment variable | `HUGO_VERSION` = `0.164.0` |
+
+Aici `wrangler.jsonc` și `build.sh` sunt ignorate.
 
 ### Rebuild zilnic la 06:00
 
 `.github/workflows/daily-rebuild.yml` rulează în fiecare dimineață și reîmprospătează ziua
 curentă, rotația sesiunilor și eticheta de vechime a prețurilor.
 
-Funcționează din start dacă repo-ul e conectat la Cloudflare — workflow-ul face un commit
-mic în `data/build-log.json`, iar push-ul declanșează build-ul. Commit-ul are și rolul de a
+Funcționează din start cu ambele fluxuri: workflow-ul face un commit mic în
+`data/build-log.json`, iar push-ul declanșează build-ul. Commit-ul are și rolul de a
 împiedica GitHub să suspende workflow-ul după 60 de zile de inactivitate.
 
-Dacă preferi un deploy hook explicit: Pages → Settings → Builds & deployments →
-**Deploy hooks** → creează unul, apoi pune URL-ul în repo la
-Settings → Secrets and variables → Actions → `CLOUDFLARE_DEPLOY_HOOK`.
+Dacă vrei și un declanșator explicit, creează un deploy hook în Cloudflare și pune URL-ul
+în repo la Settings → Secrets and variables → Actions → `CLOUDFLARE_DEPLOY_HOOK`.
 
 Cron-ul GitHub e best-effort: poate întârzia 5–15 minute. De aceea sunt două intrări
 (pentru ora de vară și cea de iarnă) și o verificare a orei reale de la Dublin în interior.
