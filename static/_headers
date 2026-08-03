@@ -1,0 +1,38 @@
+# Anteturi HTTP pentru Cloudflare Pages.
+#
+# Pages citește fișierul din rădăcina directorului construit. Hugo copiază `static/`
+# în `public/`, deci ajunge singur unde trebuie — nu e nimic de configurat în interfață.
+#
+# Regulile se aplică de sus în jos și se cumulează; cea mai specifică potrivire câștigă,
+# deci regulile generale stau primele.
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: no-referrer
+  X-Frame-Options: DENY
+  Permissions-Policy: geolocation=(), camera=(), microphone=(), payment=()
+
+# Service worker-ul decide ce versiune a aplicației rulează pe telefon. Dacă îl ține
+# cache-ul, rămâi cu o versiune veche până expiră, adică vezi rețete vechi fără să
+# înțelegi de ce. Nu se economisește nimic revalidându-l: are 3 KB.
+/sw.js
+  Cache-Control: no-cache
+
+# Codul aplicației nu are hash în nume, deci trebuie recitit când se schimbă.
+/js/*
+  Cache-Control: no-cache
+
+# Datele se schimbă la fiecare build: prețuri, ziua curentă, planul, porțiile.
+/app.json
+  Cache-Control: no-cache
+
+/en/app.json
+  Cache-Control: no-cache
+
+# Pozele au hash de conținut în nume (`_hu_<hash>.webp`), deci un fișier cu numele ăsta
+# nu se va schimba niciodată. Când poza se schimbă, se schimbă și numele.
+/img/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/icons/*
+  Cache-Control: public, max-age=604800

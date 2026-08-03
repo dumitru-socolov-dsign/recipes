@@ -174,30 +174,28 @@ Aduce fotografii cu licență liberă prin Openverse, le decupează la 3:2 și s
 la finalul fiecărei rețete. Dacă înlocuiești o poză cu una proprie, șterge intrarea din
 `data/credits.yaml`.
 
-## Deploy pe Cloudflare
+## Deploy pe Cloudflare Pages
 
-Cloudflare are două fluxuri. Cel recomandat acum, și cel pe care e configurat repo-ul,
-e **Workers cu assets statice**. Se recunoaște după faptul că interfața îți cere un
-**Deploy command** — Pages nu are așa ceva.
-
-### Workers (recomandat)
-
-Workers & Pages → **Create** → **Workers** → **Import a repository** → alege `recipes`.
+Workers & Pages → **Create** → **Pages** → **Connect to Git** → alege `recipes`.
 
 | Setare | Valoare |
 |---|---|
-| Build command | **lasă gol** |
-| Deploy command | `npx wrangler deploy` |
-| Environment variable | `SKIP_DEPENDENCY_INSTALL` = `true` |
+| Framework preset | **None** |
+| Build command | `bash build.sh` |
+| Build output directory | `public` |
+| Root directory | `/` (lasă gol) |
 
-Restul e deja în repo: `wrangler.jsonc` spune că assets-urile sunt în `./public`, iar
-build-ul propriu-zis îl face `build.sh`.
+Nu e nevoie de nicio variabilă de mediu și de niciun fișier de configurare Cloudflare în
+repo. Tot ce trebuie știut despre build stă în `build.sh`.
 
-**De ce build command gol și un script separat.** Imaginea de build a Cloudflare vine cu o
-versiune veche de Hugo, iar site-ul folosește sintaxa de layout din Hugo ≥ 0.146.
-`build.sh` descarcă exact versiunea din `HUGO_VERSION` și abia apoi construiește. Tot acolo
-e fixat și fusul orar `Europe/Dublin`, care contează: pagina „Azi mănânci" și rotația
-sesiunilor de gătit se calculează la build din data curentă.
+**Nu folosi presetul Hugo.** Acela rulează `hugo --gc --minify` cu versiunea de Hugo din
+imaginea de build a Cloudflare, care e mult în urmă — la data scrierii, 0.147.7 — iar
+site-ul folosește sintaxă de layout din Hugo ≥ 0.146. Build-ul eșuează cu erori de șablon
+care nu spun de ce. `bash build.sh` descarcă întâi versiunea exactă din `HUGO_VERSION` și
+abia apoi construiește. Tot acolo e fixat și fusul orar `Europe/Dublin`, care contează:
+pagina „Azi mănânci" și rotația sesiunilor de gătit se calculează la build din data curentă.
+
+(`bash build.sh`, nu `./build.sh` — așa nu depinde de bitul de execuție al fișierului.)
 
 Când ridici versiunea de Hugo local, schimb-o și în `build.sh`. Poți verifica înainte să
 împingi, fiindcă scriptul rulează identic și local:
@@ -206,35 +204,22 @@ Când ridici versiunea de Hugo local, schimb-o și în `build.sh`. Poți verific
 ./build.sh
 ```
 
-### Pages (varianta clasică, încă funcționează)
+**Antetele HTTP** vin din `static/_headers`, pe care Hugo îl copiază în rădăcina build-ului
+și pe care Pages îl citește de acolo. Important e `Cache-Control: no-cache` pe `/sw.js` și
+pe `/js/app.js`: service worker-ul decide ce versiune a aplicației rulează pe telefon, iar
+dacă îl ține cache-ul rămâi cu rețete vechi fără să înțelegi de ce. Pozele, care au hash de
+conținut în nume, sunt în schimb marcate `immutable`.
 
-Dacă ai deja un proiect Pages:
-
-| Setare | Valoare |
-|---|---|
-| Framework preset | None |
-| Build command | `bash build.sh` |
-| Build output directory | `public` |
-
-**Nu folosi presetul Hugo.** Acela rulează `hugo --gc --minify` cu versiunea din imaginea
-de build a Cloudflare, care e mult în urmă — la data scrierii, 0.147.7 — și build-ul eșuează
-cu erori de șablon care nu spun de ce. `bash build.sh` descarcă versiunea corectă și e exact
-scriptul folosit și de fluxul Workers, deci ai un singur mod de a construi, peste tot.
-(`bash build.sh`, nu `./build.sh`, ca să nu depindă de bitul de execuție al fișierului.)
-
-Alternativa, dacă vrei totuși presetul Hugo: build command `hugo --gc --minify` plus
-variabila `HUGO_VERSION` = `0.164.0`. Merge, dar versiunea trăiește atunci într-o setare
-de dashboard pe care o uiți, nu în repo, lângă cod.
-
-Aici `wrangler.jsonc` e ignorat.
+Paginile inexistente primesc `404.html` cu codul 404 — Pages face asta singur pentru un
+site static, nu trebuie configurat.
 
 ### Rebuild zilnic la 06:00
 
 `.github/workflows/daily-rebuild.yml` rulează în fiecare dimineață și reîmprospătează ziua
 curentă, rotația sesiunilor și eticheta de vechime a prețurilor.
 
-Funcționează din start cu ambele fluxuri: workflow-ul face un commit mic în
-`data/build-log.json`, iar push-ul declanșează build-ul. Commit-ul are și rolul de a
+Funcționează din start: workflow-ul face un commit mic în
+`data/build-log.json`, iar push-ul declanșează build-ul Pages. Commit-ul are și rolul de a
 împiedica GitHub să suspende workflow-ul după 60 de zile de inactivitate.
 
 Dacă vrei și un declanșator explicit, creează un deploy hook în Cloudflare și pune URL-ul

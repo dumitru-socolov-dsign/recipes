@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 
 #------------------------------------------------------------------------------
-# Construiește site-ul pe un Cloudflare Worker.
+# Construiește site-ul pe Cloudflare Pages.
 #
-# Rulează prin `build` din wrangler.jsonc. Instalează singur versiunea exactă de
-# Hugo, pentru că imaginea de build a Cloudflare vine cu una veche.
+# În interfața Pages e „Build command: bash build.sh", cu output-ul în `public`.
+# Instalează singur versiunea exactă de Hugo, pentru că imaginea de build a
+# Cloudflare vine cu una veche.
 #
 # Merge și local, pentru a reproduce identic build-ul de producție:
 #   ./build.sh
